@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Persistence.Migrations
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -16,8 +15,7 @@ namespace Infrastructure.Persistence.Migrations
                 name: "Articles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<double>(type: "double precision", nullable: false),
@@ -58,7 +56,7 @@ namespace Infrastructure.Persistence.Migrations
                 name: "ArticleCategory",
                 columns: table => new
                 {
-                    ArticlesId = table.Column<int>(type: "integer", nullable: false),
+                    ArticlesId = table.Column<Guid>(type: "uuid", nullable: false),
                     CategoriesId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -82,7 +80,7 @@ namespace Infrastructure.Persistence.Migrations
                 name: "ArticlePromotion",
                 columns: table => new
                 {
-                    ArticlesId = table.Column<int>(type: "integer", nullable: false),
+                    ArticlesId = table.Column<Guid>(type: "uuid", nullable: false),
                     PromotionsId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>

@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Persistence.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MercaDbContext))]
-    [Migration("20230506134943_Initial")]
+    [Migration("20230510094113_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Application.Core.Entities.ArticleEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -86,8 +84,8 @@ namespace Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("ArticleEntityCategoryEntity", b =>
                 {
-                    b.Property<int>("ArticlesId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ArticlesId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CategoriesId")
                         .HasColumnType("uuid");
@@ -101,8 +99,8 @@ namespace Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("ArticleEntityPromotionEntity", b =>
                 {
-                    b.Property<int>("ArticlesId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ArticlesId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("PromotionsId")
                         .HasColumnType("uuid");

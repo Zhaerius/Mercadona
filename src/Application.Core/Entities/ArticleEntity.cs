@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Entities
 {
-    public class ArticleEntity
+    public class ArticleEntity : BaseEntity
     {
-        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public double Price { get; set; }

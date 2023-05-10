@@ -1,4 +1,5 @@
-﻿using Application.Core.Entities;
+﻿using Application.Core.Dtos;
+using Application.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace Application.Core.Interfaces.Services
 {
     public interface IArticleService
     {
-        public ArticleEntity GetArticle(Guid id);
-        public IEnumerable<ArticleEntity> GetArticles();
-        public void AddArticle(ArticleEntity article);
+        public ArticleDTO GetArticle(Guid id);
+        public IEnumerable<ArticleDTO> GetArticles();
+        public void AddArticle(ArticleDTO article);
     }
 }

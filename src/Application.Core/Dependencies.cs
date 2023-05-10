@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace Application.Core
         public static IServiceCollection AddApplicationCore(this IServiceCollection services)
         {
             services.AddScoped<IArticleService, ArticleService>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
         }

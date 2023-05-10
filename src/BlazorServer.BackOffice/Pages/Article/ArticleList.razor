@@ -1,0 +1,10 @@
+﻿@page "/Article/ArticleList"
+@inherits ArticleListBase
+
+<h3>ArticleList</h3>
+
+@foreach (var article in Articles)
+{
+    <div>@article.Name</div>
+}
+

@@ -20,9 +20,9 @@ namespace Infrastructure.Persistence.Repositories
         }
 
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
-            return dbSet.ToList();
+            return dbSet;
         }
 
         public virtual T GetById(Guid id)
@@ -33,13 +33,11 @@ namespace Infrastructure.Persistence.Repositories
         public virtual void Create(T entity)
         {
             dbSet.Add(entity);
-            context.SaveChanges();
         }
 
         public virtual void Update(T entity)
         {
             dbSet.Update(entity);
-            context.SaveChanges();
         }
 
         public virtual void Delete(T entity)

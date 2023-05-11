@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using BlazorServer.BackOffice.Data;
 using Infrastructure;
 using Application.Core;
+using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,15 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();
 
+
 var app = builder.Build();
+
+//Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MercaDbContext>();
+    MercaDbContectSeed.Seed(dbContext);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

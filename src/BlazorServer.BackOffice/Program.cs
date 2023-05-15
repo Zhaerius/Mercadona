@@ -4,6 +4,7 @@ using BlazorServer.BackOffice.Data;
 using Infrastructure;
 using Application.Core;
 using Infrastructure.Persistence;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
 var app = builder.Build();

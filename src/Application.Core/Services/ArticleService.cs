@@ -23,21 +23,25 @@ namespace Application.Core.Services
         }
 
 
-        public ArticleDTO GetArticle(Guid id)
+        public ArticleDto GetArticle(Guid id)
         {
             var article = _articleRepository.GetById(id);
-            return _mapper.Map<ArticleDTO>(article);
+            return _mapper.Map<ArticleDto>(article);
         }
 
-        public IEnumerable<ArticleDTO> GetArticles()
+        public IEnumerable<ArticleDto> GetArticles()
         {
             var articles = _articleRepository.GetAll();
-            return _mapper.Map<IEnumerable<ArticleDTO>>(articles);
+            return _mapper.Map<IEnumerable<ArticleDto>>(articles);
         }
 
-        public void AddArticle(ArticleDTO article)
+        public void AddArticle(ArticleDto ArticleDto)
         {
-            _articleRepository.Create(_mapper.Map<ArticleEntity>(article));
+            var article = _mapper.Map<ArticleEntity>(ArticleDto);
+            _articleRepository.Create(article);
+            _articleRepository.SaveChanges();
         }
+
+
     }
 }

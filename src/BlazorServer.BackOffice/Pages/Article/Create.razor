@@ -1,12 +1,11 @@
-﻿@inherits CreateBase
+﻿@page "/Article/Create"
+@inherits CreateBase
 
 <h3>Create</h3>
 
-@*<EditForm Model="@exampleModel" OnSubmit="@HandleSubmit">
-    <InputText id="name" @bind-Value="exampleModel.Name" />
+<EditForm Model="@article" OnSubmit="@HandleSubmit">
+
+    <InputText id="Name" @bind-Value="article.Name" />
 
     <button type="submit">Submit</button>
 </EditForm>
-*@
-
-

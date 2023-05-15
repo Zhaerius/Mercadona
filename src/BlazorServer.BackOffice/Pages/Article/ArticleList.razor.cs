@@ -1,5 +1,4 @@
 ﻿using Application.Core.Dtos;
-using Application.Core.Entities;
 using Application.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -9,7 +8,7 @@ namespace BlazorServer.BackOffice.Pages.Article
     {
         [Inject]
         private IArticleService ArticleService { get; set; }
-        protected IEnumerable<ArticleDTO> Articles { get; set; }
+        protected IEnumerable<ArticleDto> Articles { get; set; }
 
         protected override void OnInitialized()
         {

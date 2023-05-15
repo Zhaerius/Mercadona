@@ -10,8 +10,8 @@ namespace Application.Core.Interfaces.Services
 {
     public interface IArticleService
     {
-        public ArticleDTO GetArticle(Guid id);
-        public IEnumerable<ArticleDTO> GetArticles();
-        public void AddArticle(ArticleDTO article);
+        public ArticleDto GetArticle(Guid id);
+        public IEnumerable<ArticleDto> GetArticles();
+        public void AddArticle(ArticleDto article);
     }
 }

@@ -13,5 +13,6 @@ namespace Application.Core.Interfaces.Repositories
         public void Create(T entity);
         public void Update(T entity);
         public void Delete(T entity);
+        public void SaveChanges();
     }
 }

@@ -45,5 +45,10 @@ namespace Infrastructure.Persistence.Repositories
             var entityToDelete = dbSet.Find(entity);
             dbSet.Remove(entityToDelete);
         }
+
+        public void SaveChanges()
+        {
+            this.context.SaveChanges();
+        }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using MediatR;
 
 namespace Application.Core
 {
@@ -17,6 +18,8 @@ namespace Application.Core
             services.AddScoped<IArticleService, ArticleService>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             return services;
         }

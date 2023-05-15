@@ -16,6 +16,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();
 
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 

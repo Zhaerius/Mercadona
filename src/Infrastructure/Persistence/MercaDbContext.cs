@@ -1,4 +1,5 @@
 ﻿using Application.Core.Entities;
+using Application.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class MercaDbContext : DbContext
+    public class MercaDbContext : DbContext, IApplicationDbContext
     {
         public MercaDbContext(DbContextOptions<MercaDbContext> options) : base(options)
         {

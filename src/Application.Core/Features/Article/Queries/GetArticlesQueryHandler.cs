@@ -1,5 +1,5 @@
 ﻿using Application.Core.Dtos;
-using Application.Core.Interfaces.Repositories;
+using Application.Core.Interfaces;
 using AutoMapper;
 using MediatR;
 using System;
@@ -13,17 +13,17 @@ namespace Application.Core.Features.Article.Queries
     public class GetArticlesQueryHandler : IRequestHandler<GetArticlesQuery, IEnumerable<ArticleDto>>
     {
         private readonly IMapper _mapper;
-        private readonly IArticleRepository _articleRepository;
+        private readonly IApplicationDbContext _dbContext;
 
-        public GetArticlesQueryHandler(IMapper mapper, IArticleRepository articleRepository)
+        public GetArticlesQueryHandler(IMapper mapper, IApplicationDbContext dbContext)
         {
             _mapper = mapper;
-            _articleRepository = articleRepository;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<ArticleDto>> Handle(GetArticlesQuery query, CancellationToken cancellationToken)
         {
-            var articles = _articleRepository.GetAll();
+            var articles = _dbContext.Articles;
             return _mapper.Map<IEnumerable<ArticleDto>>(articles);
         }
     }

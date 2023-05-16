@@ -1,5 +1,5 @@
 ﻿using Application.Core.Entities;
-using Application.Core.Interfaces.Repositories;
+using Application.Core.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Article.Commands.CreateArticle
 {
-    public class CreateArticleCommand : IRequest<Guid>
+    public class CreateArticleCommand : IRequest<string>
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -17,17 +17,17 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
         public string Image { get; set; }
     }
 
-    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Guid>
+    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, string>
     {
-        private readonly IArticleRepository _articleRepository;
+        private readonly IApplicationDbContext _dbContext;
 
-        public CreateArticleCommandHandler(IArticleRepository articleRepository)
+        public CreateArticleCommandHandler(IApplicationDbContext dbContext)
         {
-            _articleRepository = articleRepository;
+            _dbContext = dbContext;
         }
 
 
-        public async Task<Guid> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = new ArticleEntity
             {
@@ -35,10 +35,11 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
                 Description = request.Description
             };
 
-            _articleRepository.Create(article);
-            _articleRepository.SaveChanges();
+            _dbContext.Articles.Add(article);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return article.Id;
+
+            return article.Name;
 
         }
     }

@@ -1,6 +1,5 @@
-﻿using Application.Core.Interfaces.Repositories;
+﻿using Application.Core.Interfaces;
 using Infrastructure.Persistence;
-using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,9 +18,7 @@ namespace Infrastructure
             services.AddDbContext<MercaDbContext>(options => 
                 options.UseNpgsql(configuration.GetConnectionString("MercaDataBase")));
 
-            services.AddScoped<IArticleRepository, ArticleRepository>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IPromotionRepository, PromotionRepository>();
+            services.AddScoped<IApplicationDbContext, MercaDbContext>();
 
             return services;
         }

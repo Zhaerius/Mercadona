@@ -1,6 +1,6 @@
 ﻿using Application.Core.Dtos;
 using Application.Core.Entities;
-using Application.Core.Interfaces.Repositories;
+using Application.Core.Interfaces;
 using Application.Core.Interfaces.Services;
 using AutoMapper;
 using System;
@@ -13,33 +13,33 @@ namespace Application.Core.Services
 {
     public class ArticleService : IArticleService
     {
-        private readonly IArticleRepository _articleRepository;
+        private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public ArticleService(IArticleRepository articleRepository, IMapper mapper)
+        public ArticleService(IApplicationDbContext dbContext, IMapper mapper)
         {
-            _articleRepository = articleRepository;
+            _dbContext = dbContext;
             _mapper = mapper;
         }
 
 
         public ArticleDto GetArticle(Guid id)
         {
-            var article = _articleRepository.GetById(id);
+            var article = _dbContext.Articles.Find(id);
             return _mapper.Map<ArticleDto>(article);
         }
 
         public IEnumerable<ArticleDto> GetArticles()
         {
-            var articles = _articleRepository.GetAll();
+            var articles = _dbContext.Articles;
             return _mapper.Map<IEnumerable<ArticleDto>>(articles);
         }
 
         public void AddArticle(ArticleDto ArticleDto)
         {
             var article = _mapper.Map<ArticleEntity>(ArticleDto);
-            _articleRepository.Create(article);
-            _articleRepository.SaveChanges();
+            _dbContext.Articles.Add(article);
+            _dbContext.SaveChangesAsync();
         }
 
 

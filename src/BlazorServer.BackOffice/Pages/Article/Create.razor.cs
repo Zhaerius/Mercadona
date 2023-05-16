@@ -11,18 +11,12 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class CreateBase : ComponentBase
     {
-        //[Inject]
-        //private IArticleService articleService { get; set; }
-        //[Inject]
-        //private IMapper mapper { get; set; }
         [Inject]
         private IMediator mediator { get; set; }
         protected ArticleModel article { get; set; } = new();
 
         protected async Task HandleSubmit()
         {
-            //var articleDto = mapper.Map<ArticleDto>(article);
-
             var query = new CreateArticleCommand();
             query.Name = article.Name;
 

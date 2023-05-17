@@ -1,5 +1,6 @@
 ﻿using Application.Core.Dtos;
 using Application.Core.Entities;
+using Application.Core.Features.Article.Commands.UpdateArticle;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace Application.Core.Mappings
         public CoreMappingProfile()
         {
             CreateMap<ArticleEntity, ArticleDto>().ReverseMap();
+            CreateMap<ArticleEntity, UpdateArticleCommand>().ReverseMap();
         }
     }
 }

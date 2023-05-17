@@ -2,6 +2,7 @@
 using Application.Core.Interfaces;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace Application.Core.Features.Article.Queries.GetArticles
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<ArticleDto>> Handle(GetArticlesQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ArticleDto>> Handle(GetArticlesQuery request, CancellationToken cancellationToken)
         {
-            var articles = _dbContext.Articles;
+            var articles = await _dbContext.Articles.ToListAsync();
             return _mapper.Map<IEnumerable<ArticleDto>>(articles);
         }
     }

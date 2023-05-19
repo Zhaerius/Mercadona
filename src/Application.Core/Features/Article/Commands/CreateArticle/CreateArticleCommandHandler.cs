@@ -15,18 +15,14 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
     public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, string>
     {
         private readonly IApplicationDbContext _dbContext;
-        //private readonly IValidator<CreateArticleCommand> _validator;
 
-        public CreateArticleCommandHandler(IApplicationDbContext dbContext /*IValidator<CreateArticleCommand> validator*/)
+        public CreateArticleCommandHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            //_validator = validator;
         }
 
         public async Task<string> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
-            //_validator.ValidateBasic(request);
-
             var article = new ArticleEntity
             {
                 Name = request.Name,

@@ -1,7 +1,5 @@
 ﻿using Application.Core.Entities;
-using Application.Core.Extensions;
 using Application.Core.Interfaces;
-using Application.Core.Validations.Article;
 using FluentValidation;
 using MediatR;
 using System;

@@ -26,7 +26,7 @@ namespace Application.Core.Behaviours
                     .ToList();
 
                 if (failures.Any())
-                    throw new ValidationException(failures);
+                    throw new Exceptions.ValidationException(failures);
             }
             return await next();
         }

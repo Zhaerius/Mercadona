@@ -12,6 +12,8 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
         public CreateArticleCommandValidator()
         {
             RuleFor(article => article.Description).NotNull();
+            RuleFor(article => article.Image).NotNull();
+
         }
     }
 }

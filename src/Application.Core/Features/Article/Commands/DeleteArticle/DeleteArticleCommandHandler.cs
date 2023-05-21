@@ -1,4 +1,4 @@
-﻿using Application.Core.Interfaces;
+﻿using Application.Core.Abstractions;
 using MediatR;
 using System;
 using System.Collections.Generic;

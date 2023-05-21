@@ -1,5 +1,5 @@
 ﻿using Application.Core.Entities;
-using Application.Core.Interfaces;
+using Application.Core.Abstractions;
 using FluentValidation;
 using MediatR;
 using System;

@@ -1,5 +1,5 @@
 ﻿using Application.Core.Entities;
-using Application.Core.Interfaces;
+using Application.Core.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

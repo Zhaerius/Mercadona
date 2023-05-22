@@ -21,9 +21,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Application.Core\Application.Core.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Persistence\Migrations\" />
-	</ItemGroup>
 	
 </Project>

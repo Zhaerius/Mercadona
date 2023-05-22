@@ -9,6 +9,6 @@ namespace Application.Core.Entities
     public class CategoryEntity : BaseEntity
     {
         public string Name { get; set; }
-        public IEnumerable<ArticleEntity>? Articles { get; set; }
+        public IEnumerable<ArticleEntity> Articles { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace Application.Core.Dtos
     {
         public Guid Id { get; init; }
         public string Name { get; init; }
-        public IEnumerable<ArticleDto>? Articles { get; init; }
+        public IEnumerable<ArticleDto> Articles { get; set; }
     }
 }

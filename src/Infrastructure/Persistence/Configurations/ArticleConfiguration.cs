@@ -16,9 +16,8 @@ namespace Infrastructure.Persistence.Configurations
             builder.HasKey(x => x.Id);
 
             builder
-                .HasMany(a => a.Categories)
-                .WithMany(c => c.Articles)
-                .UsingEntity(x => x.ToTable("ArticleCategory"));
+                .HasOne(a => a.Category)
+                .WithMany(c => c.Articles);
 
             builder
                 .HasMany(a => a.Promotions)

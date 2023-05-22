@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
@@ -22,7 +23,13 @@ namespace Application.Core.Features.Article.Queries.GetArticle
         }
         public async Task<ArticleDto> Handle(GetArticleQuery request, CancellationToken cancellationToken)
         {
-            var article = await _dbContext.Articles.FindAsync(request.Id);
+            var article = await _dbContext
+                .Articles
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(a => a.Id == request.Id);
+
+
+
             return _mapper.Map<ArticleDto>(article);
         }
     }

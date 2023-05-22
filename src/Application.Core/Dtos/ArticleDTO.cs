@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Application.Core.Dtos
         public string? Description { get; init; }
         public double Price { get; init; }
         public string? Image { get; init; }
-        public IEnumerable<CategoryDto>? Categories { get; init; }
+        public Guid CategoryId { get; init; }
+        public CategoryDto Category { get; init; }
         public IEnumerable<PromotionDto>? Promotions { get; init; }
     }
 }

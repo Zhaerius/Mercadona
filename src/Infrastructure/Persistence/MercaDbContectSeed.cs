@@ -34,7 +34,8 @@ namespace Infrastructure.Persistence
                 .RuleFor(a => a.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(a => a.Price, f => double.Parse(f.Commerce.Price(1, 50)))
                 .RuleFor(a => a.Image, f => f.Image.PicsumUrl())
-                .RuleFor(a => a.Categories, f => f.PickRandom(categories, f.Random.Number(1, 2)).ToList());
+                .RuleFor(a => a.Category, f => f.PickRandom(categories));
+                //.RuleFor(a => a.Categories, f => f.PickRandom(categories, f.Random.Number(1, 2)).ToList());
 
             return faker.Generate(count);
         }

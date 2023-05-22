@@ -14,6 +14,10 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<CategoryEntity> builder)
         {
             builder.HasKey(x => x.Id);
+
+            builder
+                .HasMany(c => c.Articles)
+                .WithOne(c => c.Category);
         }
     }
 }

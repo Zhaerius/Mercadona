@@ -28,6 +28,9 @@ namespace Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -41,6 +44,8 @@ namespace Infrastructure.Persistence.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Articles");
                 });
@@ -80,21 +85,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.ToTable("Promotion");
                 });
 
-            modelBuilder.Entity("ArticleEntityCategoryEntity", b =>
-                {
-                    b.Property<Guid>("ArticlesId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CategoriesId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("ArticlesId", "CategoriesId");
-
-                    b.HasIndex("CategoriesId");
-
-                    b.ToTable("ArticleCategory", (string)null);
-                });
-
             modelBuilder.Entity("ArticleEntityPromotionEntity", b =>
                 {
                     b.Property<Guid>("ArticlesId")
@@ -110,19 +100,15 @@ namespace Infrastructure.Persistence.Migrations
                     b.ToTable("ArticlePromotion", (string)null);
                 });
 
-            modelBuilder.Entity("ArticleEntityCategoryEntity", b =>
+            modelBuilder.Entity("Application.Core.Entities.ArticleEntity", b =>
                 {
-                    b.HasOne("Application.Core.Entities.ArticleEntity", null)
-                        .WithMany()
-                        .HasForeignKey("ArticlesId")
+                    b.HasOne("Application.Core.Entities.CategoryEntity", "Category")
+                        .WithMany("Articles")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Application.Core.Entities.CategoryEntity", null)
-                        .WithMany()
-                        .HasForeignKey("CategoriesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("ArticleEntityPromotionEntity", b =>
@@ -138,6 +124,11 @@ namespace Infrastructure.Persistence.Migrations
                         .HasForeignKey("PromotionsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Application.Core.Entities.CategoryEntity", b =>
+                {
+                    b.Navigation("Articles");
                 });
 #pragma warning restore 612, 618
         }

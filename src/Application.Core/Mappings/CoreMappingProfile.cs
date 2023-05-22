@@ -14,7 +14,12 @@ namespace Application.Core.Mappings
     {
         public CoreMappingProfile()
         {
-            CreateMap<ArticleEntity, ArticleDto>().ReverseMap();
+            CreateMap<ArticleEntity, ArticleDto>();
+
+            CreateMap<CategoryEntity, CategoryDto>();
+
+            CreateMap<PromotionEntity, PromotionDto>();
+
             CreateMap<ArticleEntity, UpdateArticleCommand>().ReverseMap();
         }
     }

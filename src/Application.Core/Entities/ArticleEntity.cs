@@ -12,7 +12,8 @@ namespace Application.Core.Entities
         public string? Description { get; set; }
         public double Price { get; set; }
         public string? Image { get; set; }
-        public IEnumerable<CategoryEntity>? Categories { get; set; }
+        public Guid CategoryId { get; set; }
+        public CategoryEntity Category { get; set; }
         public IEnumerable<PromotionEntity>? Promotions { get; set; }
     }
 }

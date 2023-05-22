@@ -8,9 +8,21 @@ namespace Application.Core.Entities
 {
     public class PromotionEntity : BaseEntity
     {
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public int Discount { get; set; }
+        public required DateTime Start { get; set; }
+        public required DateTime End { get; set; }
+        public required int Discount { get; set; }
         public IEnumerable<ArticleEntity>? Articles { get; set; }
+
+        private bool _IsActive;
+        public bool IsActive
+        {
+            get { return _IsActive; }
+            set 
+            { 
+                if (this.End <= DateTime.Now)
+                    _IsActive = true; 
+            }
+        }
+
     }
 }

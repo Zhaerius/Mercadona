@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
-    public record GetArticleQuery(Guid Id) : IRequest<ArticleDto>
+    public record GetArticleQuery(Guid Id) : IRequest<ArticleResponse>
     {
     }
 }

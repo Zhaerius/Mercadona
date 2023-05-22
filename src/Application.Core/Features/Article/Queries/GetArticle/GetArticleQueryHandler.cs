@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
-    public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, ArticleDto>
+    public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, ArticleResponse>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -21,16 +21,14 @@ namespace Application.Core.Features.Article.Queries.GetArticle
             _dbContext = dbContext;
             _mapper = mapper;
         }
-        public async Task<ArticleDto> Handle(GetArticleQuery request, CancellationToken cancellationToken)
+        public async Task<ArticleResponse> Handle(GetArticleQuery request, CancellationToken cancellationToken)
         {
             var article = await _dbContext
                 .Articles
                 .Include(a => a.Category)
-                .FirstOrDefaultAsync(a => a.Id == request.Id);
+                .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
-
-
-            return _mapper.Map<ArticleDto>(article);
+            return _mapper.Map<ArticleResponse>(article);
         }
     }
 }

@@ -24,6 +24,9 @@ namespace Infrastructure.Persistence.Configurations
                 .WithMany(p => p.Articles)
                 .UsingEntity(x => x.ToTable("ArticlePromotion"));
 
+            builder
+                .Ignore(a => a.PriceDiscount)
+                .Ignore(a => a.OnDiscount);
         }
     }
 }

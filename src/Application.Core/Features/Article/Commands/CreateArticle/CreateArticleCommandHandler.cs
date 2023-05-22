@@ -24,7 +24,9 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             var article = new ArticleEntity
             {
                 Name = request.Name,
-                Description = request.Description
+                Description = request.Description,
+                Price = 0,
+                Image = ""
             };
 
             _dbContext.Articles.Add(article);

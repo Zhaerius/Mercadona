@@ -14,6 +14,9 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<PromotionEntity> builder)
         {
             builder.HasKey(x => x.Id);
+
+            builder
+                .Ignore(a => a.IsActive);
         }
     }
 }

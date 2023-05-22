@@ -1,12 +1,8 @@
 ﻿using Application.Core.Dtos;
 using Application.Core.Entities;
 using Application.Core.Features.Article.Commands.UpdateArticle;
+using Application.Core.Features.Article.Queries.GetArticle;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Core.Mappings
 {
@@ -14,7 +10,8 @@ namespace Application.Core.Mappings
     {
         public CoreMappingProfile()
         {
-            CreateMap<ArticleEntity, ArticleDto>();
+            CreateMap<ArticleEntity, ArticleResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<CategoryEntity, CategoryDto>();
 

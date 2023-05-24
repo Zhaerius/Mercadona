@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,9 +44,9 @@ namespace Infrastructure.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false),
                     Image = table.Column<string>(type: "text", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: true)
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: true),
+                    BasePrice = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -10,7 +10,6 @@ namespace Application.Core.Dtos
     public record CategoryDto
     {
         public Guid Id { get; init; }
-        public string Name { get; init; }
-        public IEnumerable<ArticleDto> Articles { get; set; }
+        public required string Name { get; init; }
     }
 }

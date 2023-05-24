@@ -25,7 +25,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             {
                 Name = request.Name,
                 Description = request.Description,
-                Price = 0,
+                BasePrice = 0,
                 Image = ""
             };
 

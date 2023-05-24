@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Core.Features.Article.Queries.GetArticle
+namespace Application.Core.Features.Article.Queries.SearchArticles
 {
-    public record GetArticleQuery(Guid Id) : IRequest<ArticleDto>
+    public record SearchArticlesQuery(string Name) : IRequest<IEnumerable<SearchArticlesQueryResponse>>
     {
     }
 }

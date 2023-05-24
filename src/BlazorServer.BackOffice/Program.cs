@@ -1,10 +1,11 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using BlazorServer.BackOffice.Data;
 using Infrastructure;
 using Application.Core;
 using Infrastructure.Persistence;
 using System.Reflection;
+using BlazorServer.BackOffice.ApiServices;
+using Microsoft.AspNetCore.Http.Json;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,18 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();
 
-
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddScoped<ArticleApiService>();
+
+builder.Services.AddHttpClient("MercaApi", httpClient =>
+{
+    httpClient.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!);
+});
+
+builder.Services.Configure<JsonSerializerOptions>(options => {
+    options.PropertyNameCaseInsensitive = true;
+});
 
 
 var app = builder.Build();

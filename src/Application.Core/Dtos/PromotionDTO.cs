@@ -8,10 +8,10 @@ namespace Application.Core.Dtos
 {
     public record PromotionDto
     {
-        public Guid Id { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public int Discount { get; set; }
-        public IEnumerable<ArticleDto>? Articles { get; set; }
+        public Guid Id { get; init; }
+        public DateTime Start { get; init; }
+        public DateTime End { get; init; }
+        public int Discount { get; init; }
+        public IEnumerable<ArticleDto>? Articles { get; init; }
     }
 }

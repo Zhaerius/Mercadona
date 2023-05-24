@@ -2,6 +2,7 @@
 using Application.Core.Entities;
 using Application.Core.Features.Article.Commands.UpdateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
+using Application.Core.Features.Article.Queries.SearchArticles;
 using AutoMapper;
 
 namespace Application.Core.Mappings
@@ -10,7 +11,10 @@ namespace Application.Core.Mappings
     {
         public CoreMappingProfile()
         {
-            CreateMap<ArticleEntity, ArticleResponse>()
+            CreateMap<ArticleEntity, ArticleDto>();
+            //.ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
+            CreateMap<ArticleEntity, SearchArticlesQueryResponse>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<CategoryEntity, CategoryDto>();

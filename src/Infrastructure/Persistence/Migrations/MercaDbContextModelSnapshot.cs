@@ -28,6 +28,9 @@ namespace Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<double>("BasePrice")
+                        .HasColumnType("double precision");
+
                     b.Property<Guid?>("CategoryId")
                         .HasColumnType("uuid");
 
@@ -42,9 +45,6 @@ namespace Infrastructure.Persistence.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 

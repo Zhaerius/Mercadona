@@ -2,10 +2,10 @@
 
 namespace BlazorServer.BackOffice.Models
 {
-    public class SearchInputModel
+    public class SearchArticlesRequest
     {
         [Required]
         [StringLength(12, MinimumLength = 2)]
-        public string? Name { get; init; }
+        public string? Name { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using Application.Core.Exceptions;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Application.Core.Features.Article.Queries.SearchArticles
 {
@@ -22,14 +23,9 @@ namespace Application.Core.Features.Article.Queries.SearchArticles
             var articles = await _dbContext.Articles
                 .Include(a => a.Category)
                 .Where(a => a.Name.ToLower().Contains(request.Name.ToLower()))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            if (articles.Count() == 0)
-                throw new NotFoundException();
-
-            var mapping = _mapper.Map<IEnumerable<SearchArticlesQueryResponse>>(articles);
-
-            return mapping;
+            return _mapper.Map<IEnumerable<SearchArticlesQueryResponse>>(articles);
         }
     }
 }

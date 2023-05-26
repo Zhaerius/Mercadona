@@ -13,14 +13,14 @@ namespace Application.Core.Entities
         public required int Discount { get; set; }
         public IEnumerable<ArticleEntity>? Articles { get; set; }
 
-        private bool _IsActive;
+        private bool _isActive;
         public bool IsActive
         {
-            get { return _IsActive; }
-            set 
+            get { return _isActive; }
+            private set 
             { 
                 if (this.End <= DateTime.Now)
-                    _IsActive = true; 
+                    _isActive = true; 
             }
         }
 

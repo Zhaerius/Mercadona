@@ -1,5 +1,4 @@
-﻿using Application.Core.Dtos;
-using Application.Core.Abstractions;
+﻿using Application.Core.Abstractions;
 using AutoMapper;
 using MediatR;
 using System;
@@ -11,24 +10,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
-    public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, ArticleDto>
-    {
-        private readonly IApplicationDbContext _dbContext;
-        private readonly IMapper _mapper;
+    //public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, ArticleDto>
+    //{
+    //    private readonly IApplicationDbContext _dbContext;
+    //    private readonly IMapper _mapper;
 
-        public GetArticleQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
-        {
-            _dbContext = dbContext;
-            _mapper = mapper;
-        }
-        public async Task<ArticleDto> Handle(GetArticleQuery request, CancellationToken cancellationToken)
-        {
-            var article = await _dbContext
-                .Articles
-                .Include(a => a.Category)
-                .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
+    //    public GetArticleQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+    //    {
+    //        _dbContext = dbContext;
+    //        _mapper = mapper;
+    //    }
+    //    public async Task<ArticleDto> Handle(GetArticleQuery request, CancellationToken cancellationToken)
+    //    {
+    //        var article = await _dbContext
+    //            .Articles
+    //            .Include(a => a.Category)
+    //            .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
 
-            return _mapper.Map<ArticleDto>(article);
-        }
-    }
+    //        return _mapper.Map<ArticleDto>(article);
+    //    }
+    //}
 }

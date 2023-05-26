@@ -6,5 +6,19 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Article.Queries.SearchArticles
 {
-    public record SearchArticlesQueryResponse(Guid Id, string Name, string CategoryName, double BasePrice){}
+    public class SearchArticlesQueryResponse
+    {
+        public SearchArticlesQueryResponse(Guid id, string? name, string? categoryName, double basePrice)
+        {
+            Id = id;
+            Name = name;
+            CategoryName = categoryName;
+            BasePrice = basePrice;
+        }
+
+        public Guid Id { get; init; }
+        public string? Name { get; init; }
+        public string? CategoryName { get; init; }
+        public double BasePrice { get; init; }
+    }
 }

@@ -19,34 +19,34 @@ namespace Application.Core.Entities
 
 
         //Application auto de la promotion la plus avantageuse pour le client
-        private PromotionEntity? _CurrentPromotion;
+        private PromotionEntity? _currentPromotion;
         public PromotionEntity? CurrentPromotion
         {
-            get { return _CurrentPromotion; }
-            set
+            get { return _currentPromotion; }
+            private set
             {
                 if (this.Promotions is not null)
                 {
-                    _CurrentPromotion = Promotions
+                    _currentPromotion = Promotions
                         .Where(p => p.IsActive)
                         .OrderByDescending(p => p.Discount)
                         .FirstOrDefault();
 
-                    if (_CurrentPromotion != null)
+                    if (_currentPromotion != null)
                         this.OnDiscount = true;
                 }
             }
         }
 
         //Calcul du prix avec remise
-        private double _DiscountPrice;  
+        private double _discountPrice;  
         public double DiscountPrice
         {
-            get { return _DiscountPrice; }
-            set 
+            get { return _discountPrice; }
+            private set
             {
                 if (this.CurrentPromotion is not null)
-                    _DiscountPrice = this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
+                    _discountPrice = this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
             }
         }
     }

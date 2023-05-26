@@ -1,8 +1,8 @@
 ﻿namespace BlazorServer.BackOffice.Models
 {
-    public class SearchArticlesModel
+    public class SearchArticlesResponse
     {
-        public SearchArticlesModel(Guid id, string name, string categoryName, double basePrice)
+        public SearchArticlesResponse(Guid id, string name, string categoryName, double basePrice)
         {
             Id = id;
             Name = name;

@@ -1,27 +1,47 @@
-﻿@page "/Article/Search"
+﻿@page "/article/search"
 @using BlazorServer.BackOffice.Models;
 @inherits SearchBase
 
-
 <h3>Search</h3>
 
-<EditForm Model="@Input" OnValidSubmit="@SearchArticles">
+<EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <InputText id="SearchInput" @bind-Value="Input.Name" />
+    <InputText id="SearchInput" @bind-Value="SearchArticlesRequest.Name" />
     <button class="btn btn-primary" type="submit">Submit</button>
 </EditForm>
 
 
-@if(Articles != null)
+@if (Articles is not null)
 {
-    @foreach (var item in Articles)
+    @if (Articles.Any())
     {
-        <div>@item.Name</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Catégories</th>
+                    <th scope="col">Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Articles)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.BasePrice</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div>Aucun résultat</div>
     }
 }
-else
-{
-    <div>nop</div>
-}
+
+
+
 

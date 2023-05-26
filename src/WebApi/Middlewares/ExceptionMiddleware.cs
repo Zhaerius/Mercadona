@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Application.Core.Exceptions;
+using System.Net;
 using WebApi.Models;
 
 
@@ -38,6 +39,13 @@ namespace WebApi.Middlewares
 
             if (exception is Application.Core.Exceptions.ValidationException validationException)
                 error.Detail = string.Join(" ", validationException.Errors);
+
+            if (exception is NotFoundException)
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.NoContent;
+                error.StatusCode = httpContext.Response.StatusCode.ToString();
+                error.Message = exception.Message;
+            }
 
             await httpContext.Response.WriteAsync(error.ToString());
         }

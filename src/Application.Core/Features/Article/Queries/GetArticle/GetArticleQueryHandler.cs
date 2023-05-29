@@ -1,33 +1,29 @@
 ﻿using Application.Core.Abstractions;
 using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Application.Core.Exceptions;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
-    //public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, ArticleDto>
-    //{
-    //    private readonly IApplicationDbContext _dbContext;
-    //    private readonly IMapper _mapper;
+    public class GetArticleQueryHandler : IRequestHandler<GetArticleQuery, GetArticleQueryResponse>
+    {
+        private readonly IApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
 
-    //    public GetArticleQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
-    //    {
-    //        _dbContext = dbContext;
-    //        _mapper = mapper;
-    //    }
-    //    public async Task<ArticleDto> Handle(GetArticleQuery request, CancellationToken cancellationToken)
-    //    {
-    //        var article = await _dbContext
-    //            .Articles
-    //            .Include(a => a.Category)
-    //            .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken);
+        public GetArticleQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        {
+            _dbContext = dbContext;
+            _mapper = mapper;
+        }
+        public async Task<GetArticleQueryResponse> Handle(GetArticleQuery request, CancellationToken cancellationToken)
+        {
+            var article = await _dbContext
+                .Articles
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException();
 
-    //        return _mapper.Map<ArticleDto>(article);
-    //    }
-    //}
+            return _mapper.Map<GetArticleQueryResponse>(article);
+        }
+    }
 }

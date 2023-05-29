@@ -2,8 +2,7 @@
 using Application.Core.Exceptions;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;  
 
 namespace Application.Core.Features.Article.Queries.SearchArticles
 {

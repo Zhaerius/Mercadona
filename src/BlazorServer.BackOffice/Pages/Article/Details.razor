@@ -1,0 +1,15 @@
+﻿@page "/article/{Id:guid}"
+@using BlazorServer.BackOffice.Pages.Article;
+@inherits DetailsBase;
+
+<h3>Details</h3>
+
+@if (ArticleResponse is not null)
+{
+    <div>@ArticleResponse.Name</div>
+}
+
+//TODO : ELSE Redirect 404 page
+
+
+

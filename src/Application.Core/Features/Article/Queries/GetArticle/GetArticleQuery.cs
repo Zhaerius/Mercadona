@@ -1,5 +1,4 @@
-﻿using Application.Core.Dtos;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
-    public record GetArticleQuery(Guid Id) : IRequest<ArticleDto>
+    public record GetArticleQuery(Guid Id) : IRequest<GetArticleQueryResponse>
     {
     }
 }

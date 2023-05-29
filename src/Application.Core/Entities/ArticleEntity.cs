@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +10,12 @@ namespace Application.Core.Entities
     public class ArticleEntity : BaseEntity
     {
         public required string Name { get; set; }
-        public required string Description { get; set; }
-        public required string Image { get; set; }
+        public string? Description { get; set; }
+        public string? Image { get; set; }
+        public double BasePrice { get; set; }
         public Guid? CategoryId { get; set; }
         public CategoryEntity? Category { get; set; }
         public IEnumerable<PromotionEntity>? Promotions { get; set; }
-        public required double BasePrice { get; set; }
         public bool OnDiscount { get; set; }
 
 
@@ -22,19 +23,18 @@ namespace Application.Core.Entities
         private PromotionEntity? _currentPromotion;
         public PromotionEntity? CurrentPromotion
         {
-            get { return _currentPromotion; }
+            get => _currentPromotion;
             private set
             {
-                if (this.Promotions is not null)
-                {
-                    _currentPromotion = Promotions
-                        .Where(p => p.IsActive)
-                        .OrderByDescending(p => p.Discount)
-                        .FirstOrDefault();
+                if (this.Promotions is null) 
+                    return;
 
-                    if (_currentPromotion != null)
-                        this.OnDiscount = true;
-                }
+                _currentPromotion = Promotions
+                    .Where(p => p.IsActive)
+                    .MaxBy(p => p.Discount);
+
+                if (_currentPromotion != null)
+                    this.OnDiscount = true;
             }
         }
 
@@ -42,11 +42,13 @@ namespace Application.Core.Entities
         private double _discountPrice;  
         public double DiscountPrice
         {
-            get { return _discountPrice; }
+            get => _discountPrice;
             private set
             {
-                if (this.CurrentPromotion is not null)
-                    _discountPrice = this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
+                if (this.CurrentPromotion is null) 
+                    return;
+
+                _discountPrice = this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
             }
         }
     }

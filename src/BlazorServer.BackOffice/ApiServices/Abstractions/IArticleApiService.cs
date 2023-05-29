@@ -4,6 +4,7 @@ namespace BlazorServer.BackOffice.ApiServices.Abstractions
 {
     public interface IArticleApiService
     {
-        Task<IEnumerable<SearchArticlesResponse>?> SearchArticles(string? name);
+        Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
+        Task<ArticleResponse> GetDetailsArticle(Guid id);
     }
 }

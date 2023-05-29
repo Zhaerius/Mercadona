@@ -42,7 +42,7 @@ namespace WebApi.Middlewares
 
             if (exception is NotFoundException)
             {
-                httpContext.Response.StatusCode = (int)HttpStatusCode.NoContent;
+                httpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 error.StatusCode = httpContext.Response.StatusCode.ToString();
                 error.Message = exception.Message;
             }

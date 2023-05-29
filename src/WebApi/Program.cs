@@ -19,6 +19,10 @@ app.UseSwaggerUI();
 app.MapGroup("/article")
     .MapArticleEndpoints();
 
+app.MapGroup("/category")
+    .MapCategoryEndpoints();
+
+
 
 app.UseMiddleware<ExceptionMiddleware>();
 

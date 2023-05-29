@@ -1,16 +1,15 @@
 ﻿using Application.Core.Entities;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Core.Features.Article.Queries.GetArticle
+namespace BlazorServer.BackOffice.Models
 {
-    public class GetArticleQueryResponse
+    public class ArticleResponse
     {
-        public GetArticleQueryResponse(Guid id, string name, string? description, string? image, double basePrice)
+        public ArticleResponse(Guid id, string name, string? description, string? image, double basePrice)
         {
             Id = id;
             Name = name;

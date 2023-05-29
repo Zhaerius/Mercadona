@@ -1,5 +1,4 @@
-﻿using Application.Core.Dtos;
-using AutoMapper;
+﻿using AutoMapper;
 using BlazorServer.BackOffice.Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace Application.Core.Mappings
     {
         public UiMappingProfile()
         {
-            CreateMap<ArticleModel, ArticleDto>().ReverseMap();
+            //CreateMap<ArticleModel, ArticleDto>().ReverseMap();
         }
     }
 }

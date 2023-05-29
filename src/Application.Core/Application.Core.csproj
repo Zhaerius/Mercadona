@@ -22,4 +22,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Category\Commands\CreateCategory\" />
+    <Folder Include="Features\Category\Commands\DeleteCategory\" />
+    <Folder Include="Features\Category\Commands\UpdateCategory\" />
+  </ItemGroup>
+
 </Project>

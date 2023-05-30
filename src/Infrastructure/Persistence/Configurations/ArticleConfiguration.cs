@@ -17,7 +17,10 @@ namespace Infrastructure.Persistence.Configurations
 
             builder
                 .HasOne(a => a.Category)
-                .WithMany(c => c.Articles);
+                .WithMany(c => c.Articles)
+                .HasForeignKey(a => a.CategoryId)
+                .OnDelete(DeleteBehavior.SetNull);
+
 
             builder
                 .HasMany(a => a.Promotions)

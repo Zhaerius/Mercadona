@@ -1,4 +1,5 @@
-﻿using Application.Core.Features.Category.Queries.GetCategories;
+﻿using Application.Core.Features.Category.Commands.DeleteCategory;
+using Application.Core.Features.Category.Queries.GetCategories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapCategoryEndpoints(this RouteGroupBuilder group)
         {
+            // Retourne toutes les catégories
             group.MapGet("", async ([FromServices] IMediator mediator) =>
             {
                 var categories = await mediator.Send(new GetCategoriesQuery());
@@ -16,6 +18,13 @@ namespace WebApi.Endpoints
                     return Results.NoContent();
 
                 return Results.Ok(categories);
+            });
+
+            // Supprimer une catégorie
+            group.MapPost("/{Id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
+            {
+                await mediator.Send(new DeleteCategoryCommand(Id));
+                return Results.NoContent();
             });
 
             return group;

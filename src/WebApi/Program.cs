@@ -22,6 +22,9 @@ app.MapGroup("/article")
 app.MapGroup("/category")
     .MapCategoryEndpoints();
 
+app.MapGroup("/promotion")
+    .MapPromotionEndpoints();
+
 
 
 app.UseMiddleware<ExceptionMiddleware>();

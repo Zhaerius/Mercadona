@@ -1,7 +1,8 @@
 ﻿using Application.Core.Entities;
 using Application.Core.Features.Article.Queries.GetArticle;
 using Application.Core.Features.Article.Queries.SearchArticles;
-using Application.Core.Features.Category.Dto;
+using Application.Core.Features.Category.Queries.GetCategories;
+using Application.Core.Features.Promotion.Commands.CreatePromotion;
 using AutoMapper;
 
 namespace Application.Core.Mappings
@@ -16,9 +17,9 @@ namespace Application.Core.Mappings
             CreateMap<ArticleEntity, SearchArticlesQueryResponse>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
-            CreateMap<CategoryEntity, CategoryDto>();
+            CreateMap<CategoryEntity, GetCategoriesQueryResponse>();
 
-            //CreateMap<PromotionEntity, PromotionDto>();
+            CreateMap<CreatePromotionCommand, PromotionEntity>();
 
             //CreateMap<ArticleEntity, UpdateArticleCommand>().ReverseMap();
         }

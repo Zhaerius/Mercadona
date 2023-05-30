@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Category.Queries.GetCategories
 {
-    internal class GetCategoriesQueryResponse
+    public record GetCategoriesQueryResponse(Guid Id, string Name)
     {
     }
 }

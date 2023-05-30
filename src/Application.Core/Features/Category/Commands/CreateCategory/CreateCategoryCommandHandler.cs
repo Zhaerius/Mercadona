@@ -16,11 +16,9 @@ namespace Application.Core.Features.Category.Commands.CreateCategory
 
         public async Task Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(request.Name)) throw new ValidationException();
-
             var categoryToCreate = new CategoryEntity() { Name = request.Name};
 
-            await _dbContext.Categories.AddAsync(categoryToCreate); 
+            await _dbContext.Categories.AddAsync(categoryToCreate, cancellationToken); 
             await _dbContext.SaveChangesAsync();
         }
     }

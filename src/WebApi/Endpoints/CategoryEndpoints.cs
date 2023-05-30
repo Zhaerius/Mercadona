@@ -1,4 +1,5 @@
-﻿using Application.Core.Features.Category.Commands.DeleteCategory;
+﻿using Application.Core.Features.Category.Commands.CreateCategory;
+using Application.Core.Features.Category.Commands.DeleteCategory;
 using Application.Core.Features.Category.Queries.GetCategories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,13 @@ namespace WebApi.Endpoints
             group.MapPost("/{Id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
             {
                 await mediator.Send(new DeleteCategoryCommand(Id));
+                return Results.NoContent();
+            });
+
+            // Ajouter une catégorie
+            group.MapPost("", async ([FromBody] CreateCategoryCommand createCategory, [FromServices] IMediator mediator) =>
+            {
+                await mediator.Send(createCategory);
                 return Results.NoContent();
             });
 

@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Category\Commands\CreateCategory\" />
     <Folder Include="Features\Category\Commands\UpdateCategory\" />
   </ItemGroup>
 

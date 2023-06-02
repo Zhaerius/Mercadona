@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Article.Commands.CreateArticle
 {
-    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, string>
+    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -19,7 +19,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             _dbContext = dbContext;
         }
 
-        public async Task<string> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = new ArticleEntity
             {
@@ -32,7 +32,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             _dbContext.Articles.Add(article);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return article.Name;
+            //return article.Name;
 
         }
     }

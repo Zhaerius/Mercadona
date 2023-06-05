@@ -13,8 +13,8 @@ namespace Application.Core.Entities
         public string? Description { get; set; }
         public string? Image { get; set; }
         public double BasePrice { get; set; }
-        public Guid? CategoryId { get; set; }
-        public CategoryEntity? Category { get; set; }
+        public required Guid CategoryId { get; set; }
+        public required CategoryEntity Category { get; set; }
         public IEnumerable<PromotionEntity>? Promotions { get; set; }
         public bool OnDiscount { get; set; }
 

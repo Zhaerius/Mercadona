@@ -13,5 +13,5 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
         double Price,
         string Image,
         Guid CategoryId,
-        IEnumerable<Guid> PromotionsIdList) : IRequest{}
+        IEnumerable<Guid>? PromotionsIdList) : IRequest{}
 }

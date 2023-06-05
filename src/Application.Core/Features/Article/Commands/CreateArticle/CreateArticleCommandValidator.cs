@@ -11,9 +11,11 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
     {
         public CreateArticleCommandValidator()
         {
-            RuleFor(article => article.Description).NotNull();
-            RuleFor(article => article.Image).NotNull();
-
+            RuleFor(article => article.Name).NotNull().NotEmpty();
+            RuleFor(article => article.Description).NotNull().NotEmpty();
+            RuleFor(article => article.Price).NotNull().NotEmpty();
+            RuleFor(article => article.Image).NotNull().NotEmpty();
+            RuleFor(article => article.CategoryId).NotNull().NotEmpty();
         }
     }
 }

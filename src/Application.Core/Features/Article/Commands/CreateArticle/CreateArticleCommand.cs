@@ -10,8 +10,8 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
     public record CreateArticleCommand(
         string Name,
         string Description,
-        double Price,
+        double BasePrice,
         string Image,
         Guid CategoryId,
-        IEnumerable<Guid>? PromotionsIdList) : IRequest{}
+        IEnumerable<Guid>? PromotionsIds) : IRequest{}
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Core.Abstractions;
+using Application.Core.Exceptions;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,10 @@ namespace Application.Core.Features.Article.Commands.DeleteArticle
 
         public async Task Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
         {
-            var articleToDelete = await _dbContext.Articles.FindAsync(request.Id);
+            var articleToDelete = await _dbContext
+                .Articles
+                .FindAsync(request.Id) ?? throw new NotFoundException();
+
             _dbContext.Articles.Remove(articleToDelete);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }

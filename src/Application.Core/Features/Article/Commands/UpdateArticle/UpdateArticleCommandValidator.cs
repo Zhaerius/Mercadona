@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application.Core.Features.Article.Commands.UpdateArticle;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Article.Commands.CreateArticle
 {
-    public class CreateArticleCommandValidator : AbstractValidator<CreateArticleCommand>
+    public class UpdateArticleCommandValidator : AbstractValidator<UpdateArticleCommand>
     {
-        public CreateArticleCommandValidator()
+        public UpdateArticleCommandValidator()
         {
+            RuleFor(article => article.Id).NotNull().NotEmpty();
             RuleFor(article => article.Name).NotNull().NotEmpty();
             RuleFor(article => article.Description).NotNull().NotEmpty();
             RuleFor(article => article.BasePrice).NotNull().NotEmpty();

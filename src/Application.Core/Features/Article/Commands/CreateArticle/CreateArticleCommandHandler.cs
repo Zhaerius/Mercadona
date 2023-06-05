@@ -27,10 +27,10 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
         {
             var article = _mapper.Map<ArticleEntity>(request);
 
-            if (request.PromotionsIdList is not null && request.PromotionsIdList.Any())
+            if (request.PromotionsIds is not null && request.PromotionsIds.Any())
             {
                 var promotions = await _dbContext.Promotion
-                    .Where(p => request.PromotionsIdList.Contains(p.Id))
+                    .Where(p => request.PromotionsIds.Contains(p.Id))
                     .ToListAsync();
 
                 article.Promotions = promotions;

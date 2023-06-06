@@ -15,7 +15,7 @@ namespace Application.Core.Entities
         public double BasePrice { get; set; }
         public required Guid CategoryId { get; set; }
         public required CategoryEntity Category { get; set; }
-        public IEnumerable<PromotionEntity>? Promotions { get; set; }
+        public ICollection<PromotionEntity>? Promotions { get; set; }
         public bool OnDiscount { get; set; }
 
 

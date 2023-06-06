@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
@@ -22,6 +26,14 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Article\Details.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Category\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
 </Project>

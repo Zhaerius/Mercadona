@@ -15,12 +15,10 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
     public class UpdateArticleCommandHandler : IRequestHandler<UpdateArticleCommand>
     {
         private readonly IApplicationDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public UpdateArticleCommandHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public UpdateArticleCommandHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
         public async Task Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
         {
@@ -29,17 +27,14 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
                 .Include(c => c.Promotions)
                 .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException();
 
-            if (request.PromotionsIds is null || !request.PromotionsIds.Any())
-            {
-                articleToUpdate.Promotions = null;
-            }
-
+            // Null Propagation, syntaxe c#6, si promotion est null, le clear sera ignoré.
+            articleToUpdate.Promotions?.Clear();
 
             if (request.PromotionsIds is not null && request.PromotionsIds.Any())
             {
                 var promotions = await _dbContext.Promotion
                     .Where(p => request.PromotionsIds.Contains(p.Id))
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
                 articleToUpdate.Promotions = promotions;
             }
@@ -49,7 +44,6 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
             articleToUpdate.Image = request.Image;
             articleToUpdate.BasePrice = request.BasePrice;
             articleToUpdate.CategoryId = request.CategoryId;
-
 
             _dbContext.Articles.Update(articleToUpdate);
             await _dbContext.SaveChangesAsync(cancellationToken);

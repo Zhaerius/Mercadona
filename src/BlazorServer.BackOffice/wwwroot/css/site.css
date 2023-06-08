@@ -4,7 +4,7 @@
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-@import url("open-iconic/font/css/open-iconic-bootstrap.min.css");
+@import url("../lib/bootstrap-icons/font/bootstrap-icons.min.css");
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -11909,10 +11909,6 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-html, body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 h1:focus, .h1:focus {
   outline: none;
 }

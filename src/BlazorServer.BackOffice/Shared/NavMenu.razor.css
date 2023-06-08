@@ -10,15 +10,14 @@
     background-color: rgba(0,0,0,0.2);
 }
 
-.oi {
-    width: 2rem;
+.bi {
+    width: 1.8rem;
     font-size: 1.1rem;
     vertical-align: text-top;
-    top: -2px;
+/*    top: -2px;*/
 }
 
 .nav-item {
-    font-size: 0.9rem;
     padding-bottom: 0.5rem;
 }
 
@@ -31,17 +30,27 @@
     }
 
     .nav-item ::deep a {
-        color: #d7d7d7;
+/*        color: #d7d7d7;*/
         border-radius: 4px;
         height: 3rem;
         display: flex;
         align-items: center;
         line-height: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 
 .nav-item ::deep a.active {
     background-color: rgba(255,255,255,0.25);
     color: white;
+}
+
+.nav-group-label {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+    margin-bottom: 0.875rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
 .nav-item ::deep a:hover {

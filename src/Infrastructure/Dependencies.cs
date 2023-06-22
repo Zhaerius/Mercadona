@@ -1,13 +1,9 @@
 ﻿using Application.Core.Abstractions;
 using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure
 {
@@ -19,6 +15,10 @@ namespace Infrastructure
                 options.UseNpgsql(configuration.GetConnectionString("MercaDataBase")));
 
             services.AddScoped<IApplicationDbContext, MercaDbContext>();
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<MercaDbContext>()
+                .AddDefaultTokenProviders();
 
             return services;
         }

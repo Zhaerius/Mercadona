@@ -20,14 +20,14 @@ namespace Application.Core.Features.Promotion.Commands.UpdatePromotion
         }
         public async Task Handle(UpdatePromotionCommand request, CancellationToken cancellationToken)
         {
-            var promotionToUpdate = await _dbContext.Promotion.FindAsync(request.Id) ?? throw new NotFoundException();
+            var promotionToUpdate = await _dbContext.Promotions.FindAsync(request.Id) ?? throw new NotFoundException();
 
             promotionToUpdate.Name = request.Name;
             promotionToUpdate.Start = request.Start;
             promotionToUpdate.End = request.End;
             promotionToUpdate.Discount = request.Discount;
 
-            _dbContext.Promotion.Update(promotionToUpdate);
+            _dbContext.Promotions.Update(promotionToUpdate);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

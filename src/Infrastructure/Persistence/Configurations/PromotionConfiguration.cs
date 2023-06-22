@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Configurations
 {
-    internal class PromotionConfiguration : IEntityTypeConfiguration<PromotionEntity>
+    internal class 
+        Configuration : IEntityTypeConfiguration<PromotionEntity>
     {
         public void Configure(EntityTypeBuilder<PromotionEntity> builder)
         {

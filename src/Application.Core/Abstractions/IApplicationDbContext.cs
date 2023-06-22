@@ -12,7 +12,7 @@ namespace Application.Core.Abstractions
     {
         DbSet<ArticleEntity> Articles { get; set; }
         DbSet<CategoryEntity> Categories { get; set; }
-        DbSet<PromotionEntity> Promotion { get; set; }
+        DbSet<PromotionEntity> Promotions { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

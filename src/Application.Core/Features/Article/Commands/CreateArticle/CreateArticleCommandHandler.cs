@@ -29,7 +29,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
 
             if (request.PromotionsIds is not null && request.PromotionsIds.Any())
             {
-                var promotions = await _dbContext.Promotion
+                var promotions = await _dbContext.Promotions
                     .Where(p => request.PromotionsIds.Contains(p.Id))
                     .ToListAsync();
 

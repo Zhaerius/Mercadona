@@ -16,10 +16,10 @@ namespace Application.Core.Features.Promotion.Commands.DeletePromotion
         public async Task Handle(DeletePromotionCommand request, CancellationToken cancellationToken)
         {
             var promotionToDelete = await _dbContext
-                .Promotion
+                .Promotions
                 .FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
 
-            _dbContext.Promotion.Remove(promotionToDelete);
+            _dbContext.Promotions.Remove(promotionToDelete);
             await _dbContext.SaveChangesAsync();
         }
     }

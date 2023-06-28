@@ -17,7 +17,9 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="7.0.0" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.31.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,7 +27,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Identity\" />
 	  <Folder Include="Persistence\Migrations\" />
 	</ItemGroup>
 	

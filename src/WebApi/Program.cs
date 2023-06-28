@@ -15,19 +15,33 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();
 
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddAuthentication(otps =>
+    {
+        otps.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        otps.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        otps.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
     {
         opts.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            RequireExpirationTime = true,
+            ValidateIssuerSigningKey = true,
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+            ClockSkew = TimeSpan.Zero
         };
     });
 
-builder.Services.AddAuthorization();
-
+builder.Services.AddAuthorization(opts =>
+{
+    opts.AddPolicy("RequireSuperAdmin", policy => policy.RequireRole("superadmin"));
+    opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("UserMercadona"));
+});
 var app = builder.Build();
 
 app.UseSwagger();
@@ -44,6 +58,9 @@ app.MapGroup("/category")
 
 app.MapGroup("/promotion")
     .MapPromotionEndpoints();
+
+app.MapGroup("/auth")
+    .MapAuthEndpoints();
 
 app.UseMiddleware<ExceptionMiddleware>();
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Exceptions
 {
-    public class AuthException : Exception
+    public class NotFoundException : Exception
     {
-        public AuthException() : base("Connexion impossible, username/mdp non valide")
+        public NotFoundException() : base("Aucun Article trouvé")
         {
         }
 

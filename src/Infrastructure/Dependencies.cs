@@ -1,4 +1,6 @@
 ﻿using Application.Core.Abstractions;
+using Infrastructure.Identity;
+using Infrastructure.Identity.Services;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,10 @@ namespace Infrastructure
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<MercaDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.Configure<JwtOptions>(configuration.GetSection("JWT"));
+            services.AddSingleton<IJwtService, JwtService>();
 
             return services;
         }

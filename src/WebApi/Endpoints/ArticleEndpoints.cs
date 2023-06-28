@@ -26,7 +26,7 @@ namespace WebApi.Endpoints
             {
                 var article = await mediator.Send(new GetArticleQuery(id));
                 return Results.Ok(article);
-            }).RequireAuthorization();
+            }).RequireAuthorization("RequireSuperAdmin");
 
             // Create d'un nouvel article
             group.MapPost("", async ([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator) =>

@@ -5,6 +5,7 @@ using WebApi.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,13 @@ builder.Services.AddAuthorization(opts =>
     opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("UserMercadona"));
 });
 var app = builder.Build();
+
+//Seed Data
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MercaDbContext>();
+    MercaDbContectSeed.Seed(dbContext);
+}
 
 app.UseSwagger();
 app.UseSwaggerUI();

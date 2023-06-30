@@ -34,13 +34,6 @@ builder.Services.Configure<JsonSerializerOptions>(options => {
 
 var app = builder.Build();
 
-//Seed Data
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<MercaDbContext>();
-    MercaDbContectSeed.Seed(dbContext);
-}
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

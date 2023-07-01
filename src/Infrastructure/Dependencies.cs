@@ -1,5 +1,5 @@
 ﻿using Application.Core.Abstractions;
-using Infrastructure.Identity;
+using Infrastructure.Identity.Options;
 using Infrastructure.Identity.Services;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +24,7 @@ namespace Infrastructure
 
             services.AddScoped<IIdentityService, IdentityService>();
             services.Configure<JwtOptions>(configuration.GetSection("JWT"));
+            services.Configure<IdentityUserOptions>(configuration.GetSection("DefaultAdmin"));
             services.AddSingleton<IJwtService, JwtService>();
 
             return services;

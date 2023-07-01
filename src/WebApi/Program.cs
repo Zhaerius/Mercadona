@@ -40,16 +40,16 @@ builder.Services
 
 builder.Services.AddAuthorization(opts =>
 {
-    opts.AddPolicy("RequireSuperAdmin", policy => policy.RequireRole("superadmin"));
-    opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("UserMercadona"));
+    opts.AddPolicy("RequireAdmin", policy => policy.RequireRole("Administrateur"));
+    opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("Utilisateur"));
 });
 var app = builder.Build();
 
 //Seed Data
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<MercaDbContext>();
-    MercaDbContectSeed.Seed(dbContext);
+    var serviceProvider = scope.ServiceProvider;
+    await MercaDbContextSeed.SeedAsync(serviceProvider);
 }
 
 app.UseSwagger();

@@ -1,4 +1,5 @@
 ﻿using Application.Core.Abstractions;
+using Infrastructure.Identity.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

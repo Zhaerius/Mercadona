@@ -3,13 +3,15 @@ using BlazorServer.BackOffice.Models;
 
 namespace BlazorServer.BackOffice.Services
 {
-    public class LoginService : ILoginService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IStorageService _storageService;
 
-        public LoginService(IHttpClientFactory clientFactory)
+        public AuthenticationService(IHttpClientFactory clientFactory, IStorageService storageService)
         {
             _clientFactory = clientFactory;
+            _storageService = storageService;
         }
 
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
@@ -26,6 +28,8 @@ namespace BlazorServer.BackOffice.Services
 
             loginResponse.Success = true;
             loginResponse.JwtToken = await response.Content.ReadAsStringAsync();
+
+            await _storageService.SetToken(loginResponse.JwtToken);
 
             return loginResponse;
         }

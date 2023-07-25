@@ -19,7 +19,8 @@ builder.Services.AddApplicationCore();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddScoped<IArticleService, ArticleService>();
-builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IStorageService, StorageService>();
 
 builder.Services.AddHttpClient("MercaApi", httpClient =>
 {

@@ -2,7 +2,7 @@
 
 namespace BlazorServer.BackOffice.Services.Abstractions
 {
-    public interface ILoginService
+    public interface IAuthenticationService
     {
         public Task<LoginResponse> Login(LoginRequest loginRequest);
     }

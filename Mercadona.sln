@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\WebApi\WebApi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebUI", "WebUI", "{811BE4F9-675B-45BE-8466-719B48D0D03E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWasm.BackOffice", "src\BlazorWasm.BackOffice\BlazorWasm.BackOffice.csproj", "{D25EB93C-DC92-41F9-949B-528FE6FF87A4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{55A83689-4455-4F37-8259-4197E390BBC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A83689-4455-4F37-8259-4197E390BBC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A83689-4455-4F37-8259-4197E390BBC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D25EB93C-DC92-41F9-949B-528FE6FF87A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D25EB93C-DC92-41F9-949B-528FE6FF87A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D25EB93C-DC92-41F9-949B-528FE6FF87A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D25EB93C-DC92-41F9-949B-528FE6FF87A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,7 +48,6 @@ Global
 		{9CEDBD35-2386-46B3-A6AA-50BF94B55DC9} = {7E66F6D3-52C7-408F-8DCE-CFD75C15875A}
 		{54F6A07A-1D32-4B00-8A28-D7E7D1B0CFE7} = {4AA47BF2-CF77-4606-99AC-54FA8B0C9EBE}
 		{55A83689-4455-4F37-8259-4197E390BBC7} = {4AA47BF2-CF77-4606-99AC-54FA8B0C9EBE}
-		{D25EB93C-DC92-41F9-949B-528FE6FF87A4} = {811BE4F9-675B-45BE-8466-719B48D0D03E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F908F0C-EB78-4602-BAA9-1F34B5A1AFD7}

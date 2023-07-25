@@ -1,8 +1,8 @@
 ﻿using BlazorServer.BackOffice.Models;
 
-namespace BlazorServer.BackOffice.ApiServices.Abstractions
+namespace BlazorServer.BackOffice.Services.Abstractions
 {
-    public interface IArticleApiService
+    public interface IArticleService
     {
         Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
         Task<ArticleResponse> GetDetailsArticle(Guid id);

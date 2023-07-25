@@ -1,16 +1,14 @@
-﻿using BlazorServer.BackOffice.ApiServices.Abstractions;
+﻿using BlazorServer.BackOffice.Services.Abstractions;
 using BlazorServer.BackOffice.Models;
-using Bogus.DataSets;
 using System.Text.Json;
-using System.Xml.Linq;
 
-namespace BlazorServer.BackOffice.ApiServices
+namespace BlazorServer.BackOffice.Services
 {
-    public class ArticleApiService : IArticleApiService
+    public class ArticleService : IArticleService
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public ArticleApiService(IHttpClientFactory clientFactory)
+        public ArticleService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }

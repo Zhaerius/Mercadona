@@ -1,0 +1,30 @@
+﻿@page "/login"
+@using BlazorServer.BackOffice.Models;
+@inherits LoginBase;
+
+<h3>Login</h3>
+
+<EditForm Model="@LoginRequest" OnValidSubmit="@Login">
+    <div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InputText class="form-control" id="" @bind-Value="LoginRequest.Username" />
+    </div>
+    <div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InputText type="password" class="form-control" id="" @bind-Value="LoginRequest.Password" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+
+@if (LoginResponse.Success)
+{
+    <div>Connection Ok</div>
+    <div>Token Jwt</div>
+    <div>@LoginResponse.JwtToken</div>
+}
+else {
+    <div>Nop</div>
+}

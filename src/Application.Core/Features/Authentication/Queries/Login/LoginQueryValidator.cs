@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Core.Features.Authentication.Commands.Login
+namespace Application.Core.Features.Authentication.Queries.Login
 {
-    public class LoginCommanValidator: AbstractValidator<LoginCommand>
+    public class LoginQueryValidator: AbstractValidator<LoginQuery>
     {
-        public LoginCommanValidator()
+        public LoginQueryValidator()
         {
             RuleFor(l => l.Username)
                 .NotEmpty()

@@ -2,20 +2,20 @@
 using Application.Core.Exceptions;
 using MediatR;
 
-namespace Application.Core.Features.Authentication.Commands.Login
+namespace Application.Core.Features.Authentication.Queries.Login
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, string>
+    public class LoginQueryHandler : IRequestHandler<LoginQuery, string>
     {
         private readonly IIdentityService _identityService;
         private readonly IJwtService _jwtService;
 
-        public LoginCommandHandler(IIdentityService identityService, IJwtService jwtService)
+        public LoginQueryHandler(IIdentityService identityService, IJwtService jwtService)
         {
             _identityService = identityService;
             _jwtService = jwtService;
         }
 
-        public async Task<string> Handle(LoginCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
 
             var result = await _identityService.SignInAsync(request.Username, request.Password);

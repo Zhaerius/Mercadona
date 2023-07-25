@@ -1,0 +1,22 @@
+﻿using BlazorServer.BackOffice.Services.Abstractions;
+using BlazorServer.BackOffice.Models;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
+namespace BlazorServer.BackOffice.Pages.Auth
+{
+    public class LoginBase : ComponentBase
+    {
+        [Inject] private ProtectedSessionStorage ProtectedSessionStore { get; set; } = null!;
+        [Inject] private ILoginService LoginService { get; set; } = null!;
+        public LoginRequest LoginRequest { get; set; } = new LoginRequest();
+        public LoginResponse LoginResponse { get; set; } = new LoginResponse();
+
+        protected async Task Login()
+        {
+            var result = await LoginService.Login(LoginRequest);
+            LoginResponse = result;
+            await ProtectedSessionStore.SetAsync("count", 42);
+        }
+    }
+}

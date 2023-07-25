@@ -1,12 +1,10 @@
 using BlazorServer.BackOffice.Data;
 using Infrastructure;
 using Application.Core;
-using Infrastructure.Persistence;
 using System.Reflection;
-using BlazorServer.BackOffice.ApiServices;
-using Microsoft.AspNetCore.Http.Json;
+using BlazorServer.BackOffice.Services;
 using System.Text.Json;
-using BlazorServer.BackOffice.ApiServices.Abstractions;
+using BlazorServer.BackOffice.Services.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +18,8 @@ builder.Services.AddApplicationCore();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddScoped<IArticleApiService, ArticleApiService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 builder.Services.AddHttpClient("MercaApi", httpClient =>
 {

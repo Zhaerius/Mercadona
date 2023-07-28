@@ -14,7 +14,7 @@ namespace BlazorServer.BackOffice.Services
 
         public async Task SetToken(string token)
         {
-            await _protectedSessionStore.SetAsync("jwt", token);
+            await _protectedSessionStore.SetAsync("authToken", token);
         }
     }
 }

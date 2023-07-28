@@ -5,21 +5,24 @@ namespace BlazorServer.BackOffice.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IHttpClientFactory _clientFactory;
+        private readonly HttpClient _httpClient;
+
+        //////////private readonly IHttpClientFactory _clientFactory;
         private readonly IStorageService _storageService;
 
-        public AuthenticationService(IHttpClientFactory clientFactory, IStorageService storageService)
+        public AuthenticationService(/*IHttpClientFactory clientFactory*/HttpClient httpClient, IStorageService storageService)
         {
-            _clientFactory = clientFactory;
+            _httpClient = httpClient;
+            //_clientFactory = clientFactory;
             _storageService = storageService;
         }
 
         public async Task<LoginResponse> Login(LoginRequest loginRequest)
         {
-            var client = _clientFactory.CreateClient("MercaApi");
+            //var client = _clientFactory.CreateClient("MercaApi
 
             var requestJson = JsonContent.Create(loginRequest);
-            var response = await client.PostAsync($"auth/", requestJson);
+            var response = await _httpClient.PostAsync($"auth/", requestJson);
 
             var loginResponse = new LoginResponse();
 

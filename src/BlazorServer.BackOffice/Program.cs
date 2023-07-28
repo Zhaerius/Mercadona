@@ -5,6 +5,8 @@ using System.Reflection;
 using BlazorServer.BackOffice.Services;
 using System.Text.Json;
 using BlazorServer.BackOffice.Services.Abstractions;
+using Microsoft.AspNetCore.Components.Authorization;
+using BlazorServer.BackOffice.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +23,14 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IStorageService, StorageService>();
+builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
 
-builder.Services.AddHttpClient("MercaApi", httpClient =>
-{
-    httpClient.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!);
-});
+//builder.Services.AddHttpClient("MercaApi", httpClient =>
+//{
+//    httpClient.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!);
+//});
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!) });
 
 builder.Services.Configure<JsonSerializerOptions>(options => {
     options.PropertyNameCaseInsensitive = true;

@@ -24,7 +24,7 @@ namespace Infrastructure.Identity.Services
 
             var claims = new List<Claim>()
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userName)
+                new Claim(JwtRegisteredClaimNames.Name, userName)
             };
             claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

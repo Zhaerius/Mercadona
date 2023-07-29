@@ -8,6 +8,17 @@
 
 <p>This component demonstrates fetching data from a service.</p>
 
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, @context.User.Identity.Name!</h1>
+        You can only see this if you're authenticated.
+    </Authorized>
+    <NotAuthorized>
+        You're not logged in.
+    </NotAuthorized>
+</AuthorizeView>
+
+
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
@@ -44,4 +55,6 @@ else
     {
         forecasts = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
     }
+
+
 }

@@ -29,5 +29,12 @@ namespace BlazorServer.BackOffice.Authentication
 
             return new AuthenticationState(new ClaimsPrincipal(identity));
         }
+
+        public void NotifyUserAuthentication(string email)
+        {
+            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, email) }, "jwtAuthType"));
+            var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+            NotifyAuthenticationStateChanged(authState);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@page "/fetchdata"
 @using BlazorServer.BackOffice.Data
 @inject WeatherForecastService ForecastService
+@attribute [Authorize(Roles = "Administrateur, Utilisateur")]
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -19,40 +20,20 @@
 </AuthorizeView>
 
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+
 
 @code {
     private WeatherForecast[]? forecasts;
 
+    [CascadingParameter] Task<AuthenticationState>? AuthenticationState { get; set; } = null!;
+
+
+
     protected override async Task OnInitializedAsync()
     {
+        var authState = await AuthenticationState;
+        var test = authState.User.Claims.Where(t => t.Type == System.Security.Claims.ClaimTypes.Role);
+
         forecasts = await ForecastService.GetForecastAsync(DateOnly.FromDateTime(DateTime.Now));
     }
 

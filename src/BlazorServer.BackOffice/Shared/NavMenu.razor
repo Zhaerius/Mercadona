@@ -8,6 +8,7 @@
 </div>
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+
     <nav class="flex-column">
         <div class="nav-item px-3">
             <div class="nav-group-label text-uppercase text-light fw-medium text-opacity-50">Gestion</div>
@@ -36,40 +37,35 @@
 
     <AuthorizeView>
         <Authorized>
-            <div class="user px-4">
-                <div href="" class="user__avatar">
-                    <span class="user__letter">@name[0]</span>
-                </div>
-                <div class="avatar-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <h6>@name</h6>
+            <div class="d-flex mt-4 flex-column gap-3">
+                <div class="d-flex align-items-center gap-3 px-4">
+                    <div href="" class="user__avatar">
+                        <span class="user__letter fw-medium text-success">@context.User.Identity.Name[0]</span>
                     </div>
-                    <span>Superuser/Administrator</span>
-                </div><!-- avatar-body -->
+                    <div class="user__texts">
+                        <div class="text-light">
+                            <div class="fw-medium">@context.User.Identity.Name.Replace("@mercadona.com", "").ToUpper()</div>
+                            <div class="fw-lighter">Utilisateur</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="logout px-4">
+                    <div class="d-grid">
+                        <button class="btn btn-light fw-medium opacity-75" type="button"><i class="bi bi-arrow-bar-left"></i> Deconnexion </button>
+                    </div>
+                </div>
             </div>
         </Authorized>
     </AuthorizeView>
-
 </div>
 
 @code {
-
-    private string? name;
-
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    [CascadingParameter] Task<AuthenticationState>? AuthenticationState { get; set; } = null!;
-
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-    }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        var authState = await AuthenticationState!;
-        string name = authState.User.Identity!.Name!;
     }
 }

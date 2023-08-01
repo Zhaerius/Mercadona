@@ -10,13 +10,18 @@
     background-color: rgba(0,0,0,0.2);
 }
 
-.bi {
+.nav-item .bi {
     width: 1.8rem;
     font-size: 1.1rem;
     vertical-align: text-top;
-/*    top: -2px;*/
+    /*    top: -2px;*/
 }
 
+.bi {
+    width: 1.8rem;
+    vertical-align: text-top;
+    top: -2px;
+}
 .nav-item {
     padding-bottom: 0.5rem;
 }
@@ -58,11 +63,6 @@
     color: white;
 }
 
-.user {
-    display: flex;
-    max-width: 100%
-}
-
 .user__avatar {
     display: flex;
     width: 2.25rem;
@@ -95,6 +95,12 @@
     border-radius: 100%;
     background-color: #01a81d;
     box-shadow: 0 0 0 2px #fff;
+}
+
+.logout {
+/*    display: flex;
+    align-items: center;
+    justify-content: center;*/
 }
 
 

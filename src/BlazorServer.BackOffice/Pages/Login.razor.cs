@@ -2,6 +2,7 @@
 using BlazorServer.BackOffice.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BlazorServer.BackOffice.Pages
 {

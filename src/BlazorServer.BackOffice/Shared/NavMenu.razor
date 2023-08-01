@@ -33,15 +33,43 @@
             </NavLink>
         </div>
     </nav>
+
+    <AuthorizeView>
+        <Authorized>
+            <div class="user px-4">
+                <div href="" class="user__avatar">
+                    <span class="user__letter">@name[0]</span>
+                </div>
+                <div class="avatar-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h6>@name</h6>
+                    </div>
+                    <span>Superuser/Administrator</span>
+                </div><!-- avatar-body -->
+            </div>
+        </Authorized>
+    </AuthorizeView>
+
 </div>
 
 @code {
+
+    private string? name;
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    [CascadingParameter] Task<AuthenticationState>? AuthenticationState { get; set; } = null!;
+
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var authState = await AuthenticationState!;
+        string name = authState.User.Identity!.Name!;
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Infrastructure.Persistence;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,17 @@ builder.Services.AddAuthorization(opts =>
     opts.AddPolicy("RequireAdmin", policy => policy.RequireRole("Administrateur"));
     opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("Utilisateur"));
 });
+
+builder.Services.AddCors(policy =>
+{
+    policy.AddPolicy("CorsPolicy",
+        builder => builder
+            .AllowAnyMethod()
+            .AllowCredentials()
+            .SetIsOriginAllowed((host) => true)
+            .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 //Seed Data
@@ -54,6 +66,8 @@ using (var scope = app.Services.CreateScope())
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

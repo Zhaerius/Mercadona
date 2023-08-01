@@ -23,13 +23,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
-builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
-
-//builder.Services.AddHttpClient("MercaApi", httpClient =>
-//{
-//    httpClient.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!);
-//});
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!) });
 

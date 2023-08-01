@@ -1,22 +1,23 @@
-﻿using BlazorServer.BackOffice.Services.Abstractions;
-using BlazorServer.BackOffice.Models;
+﻿using BlazorWasm.BackOffice.Services.Abstractions;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Components.Authorization;
-using BlazorServer.BackOffice.Authentication;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using BlazorWasm.BackOffice.Models;
+using System.Net.Http.Json;
+using Blazored.LocalStorage;
+using BlazorWasm.BackOffice.Authentication;
 
-namespace BlazorServer.BackOffice.Services
+namespace BlazorWasm.BackOffice.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
         private readonly HttpClient _httpClient;
-        private readonly ProtectedSessionStorage _sessionStorage;
+        private readonly ILocalStorageService _localStorage;
         private readonly AuthenticationStateProvider _authStateProvider;
 
-        public AuthenticationService(HttpClient httpClient, ProtectedSessionStorage sessionStorage, AuthenticationStateProvider authStateProvider)
+        public AuthenticationService(HttpClient httpClient, ILocalStorageService localStorage, AuthenticationStateProvider authStateProvider)
         {
             _httpClient = httpClient;
-            _sessionStorage = sessionStorage;
+            _localStorage = localStorage;
             _authStateProvider = authStateProvider;
         }
 
@@ -32,9 +33,10 @@ namespace BlazorServer.BackOffice.Services
             loginResponse.Success = true;
             loginResponse.JwtToken = await response.Content.ReadAsStringAsync();
 
-            await _sessionStorage.SetAsync("authToken", loginResponse.JwtToken);
+            await _localStorage.SetItemAsync("authToken", loginResponse.JwtToken);
 
             ((TokenAuthenticationStateProvider)_authStateProvider).NotifyUserAuthentication(loginRequest.Username);
+            await _authStateProvider.GetAuthenticationStateAsync();
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResponse.JwtToken);
 

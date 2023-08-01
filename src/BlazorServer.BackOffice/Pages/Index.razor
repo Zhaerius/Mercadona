@@ -1,5 +1,7 @@
 ﻿@page "/"
-
+@*@inject AuthenticationStateProvider _authenticationStateProvider
+@inject NavigationManager _navigationManager;*@
+@attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
 
@@ -12,5 +14,19 @@ Welcome to your new app.
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code {
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
 
+    //    if (firstRender)
+    //    {
+    //        var authState = await _authenticationStateProvider.GetAuthenticationStateAsync();
+    //        var user = authState.User;
+    //        if (!user.Identity.IsAuthenticated)
+    //        {
+    //            _navigationManager.NavigateTo("/login", false);
+    //        }
+
+    //        StateHasChanged();
+    //    }
+    //}
 }

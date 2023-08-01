@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Security.Principal;
+using static System.Net.WebRequestMethods;
 
 namespace BlazorServer.BackOffice.Authentication
 {
@@ -19,15 +21,23 @@ namespace BlazorServer.BackOffice.Authentication
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await _sessionStorage.GetAsync<string>("authToken");
+            try
+            {
+                var token = await _sessionStorage.GetAsync<string>("authToken");
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Value);
+                var identity = string.IsNullOrWhiteSpace(token.Value)
+                    ? new ClaimsIdentity()
+                    : new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token.Value), "jwtAuthType");
 
-            var identity = string.IsNullOrWhiteSpace(token.Value)
-                ? new ClaimsIdentity()
-                : new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token.Value), "jwtAuthType");
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Value);
 
-            return new AuthenticationState(new ClaimsPrincipal(identity));
+                return new AuthenticationState(new ClaimsPrincipal(identity));
+            }
+            catch
+            {
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
+
         }
 
         public void NotifyUserAuthentication(string email)

@@ -1,0 +1,19 @@
+﻿@page "/loginauth"
+@layout LoginLayout
+@using BlazorServer.BackOffice.Pages.Auth;
+@using BlazorWasm.BackOffice.Models;
+@inherits LoginBase;
+
+<EditForm Model="@LoginRequest" OnValidSubmit="@Login">
+    <div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InputText type="email" class="form-control" id="" @bind-Value="LoginRequest.Username" />
+    </div>
+    <div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <InputText type="password" class="form-control" id="" @bind-Value="LoginRequest.Password" />
+    </div>
+    <button class="btn btn-primary" type="submit">Connexion</button>
+</EditForm>

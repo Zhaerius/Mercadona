@@ -45,7 +45,7 @@
                     <div class="user__texts">
                         <div class="text-light">
                             <div class="fw-medium">@context.User.Identity.Name.Replace("@mercadona.com", "").ToUpper()</div>
-                            <div class="fw-lighter">Utilisateur</div>
+                            <div class="fw-lighter">@context.User.IsInRole("Administrateur")</div>
                         </div>
                     </div>
                 </div>

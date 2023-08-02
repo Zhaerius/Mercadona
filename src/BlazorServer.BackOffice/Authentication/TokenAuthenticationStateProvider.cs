@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using System.Security.Claims;
-using System.Security.Principal;
-using static System.Net.WebRequestMethods;
 
 namespace BlazorServer.BackOffice.Authentication
 {
@@ -23,13 +20,14 @@ namespace BlazorServer.BackOffice.Authentication
         {
             try
             {
-                var token = await _sessionStorage.GetAsync<string>("authToken");
+                var tokenResult = await _sessionStorage.GetAsync<string>("authToken");
+                var token = tokenResult.Value;
 
-                var identity = string.IsNullOrWhiteSpace(token.Value)
+                var identity = string.IsNullOrWhiteSpace(token)
                     ? new ClaimsIdentity()
-                    : new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token.Value), "jwtAuthType");
+                    : new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), "jwtAuthType");
 
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token.Value);
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
 
                 return new AuthenticationState(new ClaimsPrincipal(identity));
             }
@@ -40,10 +38,11 @@ namespace BlazorServer.BackOffice.Authentication
 
         }
 
-        public void NotifyUserAuthentication(string email)
+        public void NotifyUserAuthentication(string token)
         {
-            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, email) }, "jwtAuthType"));
+            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), "jwt"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+
             NotifyAuthenticationStateChanged(authState);
         }
     }

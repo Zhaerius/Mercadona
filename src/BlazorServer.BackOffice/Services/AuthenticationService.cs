@@ -34,7 +34,7 @@ namespace BlazorServer.BackOffice.Services
 
             await _sessionStorage.SetAsync("authToken", loginResponse.JwtToken);
 
-            ((TokenAuthenticationStateProvider)_authStateProvider).NotifyUserAuthentication(loginRequest.Username);
+            ((TokenAuthenticationStateProvider)_authStateProvider).NotifyUserAuthentication(loginResponse.JwtToken);
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResponse.JwtToken);
 

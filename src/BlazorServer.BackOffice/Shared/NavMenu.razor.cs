@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
+using System.Security.Claims;
 
 namespace BlazorServer.BackOffice.Shared
 {
@@ -19,7 +20,16 @@ namespace BlazorServer.BackOffice.Shared
             if (authState.User.Identity.IsAuthenticated)
             {
                 nameLetter = authState.User.Identity.Name[0];
-                shortName = authState.User.Identity.Name.Replace("@mercadona.com", "").ToUpper();
+                shortName = authState.User.Identity.Name.Replace("@mercadona.com", "");
+                var rolesFromClaims = authState.User.Claims
+                    .Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => c.Value)
+                    .ToList();
+
+                if (rolesFromClaims.Count > 1)
+                    roles = string.Join("/", rolesFromClaims);
+                else
+                    roles = rolesFromClaims[0];
             }
         }
 

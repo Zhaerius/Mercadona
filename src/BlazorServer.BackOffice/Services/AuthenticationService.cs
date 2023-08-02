@@ -40,5 +40,12 @@ namespace BlazorServer.BackOffice.Services
 
             return loginResponse;
         }
+
+        public async Task Logout()
+        {
+            await _sessionStorage.DeleteAsync("authToken");
+            ((TokenAuthenticationStateProvider)_authStateProvider).NotifyUserLogout();
+            _httpClient.DefaultRequestHeaders.Authorization = null;
+        }
     }
 }

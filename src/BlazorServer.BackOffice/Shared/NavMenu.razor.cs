@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
+using BlazorServer.BackOffice.Services.Abstractions;
 
 namespace BlazorServer.BackOffice.Shared
 {
@@ -13,6 +14,8 @@ namespace BlazorServer.BackOffice.Shared
 
         protected string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
         [CascadingParameter] private Task<AuthenticationState> AuthenticationState { get; set; } = null!;
+        [Inject] private IAuthenticationService AuthenticationService { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -36,6 +39,12 @@ namespace BlazorServer.BackOffice.Shared
         protected void ToggleNavMenu()
         {
             collapseNavMenu = !collapseNavMenu;
+        }
+
+        protected async Task Logout()
+        {
+            await AuthenticationService.Logout();
+            NavigationManager.NavigateTo("/");
         }
     }
 }

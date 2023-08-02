@@ -9,11 +9,13 @@ namespace BlazorServer.BackOffice.Authentication
     {
         private readonly ProtectedSessionStorage _sessionStorage;
         private readonly HttpClient _httpClient;
+        private readonly AuthenticationState _anonymous;
 
         public TokenAuthenticationStateProvider(ProtectedSessionStorage sessionStorage, HttpClient httpClient)
         {
             _sessionStorage = sessionStorage;
             _httpClient = httpClient;
+            _anonymous = new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
@@ -33,7 +35,7 @@ namespace BlazorServer.BackOffice.Authentication
             }
             catch
             {
-                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                return _anonymous;
             }
 
         }
@@ -43,6 +45,12 @@ namespace BlazorServer.BackOffice.Authentication
             var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), "jwt"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
 
+            NotifyAuthenticationStateChanged(authState);
+        }
+
+        public void NotifyUserLogout()
+        {
+            var authState = Task.FromResult(_anonymous);
             NotifyAuthenticationStateChanged(authState);
         }
     }

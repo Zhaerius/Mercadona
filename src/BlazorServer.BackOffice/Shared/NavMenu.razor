@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inherits NavMenuBase;
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href=""><img src="/img/logo.svg" alt="Mercadona" class="d-inline-block align-text-top logo"></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -40,11 +42,11 @@
             <div class="d-flex mt-4 flex-column gap-3">
                 <div class="d-flex align-items-center gap-3 px-4">
                     <div href="" class="user__avatar">
-                        <span class="user__letter fw-medium text-success">@context.User.Identity.Name[0]</span>
+                        <span class="user__letter fw-medium text-success">@nameLetter</span>
                     </div>
                     <div class="user__texts">
                         <div class="text-light">
-                            <div class="fw-medium">@context.User.Identity.Name.Replace("@mercadona.com", "").ToUpper()</div>
+                            <div class="fw-medium">@shortName</div>
                             <div class="fw-lighter">@context.User.IsInRole("Administrateur")</div>
                         </div>
                     </div>
@@ -58,14 +60,3 @@
         </Authorized>
     </AuthorizeView>
 </div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

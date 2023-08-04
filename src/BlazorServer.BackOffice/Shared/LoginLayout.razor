@@ -2,20 +2,47 @@
 
 <PageTitle>Connexion</PageTitle>
 
-<MudThemeProvider />
+<MudThemeProvider Theme="MyCustomTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<div>
-    <MudLayout>
-        <MudAppBar Elevation="1">
-            <MudText Typo="Typo.h5" Class="ml-3">Mercadona</MudText>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex">
+            <MudImage Src="/img/logo.svg" Alt="Mony the dog" Class="" Height="45" />
             <MudSpacer />
-        </MudAppBar>
+            <MudIconButton Icon="@Icons.Material.Filled.RemoveRedEye" Color="Color.Inherit" Href="/toto"/>
+        </MudContainer>
 
-        <MudMainContent Class="login-container">
-                @Body
-        </MudMainContent>
 
-    </MudLayout>
-</div>
+    </MudAppBar>
+
+    <MudMainContent>
+            @Body
+    </MudMainContent>
+
+</MudLayout>
+
+@code {
+    MudTheme MyCustomTheme = new MudTheme()
+        {
+            Palette = new PaletteLight()
+            {
+                Primary = "#00ab61",
+                Secondary = "#ab0000",
+                Tertiary = "#008dab",
+                AppbarBackground = "#00ab61",
+            },
+            //PaletteDark = new PaletteDark()
+            //{
+            //    Primary = Colors.Blue.Lighten1
+            //},
+
+            //LayoutProperties = new LayoutProperties()
+            //{
+            //    DrawerWidthLeft = "260px",
+            //    DrawerWidthRight = "300px"
+            //}
+        };
+}

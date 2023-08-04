@@ -7,6 +7,7 @@ using System.Text.Json;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components.Authorization;
 using BlazorServer.BackOffice.Authentication;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,8 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.Configure<JsonSerializerOptions>(options => {
     options.PropertyNameCaseInsensitive = true;
 });
+
+builder.Services.AddMudServices();
 
 
 var app = builder.Build();

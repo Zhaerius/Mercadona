@@ -4,16 +4,31 @@
 @using BlazorServer.BackOffice.Pages;
 @inherits LoginBase;
 
-<EditForm Model="@LoginRequest" OnValidSubmit="@Login">
-    <div>
+@*<div Class="d-flex align-content-center justify-center flex-wrap flex-grow-1">*@
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-12">
+    <MudContainer Class="d-flex flex-column">      
+        <MudText Align="Align.Center" Typo="Typo.h4" Class="mb-6">
+            <MudIcon Icon="@Icons.Outlined.Lock" Size="Size.Large" Color="Color.Primary" /><br />
+            Connexion
+        </MudText>
+        <MudText Align="Align.Justify">Une connexion est requise pour accéder à l'espace d'administration du site. Si vous ne possédez pas de compte, merci de contacter le service IT à l'adresse <span class="mud-secondary-text">it@mercadona.com</span></MudText>
+    </MudContainer>
+    <EditForm Model="@LoginRequest" OnValidSubmit="@Login">
         <DataAnnotationsValidator />
-        <ValidationSummary />
-        <InputText type="email" class="form-control" id="" @bind-Value="LoginRequest.Username" />
-    </div>
-    <div>
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <InputText type="password" class="form-control" id="" @bind-Value="LoginRequest.Password" />
-    </div>
-    <button class="btn btn-primary" type="submit">Connexion</button>
-</EditForm>
+        <MudCard Elevation="0">
+            <MudCardContent>
+
+                <MudTextField Class="my-6" @bind-Value="LoginRequest.Username" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.AlternateEmail" AdornmentColor="Color.Dark" InputType="InputType.Email" />
+
+
+                <MudTextField @bind-Value="LoginRequest.Password" Label="Mot de passe" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Password" AdornmentColor="Color.Dark" InputType="InputType.Password" />
+
+            </MudCardContent>
+            <MudCardActions Class="px-4">
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Size="Size.Large" Class="ml-auto" StartIcon="@Icons.Material.Filled.Login">Connexion</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </EditForm>
+</MudContainer>
+
+@*</div>*@

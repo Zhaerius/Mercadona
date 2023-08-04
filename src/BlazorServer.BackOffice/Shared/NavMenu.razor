@@ -1,6 +1,6 @@
-﻿@inherits NavMenuBase;
+﻿@*@inherits NavMenuBase;*@
 
-<div class="top-row ps-3 navbar navbar-dark">
+@*<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href=""><img src="/img/logo.svg" alt="Mercadona" class="d-inline-block align-text-top logo"></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -59,4 +59,13 @@
             </div>
         </Authorized>
     </AuthorizeView>
-</div>
+</div>*@
+
+<MudNavMenu>
+    <MudNavGroup Title="Gestion" Expanded="true">
+        <MudNavLink Href="/article/search" Match="NavLinkMatch.Prefix">Articles</MudNavLink>
+        <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix">Catégories</MudNavLink>
+        <MudNavLink Href="/fetchdata" Match="NavLinkMatch.Prefix">Fetch</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">About</MudNavLink>
+</MudNavMenu>

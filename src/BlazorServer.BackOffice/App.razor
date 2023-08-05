@@ -5,7 +5,7 @@
                 <NotAuthorized>
                     @if (!context.User.Identity.IsAuthenticated)
                     {
-                        <BlazorServer.BackOffice.Pages.RedirectToLogin />
+                        <BlazorServer.BackOffice.Pages.Authentication.RedirectToLogin />
                     }
                     else
                     {

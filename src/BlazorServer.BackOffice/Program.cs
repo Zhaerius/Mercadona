@@ -1,4 +1,3 @@
-using BlazorServer.BackOffice.Data;
 using Infrastructure;
 using Application.Core;
 using System.Reflection;
@@ -15,7 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthorizationCore();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();

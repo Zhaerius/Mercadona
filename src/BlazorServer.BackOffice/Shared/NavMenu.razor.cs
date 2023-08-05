@@ -14,8 +14,6 @@ namespace BlazorServer.BackOffice.Shared
 
         protected string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
         [CascadingParameter] private Task<AuthenticationState> AuthenticationState { get; set; } = null!;
-        [Inject] private IAuthenticationService AuthenticationService { get; set; } = null!;
-        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
@@ -34,17 +32,6 @@ namespace BlazorServer.BackOffice.Shared
                 else
                     roles = rolesFromClaims[0];
             }
-        }
-
-        protected void ToggleNavMenu()
-        {
-            collapseNavMenu = !collapseNavMenu;
-        }
-
-        protected async Task Logout()
-        {
-            await AuthenticationService.Logout();
-            NavigationManager.NavigateTo("/");
         }
     }
 }

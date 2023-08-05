@@ -1,71 +1,24 @@
-﻿@*@inherits NavMenuBase;*@
+﻿@inherits NavMenuBase;
 
-@*<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href=""><img src="/img/logo.svg" alt="Mercadona" class="d-inline-block align-text-top logo"></a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+<MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2">
+    <MudStack Row="true" Class="pa-2">
+        <MudAvatar Class="text-uppercase" Color="Color.Secondary">@nameLetter</MudAvatar>
+        <MudStack Justify="Justify.Center" Spacing="0">
+            <MudText Color="Color.Secondary" Class="text-uppercase" Typo="Typo.subtitle2">@shortName</MudText>
+            <MudText Typo="Typo.caption">@roles</MudText>
+        </MudStack>
+    </MudStack>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
 
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <div class="nav-group-label text-uppercase text-light fw-medium text-opacity-50">Gestion</div>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link text-light fw-medium" href="article/search" Match="NavLinkMatch.All">
-                <span class="bi bi-box-seam" aria-hidden="true"></span> Articles
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link text-light fw-medium text-opacity-75" href="counter">
-                <span class="bi bi-tags" aria-hidden="true"></span> Catégories
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link text-light fw-medium text-opacity-75" href="fetchdata">
-                <span class="bi bi-percent" aria-hidden="true"></span> Fetch
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link text-light fw-medium text-opacity-75" href="login">
-                <span class="bi bi-percent" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
-    </nav>
 
-    <AuthorizeView>
-        <Authorized>
-            <div class="d-flex mt-4 flex-column gap-3">
-                <div class="d-flex align-items-center gap-3 px-4">
-                    <div href="" class="user__avatar">
-                        <span class="user__letter fw-medium text-success">@nameLetter</span>
-                    </div>
-                    <div class="user__texts">
-                        <div class="text-light text-break">
-                            <div class="fw-medium text-capitalize">@shortName</div>
-                            <div class="fw-lighter role">@roles</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="logout px-4">
-                    <div class="d-grid">
-                        <button @onclick="Logout" class="btn btn-light fw-medium opacity-75" type="button"><i class="bi bi-arrow-bar-left"></i> Deconnexion </button>
-                    </div>
-                </div>
-            </div>
-        </Authorized>
-    </AuthorizeView>
-</div>*@
-
-<MudNavMenu>
-    <MudNavGroup Title="Gestion" Expanded="true">
-        <MudNavLink Href="/article/search" Match="NavLinkMatch.Prefix">Articles</MudNavLink>
-        <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix">Catégories</MudNavLink>
-        <MudNavLink Href="/fetchdata" Match="NavLinkMatch.Prefix">Fetch</MudNavLink>
+    <MudDivider Class="my-2" />
+    <MudNavGroup Title="Gestion" Expanded="true" ExpandIcon="@Icons.Material.Filled.KeyboardArrowDown" Icon="@Icons.Material.TwoTone.CorporateFare">
+        <MudNavLink Href="/article/search" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.LocalMall">Articles</MudNavLink>
+        <MudNavLink Href="/counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Kitchen">Catégories</MudNavLink>
+        <MudNavLink Href="/fetchdata" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.MonetizationOn">Promotions</MudNavLink>
     </MudNavGroup>
-    <MudNavLink Href="/about" Match="NavLinkMatch.Prefix">About</MudNavLink>
+    <MudDivider Class="my-2" />
+    <MudNavGroup Title="Admin" Expanded="true" ExpandIcon="@Icons.Material.Filled.KeyboardArrowDown" Icon="@Icons.Material.TwoTone.AdminPanelSettings">
+        <MudNavLink Href="/article/toto" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.SupervisedUserCircle">Utilisateurs</MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>

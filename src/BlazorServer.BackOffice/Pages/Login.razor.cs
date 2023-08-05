@@ -15,16 +15,11 @@ namespace BlazorServer.BackOffice.Pages
         public LoginRequest LoginRequest { get; set; } = new LoginRequest();
         public LoginResponse LoginResponse { get; set; } = new LoginResponse();
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnInitializedAsync()
         {
-            if (firstRender)
-            {
-                var authState = await AuthenticationState;
-                if (authState.User.Identity.IsAuthenticated)
-                    NavigationManager.NavigateTo("/");
-
-                StateHasChanged();
-            }
+            var authState = await AuthenticationState;
+            if (authState.User.Identity.IsAuthenticated)
+                NavigationManager.NavigateTo("/");
         }
 
         protected async Task Login()

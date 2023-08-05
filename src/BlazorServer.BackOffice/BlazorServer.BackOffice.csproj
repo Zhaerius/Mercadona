@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Category\**" />
-    <Content Remove="Pages\Category\**" />
-    <EmbeddedResource Remove="Pages\Category\**" />
-    <None Remove="Pages\Category\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 

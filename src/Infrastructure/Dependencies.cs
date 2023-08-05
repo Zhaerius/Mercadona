@@ -27,6 +27,12 @@ namespace Infrastructure
             services.Configure<IdentityUserOptions>(configuration.GetSection("DefaultAdmin"));
             services.AddSingleton<IJwtService, JwtService>();
 
+            services.AddAuthorization(opts =>
+            {
+                opts.AddPolicy("RequireAdmin", policy => policy.RequireRole("Administrateur"));
+                opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("Utilisateur"));
+            });
+
             return services;
         }
     }

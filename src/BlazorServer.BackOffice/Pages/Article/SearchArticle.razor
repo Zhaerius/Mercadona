@@ -1,6 +1,7 @@
 ﻿@page "/article/search"
 @using BlazorServer.BackOffice.Models;
-@inherits SearchBase
+@inherits SearchArticleBase;
+@attribute [Authorize]
 
 <h3>Search</h3>
 

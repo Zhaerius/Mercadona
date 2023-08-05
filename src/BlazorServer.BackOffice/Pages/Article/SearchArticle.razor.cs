@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
-    public class SearchBase : ComponentBase
+    public class SearchArticleBase : ComponentBase
     {
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;

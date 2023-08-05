@@ -39,12 +39,6 @@ builder.Services
         };
     });
 
-builder.Services.AddAuthorization(opts =>
-{
-    opts.AddPolicy("RequireAdmin", policy => policy.RequireRole("Administrateur"));
-    opts.AddPolicy("RequireUserMercadona", policy => policy.RequireRole("Utilisateur"));
-});
-
 builder.Services.AddCors(policy =>
 {
     policy.AddPolicy("CorsPolicy",

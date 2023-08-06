@@ -14,8 +14,12 @@ namespace BlazorServer.BackOffice.Templates
                     Secondary = "#E07A5F",
                     Tertiary = "#ECBA82",
                     AppbarBackground = "#00A773",
-                    Background = "#fcfcfc"
+                    Background = "#F7FAFC"
                     //Background = "#00a7730a"
+                },
+                LayoutProperties = new LayoutProperties()
+                {
+                    DrawerWidthLeft = "260px",
                 }
             };
         }

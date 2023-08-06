@@ -3,43 +3,54 @@
 @inherits SearchArticleBase;
 @attribute [Authorize]
 
-<MudPaper Class="pa-6" Outlined>
+<MudPaper Class="px-6 py-6 rounded-lg" Elevation="10">
     <div class="d-flex justify-space-between align-content-center gap-2 mb-3">
         <div>
-            <MudText Class="align-self-center" Typo="Typo.h5" Color="Color.Primary">Articles</MudText>
-            <MudText Class="align-self-center" Typo=" Typo.body2">Recherche, ajoute, ou supprime des articles</MudText>
+            <MudText Class="align-self-center" Typo="Typo.h5" Color="Color.Dark">Articles</MudText>
+            <MudText Class="align-self-center" Typo=" Typo.body2" Color="Color.Secondary">Recherche, ajoute, ou supprime des articles</MudText>
         </div>
-        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.TwoTone.AddCircle">Ajouter</MudButton>
+        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Dark" StartIcon="@Icons.Material.TwoTone.AddCircle">Ajouter</MudButton>
     </div>
 
-    <MudDivider Class="mb-6" />
 
-    <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
-        <DataAnnotationsValidator />
-        <MudTextField @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Margin="Margin.Dense" Placeholder="Rechercher par nom..." />
-    </EditForm>
+    <div>
+        <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
+            <DataAnnotationsValidator />
+            <MudTextField Class="search-bar " @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Margin="Margin.Dense" Placeholder="Rechercher par nom..." />
+        </EditForm>
+    </div>
 </MudPaper>
-
 
 @if (Articles is not null)
 {
     @if (Articles.Any())
     {
-        <MudTable Elevation="11" RowsPerPage="25" Items="Articles" Class="my-8" Bordered>
+        <div>
+            <MudTable Dense Elevation="10" RowsPerPage="25" Items="Articles" Class="my-8 rounded-lg search-result">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Résultats de recherche</MudText>
+            <MudSpacer />
+                <MudChip Variant="Variant.Text" Color="Color.Primary">@Articles.Count() éléments</MudChip>
+        </ToolBarContent>
         <HeaderContent>
             <MudTh>Nom</MudTh>
             <MudTh>Catégorie</MudTh>
             <MudTh>Prix</MudTh>
+            <MudTh></MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd DataLabel="Nr">@context.Name</MudTd>
-            <MudTd DataLabel="Sign">@context.CategoryName</MudTd>
-            <MudTd DataLabel="Name">@context.BasePrice</MudTd>
+            <MudTd DataLabel="Nom">@context.Name</MudTd>
+            <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
+            <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
+                <MudTd Style="text-align:right">
+                <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+            </MudTd>
         </RowTemplate>
         <PagerContent>
             <MudTablePager RowsPerPageString="Ligne par page" />
         </PagerContent>
     </MudTable>
+        </div>
 
     }
     else

@@ -18,15 +18,13 @@
 
     <EditForm Model="@LoginRequest" OnValidSubmit="@Login">
         <DataAnnotationsValidator />
-        <MudCard Elevation="0">
-            <MudCardContent>
+        <MudContainer>
                 <MudTextField @bind-Value="LoginRequest.Username" For="@(() => LoginRequest.Username)" Class="my-6" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.AlternateEmail" AdornmentColor="Color.Dark" InputType="InputType.Email" />
                 <MudTextField @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" Label="Mot de passe" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Password" AdornmentColor="Color.Dark" InputType="InputType.Password" />
-            </MudCardContent>
-            <MudCardActions Class="px-4">
+            </MudContainer>
+        <MudContainer Class="mt-4">
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Size="Size.Large" Class="ml-auto" StartIcon="@Icons.Material.Filled.Login">Connexion</MudButton>
-            </MudCardActions>
-        </MudCard>
+            </MudContainer>
     </EditForm>
 
     @if (error)

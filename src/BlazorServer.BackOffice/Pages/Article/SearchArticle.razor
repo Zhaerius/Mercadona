@@ -3,39 +3,44 @@
 @inherits SearchArticleBase;
 @attribute [Authorize]
 
-<h3>Search</h3>
+<MudPaper Class="pa-6" Outlined>
+    <div class="d-flex justify-space-between align-content-center gap-2 mb-3">
+        <div>
+            <MudText Class="align-self-center" Typo="Typo.h5" Color="Color.Primary">Articles</MudText>
+            <MudText Class="align-self-center" Typo=" Typo.body2">Recherche, ajoute, ou supprime des articles</MudText>
+        </div>
+        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Secondary" StartIcon="@Icons.Material.TwoTone.AddCircle">Ajouter</MudButton>
+    </div>
 
-<EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <InputText id="SearchInput" @bind-Value="SearchArticlesRequest.Name" />
-    <button class="btn btn-primary" type="submit">Submit</button>
-</EditForm>
+    <MudDivider Class="mb-6" />
+
+    <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
+        <DataAnnotationsValidator />
+        <MudTextField @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Margin="Margin.Dense" Placeholder="Rechercher par nom..." />
+    </EditForm>
+</MudPaper>
 
 
 @if (Articles is not null)
 {
     @if (Articles.Any())
     {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nom</th>
-                    <th scope="col">Catégories</th>
-                    <th scope="col">Prix</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Articles)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.CategoryName</td>
-                        <td>@item.BasePrice</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <MudTable Elevation="11" RowsPerPage="25" Items="Articles" Class="my-8" Bordered>
+        <HeaderContent>
+            <MudTh>Nom</MudTh>
+            <MudTh>Catégorie</MudTh>
+            <MudTh>Prix</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nr">@context.Name</MudTd>
+            <MudTd DataLabel="Sign">@context.CategoryName</MudTd>
+            <MudTd DataLabel="Name">@context.BasePrice</MudTd>
+        </RowTemplate>
+        <PagerContent>
+            <MudTablePager RowsPerPageString="Ligne par page" />
+        </PagerContent>
+    </MudTable>
+
     }
     else
     {
@@ -43,6 +48,7 @@
     }
 }
 
+@code {
 
 
-
+}

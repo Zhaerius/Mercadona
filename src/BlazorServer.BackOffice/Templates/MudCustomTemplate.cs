@@ -14,6 +14,8 @@ namespace BlazorServer.BackOffice.Templates
                     Secondary = "#E07A5F",
                     Tertiary = "#ECBA82",
                     AppbarBackground = "#00A773",
+                    Background = "#fcfcfc"
+                    //Background = "#00a7730a"
                 }
             };
         }

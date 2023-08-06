@@ -3,53 +3,48 @@
 @inherits SearchArticleBase;
 @attribute [Authorize]
 
-<MudPaper Class="px-6 py-6 rounded-lg" Elevation="10">
-    <div class="d-flex justify-space-between align-content-center gap-2 mb-3">
-        <div>
-            <MudText Class="align-self-center" Typo="Typo.h5" Color="Color.Dark">Articles</MudText>
-            <MudText Class="align-self-center" Typo=" Typo.body2" Color="Color.Secondary">Recherche, ajoute, ou supprime des articles</MudText>
-        </div>
-        <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Dark" StartIcon="@Icons.Material.TwoTone.AddCircle">Ajouter</MudButton>
-    </div>
+<div>
+    <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
+        <DataAnnotationsValidator />
+        <MudTextField Class="search-bar " @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Placeholder="Rechercher par nom..." />
+    </EditForm>
 
 
-    <div>
-        <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
-            <DataAnnotationsValidator />
-            <MudTextField Class="search-bar " @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Margin="Margin.Dense" Placeholder="Rechercher par nom..." />
-        </EditForm>
+    <div class="fixed action-add" style="bottom:16px;right:16px;">
+        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
     </div>
-</MudPaper>
+</div>
 
 @if (Articles is not null)
 {
     @if (Articles.Any())
     {
-        <div>
-            <MudTable Dense Elevation="10" RowsPerPage="25" Items="Articles" Class="my-8 rounded-lg search-result">
-        <ToolBarContent>
-            <MudText Typo="Typo.h6">Résultats de recherche</MudText>
-            <MudSpacer />
-                <MudChip Variant="Variant.Text" Color="Color.Primary">@Articles.Count() éléments</MudChip>
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh>Nom</MudTh>
-            <MudTh>Catégorie</MudTh>
-            <MudTh>Prix</MudTh>
-            <MudTh></MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="Nom">@context.Name</MudTd>
-            <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
-            <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
-                <MudTd Style="text-align:right">
-                <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
-            </MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager RowsPerPageString="Ligne par page" />
-        </PagerContent>
-    </MudTable>
+        <div class="pb-6">
+            <MudTable Dense Elevation="10" RowsPerPage="25" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
+                <ToolBarContent>
+                    <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
+                    <MudText Typo="Typo.h6">Résultats de recherche</MudText>
+                    <MudSpacer />
+                    <MudChip Variant="Variant.Text" Color="Color.Primary">@Articles.Count() éléments</MudChip>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>Nom</MudTh>
+                    <MudTh>Catégorie</MudTh>
+                    <MudTh>Prix</MudTh>
+                    <MudTh></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Nom">@context.Name</MudTd>
+                    <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
+                    <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
+                    <MudTd Style="text-align:right">
+                        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager RowsPerPageString="Ligne par page" />
+                </PagerContent>
+            </MudTable>
         </div>
 
     }

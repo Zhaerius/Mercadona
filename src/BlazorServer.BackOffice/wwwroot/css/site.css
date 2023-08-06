@@ -1,4 +1,8 @@
-﻿.text-uppercase {
+﻿html {
+  overflow-y: scroll;
+}
+
+.text-uppercase {
   text-transform: uppercase;
 }
 

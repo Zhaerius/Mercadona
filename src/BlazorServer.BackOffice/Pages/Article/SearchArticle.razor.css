@@ -11,13 +11,18 @@
 
 ::deep .search-bar {
     background-color: #e8e8e8;
-    height: 42px;
     border-radius: var(--mud-default-borderradius);
 }
 
-    ::deep .search-bar .mud-input.mud-input-outlined .mud-input-outlined-border {
-        border: 0;
-        border-radius: var(--mud-default-borderradius);
-    }
+::deep .search-bar .mud-input.mud-input-outlined .mud-input-outlined-border {
+    border: 0;
+    border-radius: var(--mud-default-borderradius);
+}
+
+::deep .action-add {
+    bottom: 16px;
+    right: 16px;
+    z-index: 2000;
+}
 
 

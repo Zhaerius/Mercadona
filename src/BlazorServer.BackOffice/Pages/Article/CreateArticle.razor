@@ -1,0 +1,14 @@
+﻿@page "/article/create"
+@using BlazorServer.BackOffice.Models;
+@inherits CreateArticleBase
+
+<MudText Typo="Typo.h4" Class="mb-8">Creation d'un article</MudText>
+
+<EditForm @*Model="@CreateArticleRequest"*@ OnValidSubmit="OnValidSubmit">
+<DataAnnotationsValidator/>
+<MudCard>
+    <MudCardContent>
+
+    </MudCardContent>
+</MudCard>
+</EditForm>

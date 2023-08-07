@@ -11,51 +11,51 @@
 
 
     <div class="fixed action-add" style="bottom:16px;right:16px;">
-        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
+        <MudFab Href="/article/create" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
     </div>
 
-@if (Articles is not null)
-{
-    @if (Articles.Any())
+    @if (Articles is not null)
     {
-        <div class="pb-6">
-            <MudTable Dense Elevation="10" RowsPerPage="@rowPerPage" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
-                <ToolBarContent>
-                    <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
-                    <MudText Typo="Typo.h6">Résultats de recherche</MudText>
-                    <MudSpacer />
-                    <MudChip Variant="Variant.Text" Color="Color.Primary">@articleCount éléments</MudChip>
-                </ToolBarContent>
-                <HeaderContent>
-                    <MudTh>Nom</MudTh>
-                    <MudTh>Catégorie</MudTh>
-                    <MudTh>Prix</MudTh>
-                    <MudTh></MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd DataLabel="Nom">@context.Name</MudTd>
-                    <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
-                    <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
-                    <MudTd Style="text-align:right">
-                        <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                            <MudMenuItem>Consulter</MudMenuItem>
-                            <MudMenuItem>Modifier</MudMenuItem>
-                                <MudMenuItem><span @onclick="() => DeleteArticle(context.Id)">Supprimer</span></MudMenuItem>
-                        </MudMenu>
-                    </MudTd>
-                </RowTemplate>
-                <PagerContent>
-                    @if (@displayRowNavigation)
-                    {
-                        <MudTablePager RowsPerPageString="Ligne par page" />
-                    }
-                </PagerContent>
-            </MudTable>
-        </div>
+        @if (Articles.Any())
+        {
+            <div class="pb-6">
+                <MudTable Dense Elevation="10" RowsPerPage="@rowPerPage" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
+                    <ToolBarContent>
+                        <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
+                        <MudText Typo="Typo.h6">Résultats de recherche</MudText>
+                        <MudSpacer />
+                        <MudChip Variant="Variant.Text" Color="Color.Primary">@articleCount éléments</MudChip>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Nom</MudTh>
+                        <MudTh>Catégorie</MudTh>
+                        <MudTh>Prix</MudTh>
+                        <MudTh></MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Nom">@context.Name</MudTd>
+                        <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
+                        <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
+                        <MudTd Style="text-align:right">
+                            <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                                <MudMenuItem>Consulter</MudMenuItem>
+                                <MudMenuItem>Modifier</MudMenuItem>
+                                <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
+                            </MudMenu>
+                        </MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        @if (@displayRowNavigation)
+                        {
+                            <MudTablePager RowsPerPageString="Ligne par page" />
+                        }
+                    </PagerContent>
+                </MudTable>
+            </div>
+        }
+        else
+        {
+            <MudText Typo="Typo.h3" Align="Align.Center" Class="mt-12" Style="@($"color:{Colors.Grey.Lighten1};")">Aucun résultat</MudText>
+        }
     }
-    else
-    {
-        <MudText Typo="Typo.h3" Align="Align.Center" Class="mt-12" Style="@($"color:{Colors.Grey.Lighten1};")">Aucun résultat</MudText>
-    }
-}
 </div>

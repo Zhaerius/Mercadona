@@ -36,7 +36,7 @@ namespace BlazorServer.BackOffice.Services
             return true;
         }
 
-        public async Task<ArticleResponse> GetDetailsArticle(Guid id)
+        public async Task<CreateArticleRequest> GetDetailsArticle(Guid id)
         {
             var response = await _httpClient.GetAsync($"article/{id}");
 
@@ -48,7 +48,7 @@ namespace BlazorServer.BackOffice.Services
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var jsonData = await response.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<ArticleResponse>(jsonData, jsonOptions)!;
+            return JsonSerializer.Deserialize<CreateArticleRequest>(jsonData, jsonOptions)!;
         }
 
 

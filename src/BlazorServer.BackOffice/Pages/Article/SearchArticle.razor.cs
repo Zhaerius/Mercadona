@@ -35,10 +35,6 @@ namespace BlazorServer.BackOffice.Pages.Article
 
         protected async Task DeleteArticle(Guid id)
         {
-            Snackbar.Clear();
-            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomStart;
-            Snackbar.Configuration.SnackbarVariant = Variant.Text;
-
             bool isSucces = await ArticleService.DeleteArticle(id);
 
             if (isSucces)
@@ -49,9 +45,8 @@ namespace BlazorServer.BackOffice.Pages.Article
             }
             else
             {
-                Snackbar.Add("Impossible de supprimer cet article", Severity.Success);
+                Snackbar.Add("Impossible de supprimer cet article", Severity.Error);
             }
-
         }
     }
 }

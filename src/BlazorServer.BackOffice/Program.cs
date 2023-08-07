@@ -7,6 +7,7 @@ using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components.Authorization;
 using BlazorServer.BackOffice.Authentication;
 using MudBlazor.Services;
+using BlazorServer.BackOffice;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddServerSideBlazor();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationCore();
+builder.Services.AddUIDependencies();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -30,7 +32,7 @@ builder.Services.Configure<JsonSerializerOptions>(options => {
     options.PropertyNameCaseInsensitive = true;
 });
 
-builder.Services.AddMudServices();
+
 
 
 var app = builder.Build();

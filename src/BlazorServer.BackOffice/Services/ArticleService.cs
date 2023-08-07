@@ -6,18 +6,15 @@ namespace BlazorServer.BackOffice.Services
 {
     public class ArticleService : IArticleService
     {
-        //private readonly IHttpClientFactory _clientFactory;
         private readonly HttpClient _httpClient;
 
-        public ArticleService(/*IHttpClientFactory clientFactory, */HttpClient httpClient)
+        public ArticleService(HttpClient httpClient)
         {
-            //_clientFactory = clientFactory;
             _httpClient = httpClient;
         }
 
         public async Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name)
         {
-            //var client = _clientFactory.CreateClient("MercaApi");
             var response = await _httpClient.GetAsync($"article/search?name={name}");
 
             if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
@@ -31,7 +28,6 @@ namespace BlazorServer.BackOffice.Services
 
         public async Task<ArticleResponse> GetDetailsArticle(Guid id)
         {
-            //var client = _clientFactory.CreateClient("MercaApi");
             var response = await _httpClient.GetAsync($"article/{id}");
 
             if (!response.IsSuccessStatusCode)

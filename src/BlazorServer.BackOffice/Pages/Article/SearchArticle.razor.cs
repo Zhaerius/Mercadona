@@ -7,6 +7,9 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class SearchArticleBase : ComponentBase
     {
+        protected int rowPerPage = 10;
+        protected bool displayRowNavigation = false;
+        protected int articleCount = 0;
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         protected SearchArticlesRequest SearchArticlesRequest = new();
@@ -14,10 +17,16 @@ namespace BlazorServer.BackOffice.Pages.Article
 
         protected async Task SearchArticles()
         {
-            Articles = await ArticleService.SearchArticles(SearchArticlesRequest.Name);
+            displayRowNavigation = false;
 
-            if (Articles != null && Articles.Count() == 1)
+            Articles = await ArticleService.SearchArticles(SearchArticlesRequest.Name);
+            articleCount = Articles.Count();
+
+            if (Articles != null && articleCount == 1)
                 NavigationManager.NavigateTo($"/article/{Articles.First().Id}");
+
+            if (articleCount > rowPerPage)
+                displayRowNavigation = true;
         }
     }
 }

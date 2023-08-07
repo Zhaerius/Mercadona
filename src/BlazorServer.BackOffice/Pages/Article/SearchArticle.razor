@@ -6,7 +6,7 @@
 <div>
     <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
         <DataAnnotationsValidator />
-        <MudTextField Class="search-bar " @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Placeholder="Rechercher par nom..." />
+        <MudTextField Class="search-bar" @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Placeholder="Rechercher un article par son nom..." />
     </EditForm>
 
 
@@ -20,12 +20,12 @@
     @if (Articles.Any())
     {
         <div class="pb-6">
-            <MudTable Dense Elevation="10" RowsPerPage="25" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
+            <MudTable Dense Elevation="10" RowsPerPage="@rowPerPage" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
                 <ToolBarContent>
                     <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
                     <MudText Typo="Typo.h6">Résultats de recherche</MudText>
                     <MudSpacer />
-                    <MudChip Variant="Variant.Text" Color="Color.Primary">@Articles.Count() éléments</MudChip>
+                    <MudChip Variant="Variant.Text" Color="Color.Primary">@articleCount éléments</MudChip>
                 </ToolBarContent>
                 <HeaderContent>
                     <MudTh>Nom</MudTh>
@@ -42,19 +42,16 @@
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>
-                    <MudTablePager RowsPerPageString="Ligne par page" />
+                    @if (@displayRowNavigation)
+                    {
+                        <MudTablePager RowsPerPageString="Ligne par page" />
+                    }
                 </PagerContent>
             </MudTable>
         </div>
-
     }
     else
     {
-        <div>Aucun résultat</div>
+        <MudText Typo="Typo.h3" Align="Align.Center" Class="mt-12" Style="@($"color:{Colors.Grey.Lighten1};")">Aucun résultat</MudText>
     }
-}
-
-@code {
-
-
 }

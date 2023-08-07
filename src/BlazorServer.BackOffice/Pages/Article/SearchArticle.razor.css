@@ -11,7 +11,7 @@
 
 ::deep .search-bar {
     background-color: #e8e8e8;
-    border-radius: var(--mud-default-borderradius);
+    border-radius: 10px;
 }
 
 ::deep .search-bar .mud-input.mud-input-outlined .mud-input-outlined-border {
@@ -20,8 +20,8 @@
 }
 
 ::deep .action-add {
-    bottom: 16px;
-    right: 16px;
+    bottom: 24px;
+    right: 24px;
     z-index: 2000;
 }
 

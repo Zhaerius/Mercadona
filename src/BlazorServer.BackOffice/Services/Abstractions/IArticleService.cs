@@ -6,5 +6,6 @@ namespace BlazorServer.BackOffice.Services.Abstractions
     {
         Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
         Task<ArticleResponse> GetDetailsArticle(Guid id);
+        Task<bool> DeleteArticle(Guid id);
     }
 }

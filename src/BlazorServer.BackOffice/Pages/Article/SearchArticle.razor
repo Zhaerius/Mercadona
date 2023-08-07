@@ -13,7 +13,6 @@
     <div class="fixed action-add" style="bottom:16px;right:16px;">
         <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
     </div>
-</div>
 
 @if (Articles is not null)
 {
@@ -38,7 +37,11 @@
                     <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
                     <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
                     <MudTd Style="text-align:right">
-                        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" Edge="Edge.End" />
+                        <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                            <MudMenuItem>Consulter</MudMenuItem>
+                            <MudMenuItem>Modifier</MudMenuItem>
+                                <MudMenuItem><span @onclick="() => DeleteArticle(context.Id)">Supprimer</span></MudMenuItem>
+                        </MudMenu>
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>
@@ -55,3 +58,4 @@
         <MudText Typo="Typo.h3" Align="Align.Center" Class="mt-12" Style="@($"color:{Colors.Grey.Lighten1};")">Aucun résultat</MudText>
     }
 }
+</div>

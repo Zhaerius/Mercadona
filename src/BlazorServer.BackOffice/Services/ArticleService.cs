@@ -26,6 +26,16 @@ namespace BlazorServer.BackOffice.Services
             return JsonSerializer.Deserialize<IEnumerable<SearchArticlesResponse>>(jsonData, jsonOptions)!;
         }
 
+        public async Task<bool> DeleteArticle(Guid id)
+        {
+            var response = await _httpClient.DeleteAsync($"article/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                return false;
+
+            return true;
+        }
+
         public async Task<ArticleResponse> GetDetailsArticle(Guid id)
         {
             var response = await _httpClient.GetAsync($"article/{id}");
@@ -40,5 +50,7 @@ namespace BlazorServer.BackOffice.Services
 
             return JsonSerializer.Deserialize<ArticleResponse>(jsonData, jsonOptions)!;
         }
+
+
     }
 }

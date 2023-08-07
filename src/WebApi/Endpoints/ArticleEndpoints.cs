@@ -43,7 +43,7 @@ namespace WebApi.Endpoints
             });
 
             // Supression d'un article
-            group.MapPost("/{id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
+            group.MapDelete("/{id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
             {
                 await mediator.Send(new DeleteArticleCommand(Id));
                 return Results.NoContent();

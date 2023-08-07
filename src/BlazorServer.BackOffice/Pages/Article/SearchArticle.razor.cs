@@ -2,6 +2,8 @@
 using BlazorServer.BackOffice.Services.Abstractions;
 using BlazorServer.BackOffice.Models;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
+using static MudBlazor.Defaults.Classes;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
@@ -10,8 +12,10 @@ namespace BlazorServer.BackOffice.Pages.Article
         protected int rowPerPage = 10;
         protected bool displayRowNavigation = false;
         protected int articleCount = 0;
+
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        [Inject] ISnackbar Snackbar { get; set; } = null!;
         protected SearchArticlesRequest SearchArticlesRequest = new();
         protected IEnumerable<SearchArticlesResponse>? Articles;
 
@@ -27,6 +31,27 @@ namespace BlazorServer.BackOffice.Pages.Article
 
             if (articleCount > rowPerPage)
                 displayRowNavigation = true;
+        }
+
+        protected async Task DeleteArticle(Guid id)
+        {
+            Snackbar.Clear();
+            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomStart;
+            Snackbar.Configuration.SnackbarVariant = Variant.Text;
+
+            bool isSucces = await ArticleService.DeleteArticle(id);
+
+            if (isSucces)
+            {
+                Snackbar.Add("Article correctement supprimé", Severity.Success);
+                Articles = Articles.Where(a => a.Id != id).ToList();
+                articleCount = Articles.Count();
+            }
+            else
+            {
+                Snackbar.Add("Impossible de supprimer cet article", Severity.Success);
+            }
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace BlazorServer.BackOffice.Templates
                 },
                 LayoutProperties = new LayoutProperties()
                 {
-                    DrawerWidthLeft = "260px",
+                    DrawerWidthLeft = "260px"
                 }
             };
         }

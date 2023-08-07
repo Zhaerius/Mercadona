@@ -10,6 +10,11 @@
   text-transform: lowercase;
 }
 
+.strong-radius {
+  border-radius: var(--border-radius-strong);
+}
+
 :root {
+  --border-radius-strong: 10px;
   --mud-elevation-10: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px !important;
 }

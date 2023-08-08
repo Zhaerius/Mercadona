@@ -1,0 +1,40 @@
+﻿@page "/category"
+@using BlazorServer.BackOffice.Models;
+@attribute [Authorize]
+@inherits CategoriesBase
+
+
+<MudTable Elevation="10" Items="Categories" Class="my-8 mb-6 rounded-lg" Filter="new Func<CategoryModel,bool>(FilterFunc)">
+
+    <ToolBarContent>
+            <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.Kitchen" Color="Color.Inherit" />
+            <MudText Typo="Typo.h6">Les Catégories</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Variant="Variant.Text" Placeholder="Rechercher une catégorie" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Class="mt-0 mr-3 mb-2"></MudTextField>
+    </ToolBarContent>
+
+    <HeaderContent>
+        <MudTh>Nom</MudTh>
+        <MudTh>Nombre d'articles</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Name</MudTd>
+        <MudTd DataLabel="Sign">@context.NumberArticles</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    private string searchString = "";
+
+    private bool FilterFunc(CategoryModel category)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (category.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+}

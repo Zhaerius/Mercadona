@@ -18,9 +18,20 @@ namespace Application.Core.Features.Category.Queries.GetCategories
 
         public async Task<IEnumerable<GetCategoriesQueryResponse>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            var categories = await _dbContext.Categories.ToListAsync(cancellationToken);
+            var categories = await _dbContext
+                .Categories
+                .Include(r => r.Articles)
+                .ToListAsync(cancellationToken);
 
-            return _mapper.Map<IEnumerable<GetCategoriesQueryResponse>>(categories);
+            var categoriesDto = new List<GetCategoriesQueryResponse>();
+
+            foreach (var category in categories)
+            {
+                var artToAdd = new GetCategoriesQueryResponse(category.Id, category.Name, category.Articles.Count());
+                categoriesDto.Add(artToAdd);
+            }
+
+            return categoriesDto.OrderByDescending(o => o.NumberArticles);
         }
     }
 }

@@ -14,8 +14,8 @@
         <MudItem xs="9">
             <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
                 <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" Placeholder="Coco Pops" />
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Description" T="string" Lines="5" />
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" Placeholder="@FakePlaceholder.Name" />
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Description" Placeholder="@FakePlaceholder.Description" T="string" Lines="5" />
                     <MudSelect T="string" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
                         <MudSelectItem Value="@("Chaussures")" />
                         <MudSelectItem Value="@("Fruit")" />
@@ -35,13 +35,28 @@
         <MudItem xs="9">
             <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
                 <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" />
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Description" />
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Image" />
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.BasePrice" For="@(() => ArticleToCreate.BasePrice)" Label="Prix de base"/>
+                    <MudSelect T="string" Variant="Variant.Outlined" Label="Promotions" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem Value="@("Chaussures")" />
+                        <MudSelectItem Value="@("Fruit")" />
+                        <MudSelectItem Value="@("Légumes")" />
+                    </MudSelect>
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Prix calculé" Disabled Placeholder="@FakePlaceholder.BasePrice.ToString()" />
                 </MudCardContent>
             </MudCard>
         </MudItem>
     </MudGrid>
+
+    <MudGrid Class="my-4">
+        <MudItem xs="3">
+        </MudItem>
+        <MudItem xs="9" Class="d-flex justify-space-between flex-grow-1">
+            <MudSwitch @bind-Checked="@FakePlaceholder.Publish" Color="Color.Primary" Label="Publié" />
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
+        </MudItem>
+    </MudGrid>
+
+
 
 
 

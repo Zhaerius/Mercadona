@@ -7,22 +7,24 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class CreateArticleBase : ComponentBase
     {
-        //[Inject]
-        //private IMediator mediator { get; set; }
-        //protected ArticleModel article { get; set; } = new();
+        protected CreateArticleModel ArticleToCreate { get; set; } = new();
+        protected CreateArticleModel FakePlaceholder => CreateFakePlaceholder();
 
-        //protected async Task HandleSubmit()
-        //{
-        //    //var query = new CreateArticleCommand();
-        //    //query.Name = article.Name;
-
-        //    //var articles = await mediator.Send(query);
-
-        public CreateArticleModel ArticleToCreate { get; set; } = new();
 
         protected async Task OnValidSubmit()
         {
 
+        }
+
+        private CreateArticleModel CreateFakePlaceholder()
+        {
+            return new CreateArticleModel
+            {
+                Name = "Coco Pops",
+                Description = "Pour bien commencer la journée, rien de tel qu'un petit déjeuner avec Coco Pops de Kellogg's et son ami Coco, le singe malicieux ! De délicieuses céréales de riz soufflé au bon goût de chocolat de la jungle",
+                BasePrice = 2.49,
+                Publish = true,
+            };
         }
 
     }

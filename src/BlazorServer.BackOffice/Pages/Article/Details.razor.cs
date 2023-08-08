@@ -10,7 +10,7 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Parameter] public Guid Id { get; set; }
         [Inject] private IArticleService ApiService { get; set; } = null!;
 
-        protected CreateArticleRequest? ArticleResponse;
+        protected CreateArticleModel? ArticleResponse;
 
 
         protected async override Task OnInitializedAsync()

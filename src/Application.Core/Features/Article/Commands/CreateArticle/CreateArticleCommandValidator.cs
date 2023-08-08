@@ -16,6 +16,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             RuleFor(article => article.BasePrice).NotNull().NotEmpty();
             RuleFor(article => article.Image).NotNull().NotEmpty();
             RuleFor(article => article.CategoryId).NotNull().NotEmpty();
+            RuleFor(article => article.Publish).NotNull().NotEmpty();
         }
     }
 }

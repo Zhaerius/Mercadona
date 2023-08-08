@@ -4,11 +4,45 @@
 
 <MudText Typo="Typo.h4" Class="mb-8">Creation d'un article</MudText>
 
-<EditForm @*Model="@CreateArticleRequest"*@ OnValidSubmit="OnValidSubmit">
-<DataAnnotationsValidator/>
-<MudCard>
-    <MudCardContent>
+<EditForm Model="@ArticleToCreate" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid Class="mb-4">
+        <MudItem xs="3">
+            <MudText Typo="Typo.h6">Détails</MudText>
+            <MudText Typo="Typo.body2">Nom, description...</MudText>
+        </MudItem>
+        <MudItem xs="9">
+            <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
+                <MudCardContent Class="d-flex flex-column gap-4">
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" Placeholder="Coco Pops" />
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Description" T="string" Lines="5" />
+                    <MudSelect T="string" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem Value="@("Chaussures")" />
+                        <MudSelectItem Value="@("Fruit")" />
+                        <MudSelectItem Value="@("Légumes")" />
+                    </MudSelect>
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Image" />
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 
-    </MudCardContent>
-</MudCard>
+    <MudGrid>
+        <MudItem xs="3">
+            <MudText Typo="Typo.h6">Prix</MudText>
+            <MudText Typo="Typo.body2">Prix de vente et promotions</MudText>
+        </MudItem>
+        <MudItem xs="9">
+            <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
+                <MudCardContent Class="d-flex flex-column gap-4">
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" />
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Description" />
+                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Image" />
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+
+
 </EditForm>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,18 +10,20 @@ namespace Application.Core.Entities
 {
     public class ArticleEntity : BaseEntity
     {
-        public required string Name { get; set; }
+        private PromotionEntity? _currentPromotion;
+        private double _discountPrice;
+
+        public string? Name { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
         public double BasePrice { get; set; }
-        public required Guid CategoryId { get; set; }
-        public required CategoryEntity Category { get; set; }
+        public Guid CategoryId { get; set; }
+        public CategoryEntity Category { get; set; }
         public ICollection<PromotionEntity>? Promotions { get; set; }
+        public bool Publish { get; set; }
         public bool OnDiscount { get; set; }
 
-
         //Application auto de la promotion la plus avantageuse pour le client
-        private PromotionEntity? _currentPromotion;
         public PromotionEntity? CurrentPromotion
         {
             get => _currentPromotion;
@@ -39,7 +42,6 @@ namespace Application.Core.Entities
         }
 
         //Calcul du prix avec remise
-        private double _discountPrice;  
         public double DiscountPrice
         {
             get => _discountPrice;

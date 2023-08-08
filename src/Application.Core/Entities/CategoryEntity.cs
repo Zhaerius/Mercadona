@@ -8,7 +8,7 @@ namespace Application.Core.Entities
 {
     public class CategoryEntity : BaseEntity
     {
-        public required string Name { get; set; }
+        public string? Name { get; set; }
         public IEnumerable<ArticleEntity>? Articles { get; set; }
     }
 }

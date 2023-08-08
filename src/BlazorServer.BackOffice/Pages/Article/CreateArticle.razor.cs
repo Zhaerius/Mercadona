@@ -1,4 +1,5 @@
 ﻿
+using BlazorServer.BackOffice.Models;
 using Microsoft.AspNetCore.Components;
 
 
@@ -16,6 +17,8 @@ namespace BlazorServer.BackOffice.Pages.Article
         //    //query.Name = article.Name;
 
         //    //var articles = await mediator.Send(query);
+
+        public CreateArticleModel ArticleToCreate { get; set; } = new();
 
         protected async Task OnValidSubmit()
         {

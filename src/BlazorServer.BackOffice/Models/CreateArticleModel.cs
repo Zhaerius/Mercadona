@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace BlazorServer.BackOffice.Models
 {
-    public class ArticleResponse
+    public class CreateArticleModel
     {
-        public ArticleResponse(Guid id, string name, string? description, string? image, double basePrice)
+        public CreateArticleModel()
+        {
+            
+        }
+        public CreateArticleModel(Guid id, string name, string? description, string? image, double basePrice)
         {
             Id = id;
             Name = name;

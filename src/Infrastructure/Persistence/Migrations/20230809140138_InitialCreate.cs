@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -193,7 +193,7 @@ namespace Infrastructure.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     Image = table.Column<string>(type: "text", nullable: true),
                     BasePrice = table.Column<double>(type: "double precision", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: true),
                     Publish = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

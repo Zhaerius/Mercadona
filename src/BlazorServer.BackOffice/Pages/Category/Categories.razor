@@ -3,7 +3,7 @@
 @attribute [Authorize]
 @inherits CategoriesBase
 
-
+@*
 <MudTable Elevation="10" Items="Categories" Class="my-8 mb-6 rounded-lg" Filter="new Func<CategoryModel,bool>(FilterFunc)">
 
     <ToolBarContent>
@@ -16,12 +16,47 @@
     <HeaderContent>
         <MudTh>Nom</MudTh>
         <MudTh>Nombre d'articles</MudTh>
+        <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nr">@context.Name</MudTd>
         <MudTd DataLabel="Sign">@context.NumberArticles</MudTd>
+        <MudTd Style="text-align:right">
+            <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                <MudMenuItem>Modifier</MudMenuItem>
+                <MudMenuItem @onclick="() => DeleteCategory(context.Id)">Supprimer</MudMenuItem>
+            </MudMenu>
+        </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager />
+        @if (@displayRowNavigation)
+        {
+            <MudTablePager RowsPerPageString="Ligne par page" />
+        }
     </PagerContent>
 </MudTable>
+*@
+
+
+<MudDataGrid T="CategoryModel" Items="Categories" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+             Bordered="true" Dense="true" CommittedItemChanges="@CommittedItemChanges" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
+    <Columns>
+        <PropertyColumn Property="x => x.Name" />
+        <PropertyColumn Property="x => x.NumberArticles" >
+            <EditTemplate>
+            </EditTemplate>
+        </PropertyColumn>
+        <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
+            <CellTemplate>
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+
+@code {
+    private bool _readOnly;
+    private bool _isCellEditMode;
+    private bool _editTriggerRowClick;
+}

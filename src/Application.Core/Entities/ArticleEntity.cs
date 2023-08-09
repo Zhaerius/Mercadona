@@ -17,8 +17,8 @@ namespace Application.Core.Entities
         public string? Description { get; set; }
         public string? Image { get; set; }
         public double BasePrice { get; set; }
-        public Guid CategoryId { get; set; }
-        public CategoryEntity Category { get; set; }
+        public Guid? CategoryId { get; set; }
+        public CategoryEntity? Category { get; set; }
         public ICollection<PromotionEntity>? Promotions { get; set; }
         public bool Publish { get; set; }
         public bool OnDiscount { get; set; }

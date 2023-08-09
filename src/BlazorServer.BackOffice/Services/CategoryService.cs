@@ -1,6 +1,5 @@
 ﻿using BlazorServer.BackOffice.Models;
 using BlazorServer.BackOffice.Services.Abstractions;
-using Bogus.DataSets;
 using System.Text.Json;
 
 namespace BlazorServer.BackOffice.Services
@@ -25,6 +24,28 @@ namespace BlazorServer.BackOffice.Services
             var jsonData = await response.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<IEnumerable<CategoryModel>>(jsonData, jsonOptions)!;
+        }
+
+        public async Task<bool> DeleteCategory(Guid id)
+        {
+            var response = await _httpClient.DeleteAsync($"category/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                return false;
+
+            return true;
+        }
+
+        public async Task<bool> UpdateCategory(CategoryModel category)
+        {
+
+            var requestJson = JsonContent.Create(loginRequest);
+            var response = await _httpClient.PutAsync($"category/{category.Id}", );
+
+            if (!response.IsSuccessStatusCode)
+                return false;
+
+            return true;
         }
 
     }

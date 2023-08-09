@@ -23,7 +23,7 @@ namespace WebApi.Endpoints
             });
 
             // Supprimer une catégorie
-            group.MapPost("/{Id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
+            group.MapDelete("/{Id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
             {
                 await mediator.Send(new DeleteCategoryCommand(Id));
                 return Results.NoContent();

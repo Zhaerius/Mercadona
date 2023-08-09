@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Configurations
 {
-    internal class ArticleConfiguration : IEntityTypeConfiguration<ArticleEntity>
+    public class ArticleConfiguration : IEntityTypeConfiguration<ArticleEntity>
     {
         public void Configure(EntityTypeBuilder<ArticleEntity> builder)
         {

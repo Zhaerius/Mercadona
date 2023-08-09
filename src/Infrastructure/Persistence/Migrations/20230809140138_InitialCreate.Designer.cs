@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Infrastructure.Migrations
+namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MercaDbContext))]
-    [Migration("20230808142629_InitialCreate")]
+    [Migration("20230809140138_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
                     b.Property<double>("BasePrice")
                         .HasColumnType("double precision");
 
-                    b.Property<Guid>("CategoryId")
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
@@ -309,8 +309,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Application.Core.Entities.CategoryEntity", "Category")
                         .WithMany("Articles")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Category");
                 });

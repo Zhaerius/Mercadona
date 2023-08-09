@@ -1,10 +1,11 @@
 ﻿using Application.Core.Abstractions;
 using Application.Core.Exceptions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Category.Commands.DeleteCategory
 {
-    internal class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
+    public class DeleteCategoryCommandHandler : IRequestHandler<DeleteCategoryCommand>
     {
         private readonly IApplicationDbContext _dbContext;
 

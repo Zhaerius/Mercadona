@@ -38,8 +38,6 @@ namespace BlazorServer.BackOffice.Services
 
         public async Task<bool> UpdateCategory(CategoryModel category)
         {
-            //dzdzd
-
             var response = await _httpClient.PutAsync($"category/{category.Id}", );
 
             if (!response.IsSuccessStatusCode)

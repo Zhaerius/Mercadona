@@ -8,12 +8,10 @@ namespace Application.Core.Features.Category.Queries.GetCategories
     public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQuery, IEnumerable<GetCategoriesQueryResponse>>
     {
         private readonly IApplicationDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public GetCategoriesQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
+        public GetCategoriesQueryHandler(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
 
         public async Task<IEnumerable<GetCategoriesQueryResponse>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)

@@ -25,16 +25,3 @@
         <MudTablePager />
     </PagerContent>
 </MudTable>
-
-@code {
-    private string searchString = "";
-
-    private bool FilterFunc(CategoryModel category)
-    {
-        if (string.IsNullOrWhiteSpace(searchString))
-            return true;
-        if (category.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-            return true;
-        return false;
-    }
-}

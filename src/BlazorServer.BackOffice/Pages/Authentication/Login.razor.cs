@@ -10,14 +10,14 @@ namespace BlazorServer.BackOffice.Pages.Authentication
         protected bool error;
         [Inject] private IAuthenticationService AuthenticationService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-        [CascadingParameter] Task<AuthenticationState>? AuthenticationState { get; set; } = null!;
+        [CascadingParameter] private Task<AuthenticationState> AuthenticationState { get; set; } = null!;
         public LoginRequest LoginRequest { get; set; } = new LoginRequest();
         public LoginResponse LoginResponse { get; set; } = new LoginResponse();
 
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationState;
-            if (authState.User.Identity.IsAuthenticated)
+            if (authState.User.Identity!.IsAuthenticated)
                 NavigationManager.NavigateTo("/");
         }
 

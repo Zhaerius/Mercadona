@@ -8,7 +8,7 @@ namespace Application.Core.Entities
 {
     public class PromotionEntity : BaseEntity
     {
-        public string? Name { get; set; }
+        public required string Name { get; set; }
         public DateOnly Start { get; set; }
         public DateOnly End { get; set; }
         public int Discount { get; set; }

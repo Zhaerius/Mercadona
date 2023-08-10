@@ -6,5 +6,7 @@ namespace BlazorServer.BackOffice.Services.Abstractions
     {
         Task<IEnumerable<CategoryModel>> GetCategories();
         Task<bool> DeleteCategory(Guid id);
+
+        Task<bool> UpdateCategory(UpdateCategoryRequest updateCategoryRequest);
     }
 }

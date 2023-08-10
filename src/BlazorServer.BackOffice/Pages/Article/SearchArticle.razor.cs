@@ -16,8 +16,8 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [Inject] ISnackbar Snackbar { get; set; } = null!;
-        protected SearchArticlesRequest SearchArticlesRequest = new();
-        protected IEnumerable<SearchArticlesResponse>? Articles;
+        protected SearchArticlesRequest SearchArticlesRequest { get; set; } = new();
+        protected IEnumerable<SearchArticlesResponse> Articles { get; set; } = null!;
 
         protected async Task SearchArticles()
         {
@@ -26,7 +26,7 @@ namespace BlazorServer.BackOffice.Pages.Article
             Articles = await ArticleService.SearchArticles(SearchArticlesRequest.Name);
             articleCount = Articles.Count();
 
-            if (Articles != null && articleCount == 1)
+            if (articleCount == 1)
                 NavigationManager.NavigateTo($"/article/{Articles.First().Id}");
 
             if (articleCount > rowPerPage)
@@ -39,9 +39,9 @@ namespace BlazorServer.BackOffice.Pages.Article
 
             if (isSucces)
             {
-                Snackbar.Add("Article correctement supprimé", Severity.Success);
                 Articles = Articles.Where(a => a.Id != id).ToList();
                 articleCount = Articles.Count();
+                Snackbar.Add("Article correctement supprimé", Severity.Success);
             }
             else
             {

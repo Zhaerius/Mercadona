@@ -30,10 +30,7 @@ namespace BlazorServer.BackOffice.Services
         {
             var response = await _httpClient.DeleteAsync($"article/{id}");
 
-            if (!response.IsSuccessStatusCode)
-                return false;
-
-            return true;
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<CreateArticleModel> GetDetailsArticle(Guid id)

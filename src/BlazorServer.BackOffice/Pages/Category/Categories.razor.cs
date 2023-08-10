@@ -14,7 +14,7 @@ namespace BlazorServer.BackOffice.Pages.Category
 
         [Inject] private ICategoryService CategoryService { get; set; } = null!;
         [Inject] ISnackbar Snackbar { get; set; } = null!;
-        protected IEnumerable<CategoryModel> Categories { get; set; }
+        protected IEnumerable<CategoryModel> Categories { get; set; } = null!;
 
 
         protected override async Task OnInitializedAsync()
@@ -49,10 +49,31 @@ namespace BlazorServer.BackOffice.Pages.Category
             }
         }
 
-        protected void CommittedItemChanges(CategoryModel category)
+        protected async Task CanceledEditingItem(CategoryModel meeting)
         {
-            
-            //item.
+            // code needed for canceling changes
+        }
+
+        protected async Task CommittedItemChanges(CategoryModel category)
+        {
+            var categoryUpdated = new UpdateCategoryRequest()
+            {
+                Id = category.Id,
+                Name = category.Name,
+            };
+
+            var result = await CategoryService.UpdateCategory(categoryUpdated);
+
+            if (result)
+            {
+                Snackbar.Add("Catégorie correctement modifié", Severity.Success);
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add("Modification impossible", Severity.Error);
+                await CanceledEditingItem(category);
+            }
         }
 
 

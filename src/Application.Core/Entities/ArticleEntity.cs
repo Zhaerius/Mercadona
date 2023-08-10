@@ -13,7 +13,7 @@ namespace Application.Core.Entities
         private PromotionEntity? _currentPromotion;
         private double _discountPrice;
 
-        public string? Name { get; set; }
+        public required string Name { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
         public double BasePrice { get; set; }

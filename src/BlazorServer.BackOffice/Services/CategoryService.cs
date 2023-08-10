@@ -30,20 +30,15 @@ namespace BlazorServer.BackOffice.Services
         {
             var response = await _httpClient.DeleteAsync($"category/{id}");
 
-            if (!response.IsSuccessStatusCode)
-                return false;
-
-            return true;
+            return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> UpdateCategory(CategoryModel category)
+        public async Task<bool> UpdateCategory(UpdateCategoryRequest updateCategoryRequest)
         {
-            var response = await _httpClient.PutAsync($"category/{category.Id}", );
+            var jsonContent = JsonContent.Create(updateCategoryRequest);
+            var response = await _httpClient.PutAsync($"category/", jsonContent);
 
-            if (!response.IsSuccessStatusCode)
-                return false;
-
-            return true;
+            return response.IsSuccessStatusCode;
         }
 
     }

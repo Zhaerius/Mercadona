@@ -1,4 +1,5 @@
-﻿using MudBlazor;
+﻿using BlazorServer.BackOffice.Templates;
+using MudBlazor;
 using MudBlazor.Services;
 
 namespace BlazorServer.BackOffice
@@ -21,6 +22,8 @@ namespace BlazorServer.BackOffice
                 config.SnackbarConfiguration.ShowTransitionDuration = 500;
                 config.SnackbarConfiguration.SnackbarVariant = Variant.Text;
             });
+
+            services.AddTransient<MudLocalizer, MyMudLocalizer>();
 
             return services;
         }

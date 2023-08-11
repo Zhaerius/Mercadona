@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using BlazorServer.BackOffice.Authentication;
 using MudBlazor.Services;
 using BlazorServer.BackOffice;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
+
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CreateSpecificCulture("fr");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!) });
 

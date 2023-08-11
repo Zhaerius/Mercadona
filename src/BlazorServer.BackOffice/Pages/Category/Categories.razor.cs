@@ -2,7 +2,10 @@
 using BlazorServer.BackOffice.Services;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.JSInterop;
 using MudBlazor;
+using MudBlazor.Utilities;
 
 namespace BlazorServer.BackOffice.Pages.Category
 {
@@ -13,8 +16,9 @@ namespace BlazorServer.BackOffice.Pages.Category
         protected bool displayRowNavigation = false; 
 
         [Inject] private ICategoryService CategoryService { get; set; } = null!;
-        [Inject] ISnackbar Snackbar { get; set; } = null!;
+        [Inject] private ISnackbar Snackbar { get; set; } = null!;
         protected IEnumerable<CategoryModel> Categories { get; set; } = null!;
+        [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
 
 
         protected override async Task OnInitializedAsync()
@@ -29,9 +33,8 @@ namespace BlazorServer.BackOffice.Pages.Category
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
-            if (category.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase))
-                return true;
-            return false;
+
+            return category.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase);
         }
 
         protected async Task DeleteCategory(Guid id)
@@ -49,11 +52,6 @@ namespace BlazorServer.BackOffice.Pages.Category
             }
         }
 
-        protected async Task CanceledEditingItem(CategoryModel meeting)
-        {
-            // code needed for canceling changes
-        }
-
         protected async Task CommittedItemChanges(CategoryModel category)
         {
             var categoryUpdated = new UpdateCategoryRequest()
@@ -67,15 +65,23 @@ namespace BlazorServer.BackOffice.Pages.Category
             if (result)
             {
                 Snackbar.Add("Catégorie correctement modifié", Severity.Success);
-                StateHasChanged();
             }
             else
             {
                 Snackbar.Add("Modification impossible", Severity.Error);
-                await CanceledEditingItem(category);
+                Categories = await CategoryService.GetCategories();
             }
         }
 
+        protected async Task FormFieldChanged(FormFieldChangedEventArgs eventArgs)
+        {
+            var categoryUpdated = eventArgs.NewValue.ToString();
+            await ChangeStatusButton(string.IsNullOrWhiteSpace(categoryUpdated));
+        }
 
+        private async Task ChangeStatusButton(bool isDisabled)
+        {
+            await JSRuntime.InvokeVoidAsync("ChangeStatusButton", isDisabled);
+        }
     }
 }

@@ -1,0 +1,7 @@
+﻿<div class="fixed action-add" style="bottom:16px;right:16px;">
+    <MudFab Href="@Link" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
+</div>
+
+@code {
+    [CascadingParameter] public string Link { get; set; }
+}

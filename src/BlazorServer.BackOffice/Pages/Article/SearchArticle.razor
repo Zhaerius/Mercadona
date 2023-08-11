@@ -3,16 +3,15 @@
 @inherits SearchArticleBase;
 @attribute [Authorize]
 
+<CascadingValue Value="@linkAdd">
+    <AddButton></AddButton>
+</CascadingValue>
+
 <div>
     <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
         <DataAnnotationsValidator />
         <MudTextField Class="search-bar" @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Placeholder="Rechercher un article par son nom..." />
     </EditForm>
-
-
-    <div class="fixed action-add" style="bottom:16px;right:16px;">
-        <MudFab Href="/article/create" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" />
-    </div>
 
     @if (Articles is not null)
     {

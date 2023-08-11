@@ -18,6 +18,7 @@ namespace BlazorServer.BackOffice.Pages.Category
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         protected IEnumerable<CategoryModel> Categories { get; set; } = null!;
         [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
+        protected string LinkAddCategory { get; set; } = "/article/create";
 
 
         protected override async Task OnInitializedAsync()

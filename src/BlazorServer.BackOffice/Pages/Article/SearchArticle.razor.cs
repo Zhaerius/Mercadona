@@ -12,12 +12,14 @@ namespace BlazorServer.BackOffice.Pages.Article
         protected int rowPerPage = 10;
         protected bool displayRowNavigation = false;
         protected int articleCount = 0;
+        protected string linkAdd = "/article/create";
 
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [Inject] ISnackbar Snackbar { get; set; } = null!;
         protected SearchArticlesRequest SearchArticlesRequest { get; set; } = new();
         protected IEnumerable<SearchArticlesResponse> Articles { get; set; } = null!;
+
 
         protected async Task SearchArticles()
         {

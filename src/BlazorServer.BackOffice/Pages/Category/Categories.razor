@@ -3,27 +3,55 @@
 @attribute [Authorize]
 @inherits CategoriesBase
 
-
-<MudDataGrid T="CategoryModel" Items="Categories" ReadOnly="false" EditMode="@DataGridEditMode.Form" FormFieldChanged="@FormFieldChanged" CommittedItemChanges="@CommittedItemChanges" EditTrigger="@DataGridEditTrigger.Manual" SortMode="SortMode.None" Elevation="10" Class="rounded-lg" QuickFilter="new Func<CategoryModel,bool>(FilterFunc)">
-    <ToolBarContent>
-        <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.Kitchen" Color="Color.Inherit" />
-        <MudText Typo="Typo.h6">Résultats de recherche</MudText>
-        <MudSpacer />
-        <MudTextField @bind-Value="searchString" Variant="Variant.Text" Placeholder="Rechercher une catégorie" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Class="mt-0 mr-3 mb-2"></MudTextField>
-    </ToolBarContent>
-    <Columns>
-        <PropertyColumn Property="x => x.Name" Title="Nom" />
-        <PropertyColumn IsEditable="false" Property="x => x.NumberArticles" Title="Nombre d'articles">
-            <EditTemplate></EditTemplate>
-        </PropertyColumn>
-        <TemplateColumn CellClass="d-flex justify-end">
-            <CellTemplate>
-                <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                    <MudMenuItem OnClick="@context.Actions.StartEditingItemAsync">Modifier</MudMenuItem>
-                    <MudMenuItem OnClick="@(() => DeleteCategory(@context.Item.Id))">Supprimer</MudMenuItem>
-                </MudMenu>
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-</MudDataGrid>
+<div>
+    <MudTable Items="@Categories" Dense="false" Hover="true" CanCancelEdit="true" Elevation="10" Class="rounded-lg categories"
+              CommitEditTooltip="Modifier"
+              CancelEditTooltip="Annuler"
+              Filter="new Func<CategoryModel,bool>(FilterFunc)"
+              EditTrigger="TableEditTrigger.EditButton"
+              RowEditPreview="BackupItem"
+              RowEditCancel="ResetItemToOriginalValues"
+              RowEditCommit="ItemHasBeenCommittedAsync">
+        <ToolBarContent>
+            <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.Kitchen" Color="Color.Inherit" />
+            <MudText Typo="Typo.h6">Liste des catégories</MudText>
+            <MudSpacer />
+            <MudTextField @bind-Value="searchString" Placeholder="Rechercher une catégorie" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
+        <ColGroup>
+            <col />
+            <col />
+            <col />
+            <col style="width:50px;" />
+        </ColGroup>
+        <HeaderContent>
+            <MudTh>Nom</MudTh>
+            <MudTh>Nb Articles</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nom" style="margin-top: 0px!important;">@context.Name</MudTd>
+            <MudTd DataLabel="Nb Articles">@context.NumberArticles</MudTd>
+            <MudTd Style="text-align:right">
+                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => DeleteCategory(@context.Id))">Supprimer</MudIconButton>
+            </MudTd>
+        </RowTemplate>
+        <RowEditingTemplate>
+            <MudTd DataLabel="Nom">
+                <MudTextField @bind-Value="@context.Name" Required />
+            </MudTd>
+            <MudTd DataLabel="Nb Articles">@context.NumberArticles</MudTd>
+            <MudTd></MudTd>
+        </RowEditingTemplate>
+        <PagerContent>
+            @if (@displayRowNavigation)
+            {
+                <MudTablePager RowsPerPageString="Ligne par page" />
+            }
+        </PagerContent>
+        <EditButtonContent Context="button">
+            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
+        </EditButtonContent>
+    </MudTable>
+</div>
 

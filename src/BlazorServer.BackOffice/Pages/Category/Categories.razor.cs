@@ -1,11 +1,9 @@
 ﻿using BlazorServer.BackOffice.Models;
-using BlazorServer.BackOffice.Services;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.JSInterop;
 using MudBlazor;
-using MudBlazor.Utilities;
+
 
 namespace BlazorServer.BackOffice.Pages.Category
 {
@@ -13,7 +11,8 @@ namespace BlazorServer.BackOffice.Pages.Category
     {
         protected string searchString = "";
         protected int rowPerPage = 10;
-        protected bool displayRowNavigation = false; 
+        protected bool displayRowNavigation = false;
+        protected CategoryModel? elementBeforeEdit;
 
         [Inject] private ICategoryService CategoryService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
@@ -52,12 +51,25 @@ namespace BlazorServer.BackOffice.Pages.Category
             }
         }
 
-        protected async Task CommittedItemChanges(CategoryModel category)
+        protected void BackupItem(object element)
+        {
+            elementBeforeEdit = new CategoryModel()
+            {
+                Name = ((CategoryModel)element).Name,
+            };
+        }
+
+        protected void ResetItemToOriginalValues(object element)
+        {
+            ((CategoryModel)element).Name = elementBeforeEdit!.Name;
+        }
+
+        protected async void ItemHasBeenCommittedAsync(object element)
         {
             var categoryUpdated = new UpdateCategoryRequest()
             {
-                Id = category.Id,
-                Name = category.Name,
+                Id = ((CategoryModel)element).Id,
+                Name = ((CategoryModel)element).Name
             };
 
             var result = await CategoryService.UpdateCategory(categoryUpdated);
@@ -69,19 +81,8 @@ namespace BlazorServer.BackOffice.Pages.Category
             else
             {
                 Snackbar.Add("Modification impossible", Severity.Error);
-                Categories = await CategoryService.GetCategories();
+                StateHasChanged();
             }
-        }
-
-        protected async Task FormFieldChanged(FormFieldChangedEventArgs eventArgs)
-        {
-            var categoryUpdated = eventArgs.NewValue.ToString();
-            await ChangeStatusButton(string.IsNullOrWhiteSpace(categoryUpdated));
-        }
-
-        private async Task ChangeStatusButton(bool isDisabled)
-        {
-            await JSRuntime.InvokeVoidAsync("ChangeStatusButton", isDisabled);
         }
     }
 }

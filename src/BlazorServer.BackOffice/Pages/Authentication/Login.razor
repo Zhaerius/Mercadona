@@ -19,18 +19,18 @@
     <EditForm Model="@LoginRequest" OnValidSubmit="@Login">
         <DataAnnotationsValidator />
         <MudContainer>
-                <MudTextField @bind-Value="LoginRequest.Username" For="@(() => LoginRequest.Username)" Class="my-6" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.AlternateEmail" AdornmentColor="Color.Dark" InputType="InputType.Email" />
-                <MudTextField @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" Label="Mot de passe" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Password" AdornmentColor="Color.Dark" InputType="InputType.Password" />
-            </MudContainer>
+            <MudTextField @bind-Value="LoginRequest.Username" For="@(() => LoginRequest.Username)" Class="my-6" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.AlternateEmail" AdornmentColor="Color.Dark" InputType="InputType.Email" />
+            <MudTextField @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" Label="Mot de passe" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Password" AdornmentColor="Color.Dark" InputType="InputType.Password" />
+        </MudContainer>
         <MudContainer Class="mt-4">
-                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Size="Size.Large" Class="ml-auto" StartIcon="@Icons.Material.Filled.Login">Connexion</MudButton>
-            </MudContainer>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Size="Size.Large" Class="ml-auto" StartIcon="@Icons.Material.Filled.Login">Connexion</MudButton>
+        </MudContainer>
     </EditForm>
 
     @if (error)
     {
         <div class="px-4  mt-6">
-        <MudAlert Severity="Severity.Error">Connexion impossible, merci de vérifier vos identifiants</MudAlert>
+            <MudAlert Severity="Severity.Error">Connexion impossible, merci de vérifier vos identifiants</MudAlert>
         </div>
     }
 

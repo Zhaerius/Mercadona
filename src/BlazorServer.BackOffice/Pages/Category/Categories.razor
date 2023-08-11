@@ -3,9 +3,9 @@
 @attribute [Authorize]
 @inherits CategoriesBase
 
-@*<CascadingValue Value="@LinkAddCategery">
+<CascadingValue Value="@LinkAddCategory">
     <AddButton></AddButton>
-</CascadingValue>*@
+</CascadingValue>
 
 <div>
     <MudTable Items="@Categories" Dense="false" Hover="true" CanCancelEdit="true" Elevation="10" Class="rounded-lg categories"

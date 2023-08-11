@@ -1,0 +1,31 @@
+﻿@page "/category/create"
+@using BlazorServer.BackOffice.Models;
+@inherits CreateCategoryBase;
+
+<MudText Typo="Typo.h4" Class="mb-8">Création d'une catégorie</MudText>
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <div class="d-flex justify-end"
+        <MudButtonGroup Color="Color.Secondary" Size="Size.Small" Variant="Variant.Filled">
+            <MudButton OnClick="AddElementToList" StartIcon="@Icons.Material.Filled.AddCircleOutline">Ajouter ligne</MudButton>
+            <MudButton OnClick="RemoveLastIndexToList" StartIcon="@Icons.Material.Filled.RemoveCircleOutline">Supprimer ligne</MudButton>
+        </MudButtonGroup>
+    </div>
+
+    <EditForm Model="@categories" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
+            <MudCardContent Class="d-flex flex-column gap-4">
+                @foreach (var category in categories)
+                {
+                    <MudTextField Variant="Variant.Outlined" Placeholder="Céréales" Label="Nom" @bind-Value="category.Name" For="@(()=>category.Name)" />
+                }
+            </MudCardContent>
+        </MudCard>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
+        </MudCardActions>
+    </EditForm>
+</MudContainer>
+
+

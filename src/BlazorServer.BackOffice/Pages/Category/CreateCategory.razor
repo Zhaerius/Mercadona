@@ -5,11 +5,13 @@
 <MudText Typo="Typo.h4" Class="mb-8">Création d'une catégorie</MudText>
 
 <MudContainer MaxWidth="MaxWidth.Medium">
-    <div class="d-flex justify-end"
-        <MudButtonGroup Color="Color.Secondary" Size="Size.Small" Variant="Variant.Filled">
-            <MudButton OnClick="AddElementToList" StartIcon="@Icons.Material.Filled.AddCircleOutline">Ajouter ligne</MudButton>
-            <MudButton OnClick="RemoveLastIndexToList" StartIcon="@Icons.Material.Filled.RemoveCircleOutline">Supprimer ligne</MudButton>
-        </MudButtonGroup>
+    <div class="d-flex justify-end gap-2">
+        <MudTooltip Text="Ajouter une ligne">
+            <MudIconButton OnClick="AddElementToList" Icon="@Icons.Material.Filled.Add" Variant="Variant.Outlined" Color="Color.Dark" Size="Size.Medium" />
+        </MudTooltip>
+        <MudTooltip Text="Supprimer une ligne">
+            <MudIconButton OnClick="RemoveLastIndexToList" Icon="@Icons.Material.Filled.Remove" Variant="Variant.Outlined" Color="Color.Dark" Size="Size.Medium" />
+        </MudTooltip>
     </div>
 
     <EditForm Model="@categories" OnValidSubmit="OnValidSubmit">

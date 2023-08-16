@@ -41,5 +41,13 @@ namespace BlazorServer.BackOffice.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> CreateCategories(IEnumerable<CreateCategoryRequest> createCategoryRequest)
+        {
+            var jsonContent = JsonContent.Create(createCategoryRequest);
+            var response = await _httpClient.PostAsync($"category/", jsonContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Application.Core.Features.Category.Commands.CreateCategory;
+﻿using Application.Core.Features.Category.Commands.CreateCategories;
+using Application.Core.Features.Category.Commands.CreateCategory;
 using Application.Core.Features.Category.Commands.DeleteCategory;
 using Application.Core.Features.Category.Commands.UpdateCategory;
 using Application.Core.Features.Category.Queries.GetCategories;
@@ -33,6 +34,13 @@ namespace WebApi.Endpoints
             group.MapPost("", async ([FromBody] CreateCategoryCommand createCategory, [FromServices] IMediator mediator) =>
             {
                 await mediator.Send(createCategory);
+                return Results.NoContent();
+            });
+
+            // Ajouter plusieurs catégories
+            group.MapPost("/multimode", async ([FromBody] CreateCategoriesCommand createCategories, [FromServices] IMediator mediator) =>
+            {
+                await mediator.Send(createCategories);
                 return Results.NoContent();
             });
 

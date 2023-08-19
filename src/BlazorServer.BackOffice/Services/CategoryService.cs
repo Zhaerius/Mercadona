@@ -1,4 +1,4 @@
-﻿using BlazorServer.BackOffice.Models;
+﻿using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 
@@ -41,10 +41,10 @@ namespace BlazorServer.BackOffice.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> CreateCategories(IEnumerable<CreateCategoryRequest> createCategoryRequest)
+        public async Task<bool> CreateCategories(CreateCategoriesRequest createCategoriesRequest)
         {
-            var jsonContent = JsonContent.Create(createCategoryRequest);
-            var response = await _httpClient.PostAsync($"category/", jsonContent);
+            var jsonContent = JsonContent.Create(createCategoriesRequest);
+            var response = await _httpClient.PostAsync($"category/multimode", jsonContent);
 
             return response.IsSuccessStatusCode;
         }

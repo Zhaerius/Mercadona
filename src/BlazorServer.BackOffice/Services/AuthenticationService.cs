@@ -1,9 +1,9 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
-using BlazorServer.BackOffice.Models;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Components.Authorization;
 using BlazorServer.BackOffice.Authentication;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using BlazorServer.BackOffice.Models.Auth;
 
 namespace BlazorServer.BackOffice.Services
 {

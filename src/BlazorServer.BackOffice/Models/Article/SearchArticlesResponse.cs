@@ -1,4 +1,4 @@
-﻿namespace BlazorServer.BackOffice.Models
+﻿namespace BlazorServer.BackOffice.Models.Article
 {
     public class SearchArticlesResponse
     {

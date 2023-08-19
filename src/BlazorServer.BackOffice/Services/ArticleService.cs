@@ -1,6 +1,6 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
-using BlazorServer.BackOffice.Models;
 using System.Text.Json;
+using BlazorServer.BackOffice.Models.Article;
 
 namespace BlazorServer.BackOffice.Services
 {

@@ -1,7 +1,7 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
-using BlazorServer.BackOffice.Models;
 using MediatR;
 using Microsoft.AspNetCore.Components;
+using BlazorServer.BackOffice.Models.Article;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {

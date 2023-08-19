@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BlazorServer.BackOffice.Models
+namespace BlazorServer.BackOffice.Models.Category
 {
     public class CreateCategoryRequest
     {

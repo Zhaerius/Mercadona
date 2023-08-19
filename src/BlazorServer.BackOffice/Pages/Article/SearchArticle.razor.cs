@@ -1,9 +1,8 @@
-﻿using BlazorServer.BackOffice.Services;
-using BlazorServer.BackOffice.Services.Abstractions;
-using BlazorServer.BackOffice.Models;
+﻿using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using static MudBlazor.Defaults.Classes;
+using BlazorServer.BackOffice.Models.Article;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {

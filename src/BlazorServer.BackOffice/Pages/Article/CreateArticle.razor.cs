@@ -1,5 +1,4 @@
-﻿
-using BlazorServer.BackOffice.Models;
+﻿using BlazorServer.BackOffice.Models.Article;
 using Microsoft.AspNetCore.Components;
 
 

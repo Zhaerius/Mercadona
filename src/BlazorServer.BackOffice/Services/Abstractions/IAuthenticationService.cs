@@ -1,4 +1,4 @@
-﻿using BlazorServer.BackOffice.Models;
+﻿using BlazorServer.BackOffice.Models.Auth;
 
 namespace BlazorServer.BackOffice.Services.Abstractions
 {

@@ -14,11 +14,11 @@
         </MudTooltip>
     </div>
 
-    <EditForm Model="@categories" OnValidSubmit="OnValidSubmit">
+    <EditForm Model="@CreateCategories.Categories" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
         <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
             <MudCardContent Class="d-flex flex-column gap-4">
-                @foreach (var category in categories)
+                @foreach (var category in CreateCategories.Categories)
                 {
                     <MudTextField Variant="Variant.Outlined" Placeholder="Céréales" Label="Nom" @bind-Value="category.Name" For="@(()=>category.Name)" />
                 }

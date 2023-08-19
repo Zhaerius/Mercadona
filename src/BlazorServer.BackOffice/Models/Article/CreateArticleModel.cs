@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorServer.BackOffice.Models
+namespace BlazorServer.BackOffice.Models.Article
 {
     public class CreateArticleModel
     {

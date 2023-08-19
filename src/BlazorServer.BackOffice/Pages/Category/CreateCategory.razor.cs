@@ -1,32 +1,46 @@
-﻿using BlazorServer.BackOffice.Models;
+﻿using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace BlazorServer.BackOffice.Pages.Category
 {
     public class CreateCategoryBase : ComponentBase
     {
         [Inject] protected ICategoryService CategoryService { get; set; } = null!;
-        protected List<CreateCategoryRequest> categories = new()
+        [Inject] protected ISnackbar Snackbar { get; set; } = null!;
+        protected CreateCategoriesRequest CreateCategories = new CreateCategoriesRequest()
         {
-            new CreateCategoryRequest()
+            Categories = new List<CreateCategoryRequest>() 
+            { 
+                new CreateCategoryRequest() 
+            }
         };
 
         protected void AddElementToList()
         {
-            categories.Add(new CreateCategoryRequest());
+            CreateCategories.Categories.Add(new CreateCategoryRequest());
         }
 
         protected void RemoveLastIndexToList()
         {
-            if (categories.Count > 1)
-                categories.RemoveAt(categories.Count - 1);
+            if (CreateCategories.Categories.Count > 1)
+                CreateCategories.Categories.RemoveAt(CreateCategories.Categories.Count - 1);
         }
 
-        public void OnValidSubmit()
+        public async Task OnValidSubmit()
         {
+            bool result = await CategoryService.CreateCategories(CreateCategories);
+            DisplayResultSubmit(result);
+        }
 
+        private void DisplayResultSubmit(bool result)
+        {          
+            if (result)
+                Snackbar.Add("Catégories ajouté avec succès", Severity.Success);
+            else
+                Snackbar.Add("Impossible d'ajouter la liste de catégorie", Severity.Error);
         }
     }
 }

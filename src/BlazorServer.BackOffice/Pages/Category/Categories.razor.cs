@@ -1,4 +1,5 @@
 ﻿using BlazorServer.BackOffice.Models;
+using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;

@@ -14,20 +14,19 @@
         </MudTooltip>
     </div>
 
-    <EditForm Model="@CreateCategories.Categories" OnValidSubmit="OnValidSubmit">
-        <DataAnnotationsValidator />
+    <MudForm @ref="form" @bind-IsValid="@success">
         <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
             <MudCardContent Class="d-flex flex-column gap-4">
-                @foreach (var category in CreateCategories.Categories)
+                @foreach (var category in createCategories.Categories)
                 {
-                    <MudTextField Variant="Variant.Outlined" Placeholder="Céréales" Label="Nom" @bind-Value="category.Name" For="@(()=>category.Name)" />
+                    <MudTextField T="string" Variant="Variant.Outlined" Placeholder="Céréales" Label="Nom" @bind-Value="category.Name" Required="true" RequiredError="Le champ ne doit pas être vide" Immediate="true" />
                 }
             </MudCardContent>
         </MudCard>
         <MudCardActions>
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="@OnValidSubmit">Valider</MudButton>
         </MudCardActions>
-    </EditForm>
+    </MudForm>
 </MudContainer>
 
 

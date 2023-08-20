@@ -2,6 +2,6 @@
 {
     public class CreateCategoriesRequest
     {
-        public List<CreateCategoryRequest> Categories { get; set; }
+        public List<CreateCategoryRequest>? Categories { get; set; }
     }
 }

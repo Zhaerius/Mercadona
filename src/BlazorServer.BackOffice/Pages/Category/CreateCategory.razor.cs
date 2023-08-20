@@ -8,31 +8,39 @@ namespace BlazorServer.BackOffice.Pages.Category
 {
     public class CreateCategoryBase : ComponentBase
     {
-        [Inject] protected ICategoryService CategoryService { get; set; } = null!;
-        [Inject] protected ISnackbar Snackbar { get; set; } = null!;
-        protected CreateCategoriesRequest CreateCategories = new CreateCategoriesRequest()
+        protected MudForm form;
+        protected bool success;
+        protected CreateCategoriesRequest createCategories = new CreateCategoriesRequest()
         {
-            Categories = new List<CreateCategoryRequest>() 
-            { 
-                new CreateCategoryRequest() 
+            Categories = new List<CreateCategoryRequest>()
+            {
+                new CreateCategoryRequest()
             }
         };
 
+        [Inject] protected ICategoryService CategoryService { get; set; } = null!;
+        [Inject] protected ISnackbar Snackbar { get; set; } = null!;
+
+
         protected void AddElementToList()
         {
-            CreateCategories.Categories.Add(new CreateCategoryRequest());
+            createCategories.Categories.Add(new CreateCategoryRequest());
         }
 
         protected void RemoveLastIndexToList()
         {
-            if (CreateCategories.Categories.Count > 1)
-                CreateCategories.Categories.RemoveAt(CreateCategories.Categories.Count - 1);
+            if (createCategories.Categories.Count > 1)
+            {
+                createCategories.Categories.RemoveAt(createCategories.Categories.Count - 1);
+                CheckValidationInputs();
+            }
         }
 
         public async Task OnValidSubmit()
         {
-            bool result = await CategoryService.CreateCategories(CreateCategories);
+            bool result = await CategoryService.CreateCategories(createCategories);
             DisplayResultSubmit(result);
+            StateHasChanged();
         }
 
         private void DisplayResultSubmit(bool result)
@@ -41,6 +49,16 @@ namespace BlazorServer.BackOffice.Pages.Category
                 Snackbar.Add("Catégories ajouté avec succès", Severity.Success);
             else
                 Snackbar.Add("Impossible d'ajouter la liste de catégorie", Severity.Error);
+        }
+
+        private void CheckValidationInputs()
+        {
+            var ValidationStatus = createCategories.Categories.Any(c => string.IsNullOrWhiteSpace(c.Name));
+
+            if (ValidationStatus)
+                success = false;
+            else
+                success = true;
         }
     }
 }

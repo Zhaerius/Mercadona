@@ -25,19 +25,19 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
 
         public async Task Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
-            var article = _mapper.Map<ArticleEntity>(request);
+            //var article = _mapper.Map<ArticleEntity>(request);
 
-            if (request.PromotionsIds is not null && request.PromotionsIds.Any())
-            {
-                var promotions = await _dbContext.Promotions
-                    .Where(p => request.PromotionsIds.Contains(p.Id))
-                    .ToListAsync();
+            //if (request.PromotionsIds is not null && request.PromotionsIds.Any())
+            //{
+            //    var promotions = await _dbContext.Promotions
+            //        .Where(p => request.PromotionsIds.Contains(p.Id))
+            //        .ToListAsync();
 
-                article.Promotions = promotions;
-            }
+            //    article.Promotions = promotions;
+            //}
 
-            _dbContext.Articles.Add(article);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            //_dbContext.Articles.Add(article);
+            //await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

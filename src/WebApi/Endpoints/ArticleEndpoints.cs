@@ -4,6 +4,7 @@ using Application.Core.Features.Article.Commands.UpdateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
 using Application.Core.Features.Article.Queries.SearchArticles;
 using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Endpoints
@@ -29,10 +30,18 @@ namespace WebApi.Endpoints
             }).RequireAuthorization("RequireAdmin");
 
             // Create d'un nouvel article
-            group.MapPost("", async ([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator) =>
+            group.MapPost("", async (IFormFile file) =>
             {
-                await mediator.Send(request);
-                return Results.NoContent();
+                //Stream stream = request.Image.OpenReadStream();
+                //var path = $"Img\\{request.Image.Name}";
+                //FileStream fs = File.Create(path);
+                //await stream.CopyToAsync(fs);
+                //stream.Close();
+                //fs.Close();
+                Console.WriteLine("dsdsdsd");
+                Console.WriteLine("dsdsdsd");
+                //await mediator.Send(request);
+                //return Results.NoContent();
             });
 
             // Modification d'un article

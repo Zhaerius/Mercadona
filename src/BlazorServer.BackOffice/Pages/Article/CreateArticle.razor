@@ -14,7 +14,7 @@
         <MudItem xs="9">
             <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
                 <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" Placeholder="@FakePlaceholder.Name" />
+@*                     <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" Placeholder="@FakePlaceholder.Name" />
                     <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Description" Placeholder="@FakePlaceholder.Description" T="string" Lines="5" />
                     <MudSelect @bind-Value="ArticleToCreate.CategoryId" T="Guid?" Placeholder="@FakePlaceholder.CategoryName" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
                         @if (Categories is not null)
@@ -24,14 +24,24 @@
                                 <MudSelectItem T="Guid?" Value="@category.Id">@category.Name</MudSelectItem>
                             }
                         }
-                    </MudSelect>
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Image" />
+                    </MudSelect> *@
+                    <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
+                        <ButtonTemplate Context="context_img">
+                            <MudButton HtmlTag="label"
+                                       Variant="Variant.Filled"
+                                       Color="Color.Secondary"
+                                       StartIcon="@Icons.Material.Filled.Image"
+                                       for="@context_img">
+                                Image
+                            </MudButton>
+                        </ButtonTemplate>
+                    </MudFileUpload>
                 </MudCardContent>
             </MudCard>
         </MudItem>
     </MudGrid>
 
-    <MudGrid>
+@*     <MudGrid>
         <MudItem xs="3">
             <MudText Typo="Typo.h6">Prix</MudText>
             <MudText Typo="Typo.body2">Prix de vente et promotions</MudText>
@@ -49,14 +59,14 @@
                  </MudCardContent>
              </MudCard>
          </MudItem>
-     </MudGrid>
+     </MudGrid> *@
 
      <MudGrid Class="my-4">
          <MudItem xs="3">
          </MudItem>
          <MudItem xs="9" Class="d-flex justify-space-between flex-grow-1">
              <MudSwitch @bind-Checked="@FakePlaceholder.Publish" Color="Color.Primary" Label="Publié" />
-             <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
+             <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="OnValidSubmit">Valider</MudButton>
          </MudItem>
      </MudGrid>
 

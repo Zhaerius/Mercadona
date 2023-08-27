@@ -1,6 +1,8 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 using BlazorServer.BackOffice.Models.Article;
+using BlazorServer.BackOffice.Models.Category;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -46,6 +48,14 @@ namespace BlazorServer.BackOffice.Services
             var jsonData = await response.Content.ReadAsStringAsync();
 
             return JsonSerializer.Deserialize<CreateArticleModel>(jsonData, jsonOptions)!;
+        }
+
+        public async Task<bool> CreateArticle(IFormFile file)
+        {
+            var jsonContent = JsonContent.Create(file);
+            var response = await _httpClient.PostAsync($"article", jsonContent);
+
+            return response.IsSuccessStatusCode;
         }
 
 

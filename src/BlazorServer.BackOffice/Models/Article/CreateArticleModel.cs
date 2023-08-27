@@ -1,4 +1,5 @@
 ﻿using Application.Core.Entities;
+using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,11 @@ namespace BlazorServer.BackOffice.Models.Article
 {
     public class CreateArticleModel
     {
-        public CreateArticleModel()
-        {
-            
-        }
-
-        public CreateArticleModel(Guid id, string name, string? description, string? image, double basePrice, bool publish)
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-            Image = image;
-            BasePrice = basePrice;
-            Publish = publish;
-        }
-
-        public Guid Id { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public Guid? CategoryId { get; set; }
-        public string? Image { get; set; }
-        public double BasePrice { get; set; }
-        public bool Publish { get; set; }
+        //public string? Name { get; set; }
+        //public string? Description { get; set; }
+        //public Guid? CategoryId { get; set; }
+        public IBrowserFile? Image { get; set; }
+        //public double BasePrice { get; set; }
+        //public bool Publish { get; set; }
     }
 }

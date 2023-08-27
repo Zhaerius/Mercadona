@@ -1,29 +1,29 @@
 ﻿using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
-using Bogus.DataSets;
 using Microsoft.AspNetCore.Components;
-
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
     public class CreateArticleBase : ComponentBase
     {
-        [Inject] private ICategoryService CategoryService { get; set; } = null!;
+        [Inject] private IArticleService ArticleService { get; set; } = null!;
         protected CreateArticleModel ArticleToCreate { get; set; } = new();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
         protected IEnumerable<CategoryModel>? Categories { get; set; }
 
-
-        protected override async Task OnInitializedAsync()
-        {
-            Categories = await CategoryService.GetCategories();
-        }
+        protected IList<IFormFile> files = new List<IFormFile>();
 
 
         protected async Task OnValidSubmit()
         {
+            await ArticleService.CreateArticle(files[0]);
+        }
 
+        protected void UploadFiles(IFormFile file)
+        {
+            files.Add(file);
         }
 
         private FakePlaceholderArticle CreateFakePlaceholder()

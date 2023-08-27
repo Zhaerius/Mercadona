@@ -1,4 +1,5 @@
 ﻿using BlazorServer.BackOffice.Models.Article;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BlazorServer.BackOffice.Services.Abstractions
 {
@@ -7,5 +8,6 @@ namespace BlazorServer.BackOffice.Services.Abstractions
         Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
         Task<CreateArticleModel> GetDetailsArticle(Guid id);
         Task<bool> DeleteArticle(Guid id);
+        Task<bool> CreateArticle(IFormFile file);
     }
 }

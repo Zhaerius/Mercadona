@@ -7,42 +7,26 @@
 
 <h1>Upload Files</h1>
 
-<InputFile id="context_img" OnChange="@OnInputFileChange" hidden />
-    <MudButton HtmlTag="label"
-               Variant="Variant.Filled"
-               Color="Color.Secondary"
-               StartIcon="@Icons.Material.Filled.Image"
-               for="context_img">
-        Image
-    </MudButton>
+<MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1">
+    <ButtonTemplate>
+        <MudButton HtmlTag="label"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.CloudUpload"
+                   for="@context">
+            Upload Files
+        </MudButton>
+    </ButtonTemplate>
+</MudFileUpload>
 
-@if (files.Count > 0)
+@if (files != null)
 {
-    <div class="card">
-        <div class="card-body">
-            <ul>
-                @foreach (var file in files)
-                {
-                    <li>
-                        File: @file.Name
-                        <br>
-                        @if (FileUpload(uploadResults, file.Name,
-                       out var result))
-                        {
-                            <span>
-                                Stored File Name: @result.StoredFileName
-                            </span>
-                        }
-                        else
-                        {
-                            <span>
-                                There was an error uploading the file
-                                (Error: @result.ErrorCode).
-                            </span>
-                        }
-                    </li>
-                }
-            </ul>
-        </div>
-    </div>
+    <MudList>
+        @foreach (var file in files)
+        {
+            <MudListItem Icon="@Icons.Material.Filled.AttachFile">
+                @file.Name <code>@file.Size bytes</code>
+            </MudListItem>
+        }
+    </MudList>
 }

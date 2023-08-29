@@ -9,15 +9,14 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class FilesUploadBase: ComponentBase
     {
-        protected List<File> files = new();
+        protected List<IBrowserFile> files = new();
         protected List<UploadResult> uploadResults = new();
-        protected int maxAllowedFiles = 1;
         protected bool shouldRender;
 
         [Inject] protected IArticleService ArticleService { get; set; } = null!;
         protected override bool ShouldRender() => shouldRender;
 
-        protected async Task OnInputFileChange(InputFileChangeEventArgs e)
+        protected async Task OnInputFileChange(IReadOnlyList<IBrowserFile> browserFiles)
         {
             shouldRender = false;
             long maxFileSize = 1024 * 1000;
@@ -25,13 +24,14 @@ namespace BlazorServer.BackOffice.Pages.Article
 
             using var content = new MultipartFormDataContent();
 
-            foreach (var file in e.GetMultipleFiles(maxAllowedFiles))
+            foreach (var file in browserFiles)
             {
                 if (uploadResults.SingleOrDefault(f => f.FileName == file.Name) is null)
                 {
                     try
                     {
-                        files.Add(new() { Name = file.Name });
+                        //files.Add(new() { Name = file.Name });
+                        files.Add(file);
 
                         var fileContent = new StreamContent(file.OpenReadStream(maxFileSize));
                         fileContent.Headers.ContentType = new MediaTypeHeaderValue(file.ContentType);
@@ -79,20 +79,20 @@ namespace BlazorServer.BackOffice.Pages.Article
             shouldRender = true;
         }
 
-        protected static bool FileUpload(IList<UploadResult> uploadResults, string? fileName, out UploadResult result)
-        {
-            result = uploadResults.SingleOrDefault(f => f.FileName == fileName) ?? new();
+        //protected static bool FileUpload(IList<UploadResult> uploadResults, string? fileName, out UploadResult result)
+        //{
+        //    result = uploadResults.SingleOrDefault(f => f.FileName == fileName) ?? new();
 
-            if (!result.Uploaded)
-                result.ErrorCode = 5;
+        //    if (!result.Uploaded)
+        //        result.ErrorCode = 5;
 
-            return result.Uploaded;
-        }
+        //    return result.Uploaded;
+        //}
 
-        public class File
-        {
-            public string? Name { get; set; }
-        }
+        //public class File
+        //{
+        //    public string? Name { get; set; }
+        //}
 
     }
 }

@@ -25,17 +25,14 @@
                             }
                         }
                     </MudSelect> *@
-                    <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
-                        <ButtonTemplate Context="context_img">
+@*                     <InputFile id="context_img" OnChange="@OnInputFileChange" hidden />
                             <MudButton HtmlTag="label"
                                        Variant="Variant.Filled"
                                        Color="Color.Secondary"
                                        StartIcon="@Icons.Material.Filled.Image"
-                                       for="@context_img">
+                                       for="context_img">
                                 Image
-                            </MudButton>
-                        </ButtonTemplate>
-                    </MudFileUpload>
+                            </MudButton> *@
                 </MudCardContent>
             </MudCard>
         </MudItem>

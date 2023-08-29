@@ -8,6 +8,6 @@ namespace BlazorServer.BackOffice.Services.Abstractions
         Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
         Task<CreateArticleModel> GetDetailsArticle(Guid id);
         Task<bool> DeleteArticle(Guid id);
-        Task<bool> CreateArticle(IFormFile file);
+        Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content);
     }
 }

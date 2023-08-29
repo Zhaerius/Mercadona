@@ -3,6 +3,8 @@ using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
+using System.Net.Http.Headers;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
@@ -13,17 +15,34 @@ namespace BlazorServer.BackOffice.Pages.Article
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
         protected IEnumerable<CategoryModel>? Categories { get; set; }
 
-        protected IList<IFormFile> files = new List<IFormFile>();
-
+        protected IList<IBrowserFile> files = new List<IBrowserFile>();
 
         protected async Task OnValidSubmit()
         {
-            await ArticleService.CreateArticle(files[0]);
+            //await ArticleService.CreateArticle(files[0]);
         }
 
-        protected void UploadFiles(IFormFile file)
+
+        protected void UploadFiles(IBrowserFile file)
         {
             files.Add(file);
+
+            using var content = new MultipartFormDataContent();
+
+            file.OpenReadStream();
+
+            var fileContent =
+                        new StreamContent(file.OpenReadStream());
+
+            fileContent.Headers.ContentType =
+                new MediaTypeHeaderValue(file.ContentType);
+
+            content.Add(
+                content: fileContent,
+                name: "\"files\"",
+                fileName: file.Name);
+
+            //ArticleService.CreateArticle(content);
         }
 
         private FakePlaceholderArticle CreateFakePlaceholder()

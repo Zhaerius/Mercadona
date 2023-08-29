@@ -1,8 +1,6 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 using BlazorServer.BackOffice.Models.Article;
-using BlazorServer.BackOffice.Models.Category;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -50,12 +48,9 @@ namespace BlazorServer.BackOffice.Services
             return JsonSerializer.Deserialize<CreateArticleModel>(jsonData, jsonOptions)!;
         }
 
-        public async Task<bool> CreateArticle(IFormFile file)
+        public async Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content)
         {
-            var jsonContent = JsonContent.Create(file);
-            var response = await _httpClient.PostAsync($"article", jsonContent);
-
-            return response.IsSuccessStatusCode;
+            return await _httpClient.PostAsync($"article/img", content);
         }
 
 

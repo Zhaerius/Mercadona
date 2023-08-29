@@ -2,6 +2,7 @@
 using Infrastructure.Identity.Options;
 using Infrastructure.Identity.Services;
 using Infrastructure.Persistence;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,7 @@ namespace Infrastructure
             services.Configure<JwtOptions>(configuration.GetSection("JWT"));
             services.Configure<IdentityUserOptions>(configuration.GetSection("DefaultAdmin"));
             services.AddSingleton<IJwtService, JwtService>();
+            services.AddSingleton<IFileService, FileService>();
 
             services.AddAuthorization(opts =>
             {

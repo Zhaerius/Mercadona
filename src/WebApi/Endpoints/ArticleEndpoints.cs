@@ -1,11 +1,12 @@
-﻿using Application.Core.Features.Article.Commands.CreateArticle;
-using Application.Core.Features.Article.Commands.DeleteArticle;
+﻿using Application.Core.Features.Article.Commands.DeleteArticle;
 using Application.Core.Features.Article.Commands.UpdateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
 using Application.Core.Features.Article.Queries.SearchArticles;
+using Application.Core.Features.Upload.Commands.SaveFiles;
 using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using WebApi.Models;
 
 namespace WebApi.Endpoints
 {
@@ -29,19 +30,12 @@ namespace WebApi.Endpoints
                 return Results.Ok(article);
             }).RequireAuthorization("RequireAdmin");
 
-            // Create d'un nouvel article
-            group.MapPost("", async (IFormFile file) =>
+            // Upload Fichier
+            group.MapPost("/img", async (IFormFileCollection files, [FromServices] IMediator mediator) =>
             {
-                //Stream stream = request.Image.OpenReadStream();
-                //var path = $"Img\\{request.Image.Name}";
-                //FileStream fs = File.Create(path);
-                //await stream.CopyToAsync(fs);
-                //stream.Close();
-                //fs.Close();
-                Console.WriteLine("dsdsdsd");
-                Console.WriteLine("dsdsdsd");
-                //await mediator.Send(request);
-                //return Results.NoContent();
+                var result = await mediator.Send(new SaveFilesCommand(files));
+
+                return Results.Ok(result);
             });
 
             // Modification d'un article

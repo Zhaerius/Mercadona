@@ -18,7 +18,7 @@ namespace BlazorServer.BackOffice.Pages.Article
 
         protected async Task OnValidSubmit()
         {
-            //await ArticleService.CreateArticle(files[0]);
+
         }
 
         protected async override Task OnInitializedAsync()

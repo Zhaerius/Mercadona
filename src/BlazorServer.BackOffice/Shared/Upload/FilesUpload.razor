@@ -1,5 +1,4 @@
-﻿@page "/file"
-@using System.Linq
+﻿@using System.Linq
 @using System.Net.Http.Headers
 @using System.Text.Json
 @inherits FilesUploadBase;
@@ -7,54 +6,53 @@
 
 <div class="d-flex gap-6 align-content-center justify-space-between">
     <div>
-    <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
-        <ButtonTemplate>
-            <MudButton HtmlTag="label"
-                       Variant="Variant.Filled"
-                       Color="Color.Secondary"
-                       StartIcon="@Icons.Material.Filled.CloudUpload"
-                       Class="mb-3"
-                       for="@context">
-                Charger une image
-            </MudButton>
-        </ButtonTemplate>
-    </MudFileUpload>
-@*     <MudText Typo="Typo.caption" Class="align-self-center">Max 500ko</MudText> *@
+        <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           Class="mb-3"
+                           for="@context">
+                    Charger une image
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
 
-    @if (UploadState.UploadResults != null)
-    {
-        @foreach (var uploadResult in UploadState.UploadResults)
+
+        @if (UploadState.UploadResults != null)
         {
-            if (uploadResult.Uploaded)
+            @foreach (var uploadResult in UploadState.UploadResults)
             {
-                <div class="d-flex align-content-center gap-2">
-                    <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
-                    <MudText>@uploadResult.FileName</MudText>
-                </div>
-            }
-            else
-            {
-                <div class="d-flex align-content-center gap-2">
-                    <MudIcon Icon="@Icons.Material.TwoTone.Clear" Color="Color.Secondary" />
-                    <MudText>Erreur : @uploadResult.ErrorCode</MudText>
-                </div>
+                if (uploadResult.Uploaded)
+                {
+                    <div class="d-flex align-content-center gap-2">
+                        <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
+                        <MudText>@uploadResult.FileName</MudText>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex align-content-center gap-2">
+                        <MudIcon Icon="@Icons.Material.TwoTone.Clear" Color="Color.Secondary" />
+                        <MudText>Erreur : @uploadResult.ErrorCode</MudText>
+                    </div>
+                }
             }
         }
-    }
 
-    @if (UploadState.UploadResults != null && UploadState.UploadResults.Count == 0)
-    {
-        <div class="d-flex align-content-center gap-2">
-            <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
-            <MudText>Aucun Fichier</MudText>
-        </div>
+        @if (UploadState.UploadResults != null && UploadState.UploadResults.Count == 0)
+        {
+            <div class="d-flex align-content-center gap-2">
+                <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
+                <MudText>Aucun Fichier</MudText>
+            </div>
 
-    }
+        }
     </div>
     <div class="align-self-center">
-        <MudAlert Severity="Severity.Info" Variant="Variant.Outlined" ContentAlignment="HorizontalAlignment.Center">
-            Merci de sélectionner une image inférieur à 500ko<br />
-            Les formats acceptés : JPEG, JPG, PNG
+        <MudAlert Severity="Severity.Info" Variant="Variant.Text" ContentAlignment="HorizontalAlignment.Center">
+            JPEG, JPG, PNG / 500 ko Max
         </MudAlert>
 
     </div>

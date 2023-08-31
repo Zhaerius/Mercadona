@@ -1,49 +1,33 @@
 ﻿using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
-using BlazorServer.BackOffice.Services.Abstractions;
+using BlazorServer.BackOffice.Shared.Upload;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using MudBlazor;
-using System.Net.Http.Headers;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
-    public class CreateArticleBase : ComponentBase
+    public class CreateArticleBase : ComponentBase, IDisposable
     {
-        [Inject] private IArticleService ArticleService { get; set; } = null!;
+        //[Inject] private IArticleService ArticleService { get; set; } = null!;
         protected CreateArticleModel ArticleToCreate { get; set; } = new();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
         protected IEnumerable<CategoryModel>? Categories { get; set; }
-
-        protected IList<IBrowserFile> files = new List<IBrowserFile>();
+        [Inject] protected UploadState UploadState { get; set; } = null!;
 
         protected async Task OnValidSubmit()
         {
             //await ArticleService.CreateArticle(files[0]);
         }
-
-
-        protected void UploadFiles(IBrowserFile file)
+        protected override void OnInitialized()
         {
-            files.Add(file);
-
-            using var content = new MultipartFormDataContent();
-
-            file.OpenReadStream();
-
-            var fileContent =
-                        new StreamContent(file.OpenReadStream());
-
-            fileContent.Headers.ContentType =
-                new MediaTypeHeaderValue(file.ContentType);
-
-            content.Add(
-                content: fileContent,
-                name: "\"files\"",
-                fileName: file.Name);
-
-            //ArticleService.CreateArticle(content);
+            UploadState.OnChange += StateHasChanged;
         }
+
+        public void Dispose()
+        {
+            UploadState.OnChange -= StateHasChanged;
+        }
+
 
         private FakePlaceholderArticle CreateFakePlaceholder()
         {
@@ -55,6 +39,7 @@ namespace BlazorServer.BackOffice.Pages.Article
                 true
                 );
         }
+
 
     }
 }

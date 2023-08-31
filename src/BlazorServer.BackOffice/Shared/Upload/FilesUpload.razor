@@ -1,0 +1,36 @@
+﻿@page "/file"
+@using System.Linq
+@using System.Net.Http.Headers
+@using System.Text.Json
+@inherits FilesUploadBase;
+
+<MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
+    <ButtonTemplate>
+        <MudButton HtmlTag="label"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   StartIcon="@Icons.Material.Filled.CloudUpload"
+                   for="@context">
+            Charger Image
+        </MudButton>
+    </ButtonTemplate>
+</MudFileUpload>
+
+@if (UploadState.UploadResults != null)
+{
+    @foreach (var uploadResult in UploadState.UploadResults)
+    {
+        if (uploadResult.Uploaded)
+        {
+            <MudList>
+                <MudListItem Icon="@Icons.Material.Filled.AttachFile">
+                    @uploadResult.FileName
+                </MudListItem>
+            </MudList>
+        }
+        else
+        {
+            <div>Erreur lors du téléchargement, fichier trop gros</div>
+        }
+    }
+}

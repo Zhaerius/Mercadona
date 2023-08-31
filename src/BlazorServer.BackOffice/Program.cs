@@ -9,6 +9,7 @@ using BlazorServer.BackOffice.Authentication;
 using MudBlazor.Services;
 using BlazorServer.BackOffice;
 using System.Globalization;
+using BlazorServer.BackOffice.Shared.Upload;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IArticleService, ArticleService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
+builder.Services.AddScoped<UploadState>();
 
 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.CreateSpecificCulture("fr");
 

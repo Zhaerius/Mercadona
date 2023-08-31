@@ -1,4 +1,4 @@
-﻿namespace BlazorServer.BackOffice.Models.Article
+﻿namespace BlazorServer.BackOffice.Shared.Upload
 {
     public class UploadResult
     {

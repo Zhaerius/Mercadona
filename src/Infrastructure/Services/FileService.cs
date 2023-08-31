@@ -1,26 +1,34 @@
 ﻿using Application.Core.Abstractions;
 using Application.Core.Features.Upload.Commands.SaveFiles;
 using Microsoft.AspNetCore.Http;
-using System.Net;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Services
 {
     public class FileService : IFileService
     {
+        private readonly IConfiguration _configuration;
+
+        public FileService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<List<UploadResult>> SaveFile(IFormFileCollection files)
         {
             var maxAllowedFiles = 1;
-            long maxFileSize = 1024 * 1000;
+            long maxFileSize = 1024 * 500;
             var filesProcessed = 0;
             List<UploadResult> uploadResults = new();
 
             foreach (var file in files)
             {
+                var extension = new FileInfo(file.FileName).Extension;
+
                 var uploadResult = new UploadResult();
+                uploadResult.FileName = file.FileName;
                 string trustedFileNameForFileStorage;
-                var untrustedFileName = file.FileName;
-                uploadResult.FileName = untrustedFileName;
-                var trustedFileNameForDisplay = WebUtility.HtmlEncode(untrustedFileName);
+
 
                 if (filesProcessed < maxAllowedFiles)
                 {
@@ -36,8 +44,8 @@ namespace Infrastructure.Services
                     {
                         try
                         {
-                            trustedFileNameForFileStorage = Path.GetRandomFileName();
-                            var path = Path.Combine("Img", "Test", "unsafe_uploads", trustedFileNameForFileStorage);
+                            trustedFileNameForFileStorage = Path.GetRandomFileName().Replace(".", "");
+                            var path = Path.Combine(_configuration["PathFileImg"]!, trustedFileNameForFileStorage + extension);
 
                             await using FileStream fs = new(path, FileMode.Create);
                             await file.CopyToAsync(fs);

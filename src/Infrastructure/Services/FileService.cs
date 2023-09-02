@@ -51,7 +51,7 @@ namespace Infrastructure.Services
                             await file.CopyToAsync(fs);
 
                             uploadResult.Uploaded = true;
-                            uploadResult.StoredFileName = trustedFileNameForFileStorage;
+                            uploadResult.StoredFileName = trustedFileNameForFileStorage + extension;
                         }
                         catch (IOException ex)
                         {

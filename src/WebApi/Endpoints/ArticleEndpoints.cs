@@ -1,12 +1,11 @@
-﻿using Application.Core.Features.Article.Commands.DeleteArticle;
+﻿using Application.Core.Features.Article.Commands.CreateArticle;
+using Application.Core.Features.Article.Commands.DeleteArticle;
 using Application.Core.Features.Article.Commands.UpdateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
 using Application.Core.Features.Article.Queries.SearchArticles;
 using Application.Core.Features.Upload.Commands.SaveFiles;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using WebApi.Models;
 
 namespace WebApi.Endpoints
 {
@@ -34,12 +33,17 @@ namespace WebApi.Endpoints
             group.MapPost("/img", async (IFormFileCollection files, [FromServices] IMediator mediator) =>
             {
                 var result = await mediator.Send(new SaveFilesCommand(files));
-
                 return Results.Ok(result);
             });
 
             // Modification d'un article
             group.MapPut("", async ([FromBody] UpdateArticleCommand request, [FromServices] IMediator mediator) =>
+            {
+                await mediator.Send(request);
+                return Results.NoContent();
+            });
+
+            group.MapPost("", async ([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator) =>
             {
                 await mediator.Send(request);
                 return Results.NoContent();

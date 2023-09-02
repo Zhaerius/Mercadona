@@ -1,6 +1,7 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 using BlazorServer.BackOffice.Models.Article;
+using BlazorServer.BackOffice.Models.Category;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -51,6 +52,14 @@ namespace BlazorServer.BackOffice.Services
         public async Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content)
         {
             return await _httpClient.PostAsync($"article/img", content);
+        }
+
+        public async Task<bool> CreateArticle(CreateArticleModel createArticle)
+        {
+            var jsonContent = JsonContent.Create(createArticle);
+            var response = await _httpClient.PostAsync($"article", jsonContent);
+
+            return response.IsSuccessStatusCode;
         }
 
 

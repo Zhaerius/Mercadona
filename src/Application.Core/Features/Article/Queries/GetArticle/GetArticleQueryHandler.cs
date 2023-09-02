@@ -1,7 +1,6 @@
 ﻿using Application.Core.Abstractions;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Application.Core.Exceptions;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
@@ -20,8 +19,7 @@ namespace Application.Core.Features.Article.Queries.GetArticle
         {
             var article = await _dbContext
                 .Articles
-                .Include(a => a.Category)
-                .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException();
+                .FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
 
             return _mapper.Map<GetArticleQueryResponse>(article);
         }

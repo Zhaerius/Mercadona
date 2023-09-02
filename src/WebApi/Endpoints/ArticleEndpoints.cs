@@ -27,7 +27,7 @@ namespace WebApi.Endpoints
             {
                 var article = await mediator.Send(new GetArticleQuery(id));
                 return Results.Ok(article);
-            }).RequireAuthorization("RequireAdmin");
+            }).RequireAuthorization();
 
             // Upload Fichier
             group.MapPost("/img", async (IFormFileCollection files, [FromServices] IMediator mediator) =>

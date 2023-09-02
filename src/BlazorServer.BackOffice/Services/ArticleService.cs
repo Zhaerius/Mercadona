@@ -1,7 +1,6 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 using BlazorServer.BackOffice.Models.Article;
-using BlazorServer.BackOffice.Models.Category;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -42,19 +41,20 @@ namespace BlazorServer.BackOffice.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<CreateArticleModel> GetDetailsArticle(Guid id)
+        public async Task<ArticleModel> GetDetailsArticle(Guid id)
         {
             var response = await _httpClient.GetAsync($"article/{id}");
 
             if (!response.IsSuccessStatusCode)
             {
+                Console.WriteLine("dsds");
                 return null!;
             }
 
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var jsonData = await response.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<CreateArticleModel>(jsonData, jsonOptions)!;
+            return JsonSerializer.Deserialize<ArticleModel>(jsonData, jsonOptions)!;
         }
 
         public async Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content)

@@ -7,18 +7,20 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class DetailsBase : ComponentBase
     {
-        [Parameter] public Guid Id { get; set; }
-        [Inject] private IArticleService ApiService { get; set; } = null!;
+        protected ArticleModel? articleModel;
 
-        protected CreateArticleModel? ArticleResponse;
+        [Parameter] public Guid Id { get; set; }
+        [Inject] private IArticleService ArticleService { get; set; } = null!;
+
+
 
 
         protected async override Task OnInitializedAsync()
         {
-            var article = await ApiService.GetDetailsArticle(Id);
+            var article = await ArticleService.GetDetailsArticle(Id);
             if (article != null)
             {
-                ArticleResponse = article;
+                articleModel = article;
             }
         }
     }

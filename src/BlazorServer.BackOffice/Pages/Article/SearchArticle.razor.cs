@@ -34,6 +34,11 @@ namespace BlazorServer.BackOffice.Pages.Article
                 displayRowNavigation = true;
         }
 
+        protected void RedirectToDetails(Guid id)
+        {
+            NavigationManager.NavigateTo($"/article/{id}");
+        }
+
         protected async Task DeleteArticle(Guid id)
         {
             bool isSucces = await ArticleService.DeleteArticle(id);

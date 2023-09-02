@@ -1,8 +1,6 @@
 ﻿using Application.Core.Abstractions;
 using Application.Core.Exceptions;
-using Infrastructure.Identity.Options;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Identity.Services
 {

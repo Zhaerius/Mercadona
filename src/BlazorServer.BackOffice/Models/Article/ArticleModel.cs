@@ -1,17 +1,8 @@
-﻿using Application.Core.Entities;
-using MediatR;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Core.Features.Article.Queries.GetArticle
+﻿namespace BlazorServer.BackOffice.Models.Article
 {
-    public class GetArticleQueryResponse
+    public class ArticleModel
     {
-        public GetArticleQueryResponse(string name, string description, string image, double basePrice, double discountPrice, string categoryName)
+        public ArticleModel(string name, string description, string image, double basePrice, double discountPrice, string categoryName)
         {
             Name = name;
             Description = description;

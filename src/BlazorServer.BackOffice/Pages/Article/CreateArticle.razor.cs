@@ -3,6 +3,7 @@ using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
 using BlazorServer.BackOffice.Shared.Upload;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
@@ -10,7 +11,10 @@ namespace BlazorServer.BackOffice.Pages.Article
     {
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private ICategoryService CategoryService { get; set; } = null!;
-        [Inject] protected UploadState UploadState { get; set; } = null!;
+        [Inject] private UploadState UploadState { get; set; } = null!;
+        [Inject] private ISnackbar Snackbar { get; set; } = null!;
+        [Inject] private NavigationManager NavManager { get; set; } = null!;
+        
         protected CreateArticleModel ArticleToCreate { get; set; } = new();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
         protected IEnumerable<CategoryModel>? Categories { get; set; }
@@ -30,12 +34,25 @@ namespace BlazorServer.BackOffice.Pages.Article
                     ArticleToCreate.Image = uploadResult.StoredFileName;
             }
             
-            await ArticleService.CreateArticle(ArticleToCreate);
+            var result = await ArticleService.CreateArticle(ArticleToCreate);
+
+            DisplayResultSubmit(result);
+
+            NavManager.NavigateTo("/article");
+        }
+
+        private void DisplayResultSubmit(bool result)
+        {
+            if (result)
+                Snackbar.Add("Article ajouté avec succès", Severity.Success);
+            else
+                Snackbar.Add("Impossible d'ajouter l'article", Severity.Error);
         }
 
         public void Dispose()
         {
             UploadState.OnChange -= StateHasChanged;
+            UploadState.ClearList();
         }
 
 

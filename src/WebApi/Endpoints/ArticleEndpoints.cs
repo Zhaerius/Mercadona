@@ -43,6 +43,7 @@ namespace WebApi.Endpoints
                 return Results.NoContent();
             });
 
+            //Ajouter un article
             group.MapPost("", async ([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator) =>
             {
                 await mediator.Send(request);

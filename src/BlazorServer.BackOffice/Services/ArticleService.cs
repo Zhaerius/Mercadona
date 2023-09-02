@@ -14,6 +14,14 @@ namespace BlazorServer.BackOffice.Services
             _httpClient = httpClient;
         }
 
+        public async Task<bool> CreateArticle(CreateArticleModel createArticle)
+        {
+            var jsonContent = JsonContent.Create(createArticle);
+            var response = await _httpClient.PostAsync($"article", jsonContent);
+
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name)
         {
             var response = await _httpClient.GetAsync($"article/search?name={name}");
@@ -52,14 +60,6 @@ namespace BlazorServer.BackOffice.Services
         public async Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content)
         {
             return await _httpClient.PostAsync($"article/img", content);
-        }
-
-        public async Task<bool> CreateArticle(CreateArticleModel createArticle)
-        {
-            var jsonContent = JsonContent.Create(createArticle);
-            var response = await _httpClient.PostAsync($"article", jsonContent);
-
-            return response.IsSuccessStatusCode;
         }
 
 

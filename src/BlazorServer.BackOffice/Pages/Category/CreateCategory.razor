@@ -1,6 +1,7 @@
 ﻿@page "/category/create"
 @using BlazorServer.BackOffice.Models;
 @inherits CreateCategoryBase;
+@attribute [Authorize(Policy = "RequireUserMercadona")]
 
 <MudText Typo="Typo.h4" Class="mb-8">Création d'une catégorie</MudText>
 

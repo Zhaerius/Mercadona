@@ -3,6 +3,7 @@
 @using BlazorServer.BackOffice.Models.Article;
 @using BlazorServer.BackOffice.Shared.Upload;
 @inherits CreateArticleBase
+@attribute [Authorize(Policy = "RequireUserMercadona")]
 
 
 <MudText Typo="Typo.h4" Class="mb-8">Creation d'un article</MudText>

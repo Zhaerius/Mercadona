@@ -1,7 +1,7 @@
 ﻿@page "/article"
 @using BlazorServer.BackOffice.Models;
 @inherits SearchArticleBase;
-@attribute [Authorize]
+@attribute [Authorize(Policy = "RequireUserMercadona")]
 
 <CascadingValue Value="@linkAdd">
     <AddButton></AddButton>

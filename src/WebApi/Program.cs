@@ -66,13 +66,16 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapGroup("/article")
-    .MapArticleEndpoints();
+    .MapArticleEndpoints()
+    .RequireAuthorization("RequireUserMercadona");
 
 app.MapGroup("/category")
-    .MapCategoryEndpoints();
+    .MapCategoryEndpoints()
+    .RequireAuthorization("RequireUserMercadona"); ;
 
 app.MapGroup("/promotion")
-    .MapPromotionEndpoints();
+    .MapPromotionEndpoints()
+    .RequireAuthorization("RequireUserMercadona"); ;
 
 app.MapGroup("/auth")
     .MapAuthEndpoints();

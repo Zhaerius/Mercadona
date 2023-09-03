@@ -1,7 +1,7 @@
 ﻿@page "/category"
 @using BlazorServer.BackOffice.Models.Category;
-@attribute [Authorize]
 @inherits CategoriesBase
+@attribute [Authorize(Policy = "RequireUserMercadona")]
 
 <CascadingValue Value="@LinkAddCategory">
     <AddButton></AddButton>

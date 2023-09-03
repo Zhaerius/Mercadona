@@ -1,7 +1,7 @@
 ﻿@page "/article/{Id:guid}"
 @using BlazorServer.BackOffice.Pages.Article;
 @inherits DetailsBase;
-@attribute [Authorize]
+@attribute [Authorize(Policy = "RequireUserMercadona")]
 
 <MudText Typo="Typo.h4" Class="mb-8">Details d'un article</MudText>
 

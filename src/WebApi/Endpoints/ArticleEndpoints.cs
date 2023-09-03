@@ -20,14 +20,14 @@ namespace WebApi.Endpoints
 
                 if (!articles.Any()) return Results.NoContent();
                 return Results.Ok(articles);
-            }); 
+            });
 
             // Get d'un article par son ID
             group.MapGet("/{id:guid}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
             {
                 var article = await mediator.Send(new GetArticleQuery(id));
                 return Results.Ok(article);
-            }).RequireAuthorization("RequireAdmin");
+            });
 
             // Upload Fichier
             group.MapPost("/img", async (IFormFileCollection files, [FromServices] IMediator mediator) =>

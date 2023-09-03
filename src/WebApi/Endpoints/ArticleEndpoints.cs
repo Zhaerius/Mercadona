@@ -13,51 +13,58 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapArticleEndpoints(this RouteGroupBuilder group)
         {
-            // Rechercher d'un article par son nom
-            group.MapGet("/search", async ([FromQuery] string name, [FromServices] IMediator mediator) =>
-            {
-                var articles = await mediator.Send(new SearchArticlesQuery(name));
+            group.MapGet("/search", Search);
 
-                if (!articles.Any()) return Results.NoContent();
-                return Results.Ok(articles);
-            });
+            group.MapGet("/{id:guid}", GetById);
 
-            // Get d'un article par son ID
-            group.MapGet("/{id:guid}", async ([FromRoute] Guid id, [FromServices] IMediator mediator) =>
-            {
-                var article = await mediator.Send(new GetArticleQuery(id));
-                return Results.Ok(article);
-            });
+            group.MapPost("", Add);
 
-            // Upload Fichier
-            group.MapPost("/img", async (IFormFileCollection files, [FromServices] IMediator mediator) =>
-            {
-                var result = await mediator.Send(new SaveFilesCommand(files));
-                return Results.Ok(result);
-            });
+            group.MapPut("", Update);
 
-            // Modification d'un article
-            group.MapPut("", async ([FromBody] UpdateArticleCommand request, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(request);
-                return Results.NoContent();
-            });
+            group.MapDelete("/{id:guid}", Delete);
 
-            //Ajouter un article
-            group.MapPost("", async ([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(request);
-                return Results.NoContent();
-            });
-
-            // Supression d'un article
-            group.MapDelete("/{id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(new DeleteArticleCommand(Id));
-                return Results.NoContent();
-            });
+            group.MapPost("/img", Upload);
 
             return group;
+        }
+
+
+        private static async Task<IResult> Search([FromQuery] string name, [FromServices] IMediator mediator)
+        {
+            var articles = await mediator.Send(new SearchArticlesQuery(name));
+
+            if (!articles.Any()) return Results.NoContent();
+            return Results.Ok(articles);
+        }
+
+        private static async Task<IResult> GetById([FromRoute] Guid id, [FromServices] IMediator mediator)
+        {
+            var article = await mediator.Send(new GetArticleQuery(id));
+            return Results.Ok(article);
+        }
+
+        private static async Task<IResult> Upload(IFormFileCollection files, [FromServices] IMediator mediator)
+        {
+            var result = await mediator.Send(new SaveFilesCommand(files));
+            return Results.Ok(result);
+        }
+
+        private static async Task<IResult> Update([FromBody] UpdateArticleCommand request, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(request);
+            return Results.NoContent();
+        }
+
+        private static async Task<IResult> Add([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(request);
+            return Results.NoContent();
+        }
+
+        private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(new DeleteArticleCommand(Id));
+            return Results.NoContent();
         }
     }
 }

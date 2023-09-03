@@ -31,6 +31,7 @@ namespace BlazorServer.BackOffice.Services
 
             loginResponse.Success = true;
             loginResponse.JwtToken = await response.Content.ReadAsStringAsync();
+            loginResponse.JwtToken = loginResponse.JwtToken.Trim('"');
 
             await _sessionStorage.SetAsync("authToken", loginResponse.JwtToken);
 

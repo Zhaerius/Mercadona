@@ -46,10 +46,7 @@ namespace BlazorServer.BackOffice.Services
             var response = await _httpClient.GetAsync($"article/{id}");
 
             if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("dsds");
                 return null!;
-            }
 
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var jsonData = await response.Content.ReadAsStringAsync();

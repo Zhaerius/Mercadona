@@ -71,11 +71,11 @@ app.MapGroup("/article")
 
 app.MapGroup("/category")
     .MapCategoryEndpoints()
-    .RequireAuthorization("RequireUserMercadona"); ;
+    .RequireAuthorization("RequireUserMercadona");
 
 app.MapGroup("/promotion")
     .MapPromotionEndpoints()
-    .RequireAuthorization("RequireUserMercadona"); ;
+    .RequireAuthorization("RequireUserMercadona");
 
 app.MapGroup("/auth")
     .MapAuthEndpoints();

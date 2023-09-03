@@ -1,4 +1,5 @@
-﻿using Application.Core.Features.Category.Commands.CreateCategories;
+﻿using Application.Core.Features.Article.Queries.SearchArticles;
+using Application.Core.Features.Category.Commands.CreateCategories;
 using Application.Core.Features.Category.Commands.CreateCategory;
 using Application.Core.Features.Category.Commands.DeleteCategory;
 using Application.Core.Features.Category.Commands.UpdateCategory;
@@ -12,23 +13,9 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapCategoryEndpoints(this RouteGroupBuilder group)
         {
-            // Retourne toutes les catégories
-            group.MapGet("", async ([FromServices] IMediator mediator) =>
-            {
-                var categories = await mediator.Send(new GetCategoriesQuery());
+            group.MapGet("", GetAll);
 
-                if (!categories.Any()) 
-                    return Results.NoContent();
-
-                return Results.Ok(categories);
-            });
-
-            // Supprimer une catégorie
-            group.MapDelete("/{Id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(new DeleteCategoryCommand(Id));
-                return Results.NoContent();
-            });
+            group.MapDelete("/{Id:guid}", Delete);
 
             // Ajouter une catégorie
             group.MapPost("", async ([FromBody] CreateCategoryCommand createCategory, [FromServices] IMediator mediator) =>
@@ -52,6 +39,22 @@ namespace WebApi.Endpoints
             });
 
             return group;
+        }
+
+        private static async Task<IResult> GetAll([FromServices] IMediator mediator)
+        {
+            var categories = await mediator.Send(new GetCategoriesQuery());
+
+            if (!categories.Any())
+                return Results.NoContent();
+
+            return Results.Ok(categories);
+        }
+
+        private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(new DeleteCategoryCommand(Id));
+            return Results.NoContent();
         }
     }
 }

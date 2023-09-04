@@ -17,26 +17,11 @@ namespace WebApi.Endpoints
 
             group.MapDelete("/{Id:guid}", Delete);
 
-            // Ajouter une catégorie
-            group.MapPost("", async ([FromBody] CreateCategoryCommand createCategory, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(createCategory);
-                return Results.NoContent();
-            });
+            group.MapPost("", CreateOne);
 
-            // Ajouter plusieurs catégories
-            group.MapPost("/multimode", async ([FromBody] CreateCategoriesCommand createCategories, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(createCategories);
-                return Results.NoContent();
-            });
+            group.MapPost("/multimode", CreateMulti);
 
-            // Update d'une catégorie
-            group.MapPut("", async ([FromBody] UpdateCategoryCommand updateCategory, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(updateCategory);
-                return Results.NoContent();
-            });
+            group.MapPut("", Update);
 
             return group;
         }
@@ -54,6 +39,24 @@ namespace WebApi.Endpoints
         private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)
         {
             await mediator.Send(new DeleteCategoryCommand(Id));
+            return Results.NoContent();
+        }
+
+        private static async Task<IResult> CreateOne([FromBody] CreateCategoryCommand createCategory, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(createCategory);
+            return Results.NoContent();
+        }
+
+        private static async Task<IResult> CreateMulti([FromBody] CreateCategoriesCommand createCategories, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(createCategories);
+            return Results.NoContent();
+        }
+
+        private static async Task<IResult> Update([FromBody] UpdateCategoryCommand updateCategory, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(updateCategory);
             return Results.NoContent();
         }
     }

@@ -8,13 +8,15 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapAuthEndpoints(this RouteGroupBuilder group)
         {
-            group.MapPost("", async ([FromBody] LoginQuery request, IMediator mediator) =>
-            {
-                string jwtToken = await mediator.Send(request);
-                return Results.Ok(jwtToken);
-            });
+            group.MapPost("", Login);          
 
             return group;
+        }
+
+        private static async Task<IResult> Login([FromBody] LoginQuery request, IMediator mediator)
+        {
+            string jwtToken = await mediator.Send(request);
+            return Results.Ok(jwtToken);
         }
     }
 }

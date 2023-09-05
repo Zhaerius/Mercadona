@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using BlazorServer.BackOffice.Models.Article;
+using System.IO;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
@@ -11,6 +12,7 @@ namespace BlazorServer.BackOffice.Pages.Article
 
         [Parameter] public Guid Id { get; set; }
         [Inject] private IArticleService ArticleService { get; set; } = null!;
+        [Inject] IConfiguration Configuration { get; set; } = null!;
 
 
 
@@ -21,6 +23,7 @@ namespace BlazorServer.BackOffice.Pages.Article
             if (article != null)
             {
                 articleModel = article;
+                articleModel.Image = Configuration.GetValue<string>("PathFileImg") + article.Image;
             }
         }
     }

@@ -9,6 +9,7 @@ using BlazorServer.BackOffice.Authentication;
 using BlazorServer.BackOffice;
 using System.Globalization;
 using BlazorServer.BackOffice.Shared.Upload;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,12 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider("C:\\Users\\gaeta\\source\\Repos\\Blob\\Mercadona\\"),
+    RequestPath = "/blob"
+});
 
 app.UseRouting();
 

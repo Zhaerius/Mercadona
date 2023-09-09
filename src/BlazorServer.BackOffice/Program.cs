@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using BlazorServer.BackOffice.Authentication;
 using BlazorServer.BackOffice;
 using System.Globalization;
-using BlazorServer.BackOffice.Shared.Upload;
+using BlazorServer.BackOffice.Components.Upload;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);

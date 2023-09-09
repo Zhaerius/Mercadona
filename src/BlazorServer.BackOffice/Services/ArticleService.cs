@@ -13,7 +13,7 @@ namespace BlazorServer.BackOffice.Services
             _httpClient = httpClient;
         }
 
-        public async Task<Article> GetArticleById(Guid id)
+        public async Task<ArticleModel> GetArticleById(Guid id)
         {
             var response = await _httpClient.GetAsync($"article/{id}");
 
@@ -23,7 +23,7 @@ namespace BlazorServer.BackOffice.Services
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var jsonData = await response.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<Article>(jsonData, jsonOptions)!;
+            return JsonSerializer.Deserialize<ArticleModel>(jsonData, jsonOptions)!;
         }
 
         public async Task<bool> CreateArticle(CreateArticleRequest createArticle)

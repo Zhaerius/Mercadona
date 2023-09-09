@@ -14,7 +14,7 @@ namespace BlazorServer.BackOffice.Services
             _httpClient = httpClient;
         }
 
-        public async Task<Category> GetCategoryById(Guid id)
+        public async Task<CategoryModel> GetCategoryById(Guid id)
         {
             var response = await _httpClient.GetAsync($"category/{id}");
 
@@ -24,20 +24,20 @@ namespace BlazorServer.BackOffice.Services
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var jsonData = await response.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<Category>(jsonData, jsonOptions)!;
+            return JsonSerializer.Deserialize<CategoryModel>(jsonData, jsonOptions)!;
         }
 
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<IEnumerable<CategoryModel>> GetCategories()
         {
             var response = await _httpClient.GetAsync("category/");
 
             if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                return Enumerable.Empty<Category>();
+                return Enumerable.Empty<CategoryModel>();
 
             var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var jsonData = await response.Content.ReadAsStringAsync();
 
-            return JsonSerializer.Deserialize<IEnumerable<Category>>(jsonData, jsonOptions)!;
+            return JsonSerializer.Deserialize<IEnumerable<CategoryModel>>(jsonData, jsonOptions)!;
         }
 
         public async Task<bool> DeleteCategory(Guid id)

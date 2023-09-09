@@ -2,7 +2,7 @@
 
 namespace BlazorServer.BackOffice.Models.Article
 {
-    public class Article
+    public class ArticleModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;

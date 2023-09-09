@@ -1,4 +1,5 @@
 ﻿@page "/category"
+@using BlazorServer.BackOffice.Components
 @using BlazorServer.BackOffice.Models.Category;
 @inherits CategoriesBase
 @attribute [Authorize(Policy = "RequireUserMercadona")]
@@ -11,7 +12,7 @@
     <MudTable Items="@Categories" Dense="false" Hover="true" CanCancelEdit="true" Elevation="10" Class="rounded-lg categories"
               CommitEditTooltip="Modifier"
               CancelEditTooltip="Annuler"
-              Filter="new Func<Category,bool>(FilterFunc)"
+              Filter="new Func<CategoryModel,bool>(FilterFunc)"
               EditTrigger="TableEditTrigger.EditButton"
               RowEditPreview="BackupItem"
               RowEditCancel="ResetItemToOriginalValues"

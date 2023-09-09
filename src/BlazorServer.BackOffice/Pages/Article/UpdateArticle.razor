@@ -1,13 +1,11 @@
 ﻿@page "/article/update/{Id:guid}"
+@using BlazorServer.BackOffice.Components.Upload
 @inherits UpdateArticleBase
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
-<MudText Typo="Typo.h4" Class="mb-8">Creation d'un article</MudText>
+<MudText Typo="Typo.h4" Class="mb-8">Mise à jour d'un article</MudText>
 
-<MudText>@ArticleToUpdate.Name</MudText>
-<MudText>@ArticleToUpdate.Description</MudText>
-
-@* <EditForm Model="@ArticleToUpdate" OnValidSubmit="OnValidSubmit">
+<EditForm Model="@ArticleToUpdate" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
     <MudGrid Class="mb-4">
         <MudItem xs="3">
@@ -19,15 +17,16 @@
                 <MudCardContent Class="d-flex flex-column gap-4">
                     <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.Name" For="@(() => ArticleToUpdate.Name)" Label="Nom" />
                     <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.Description" For="@(() => ArticleToUpdate.Description)" Label="Description" T="string" Lines="5" />
-                    <MudSelect @bind-Value="ArticleToUpdate.CategoryId" T="Guid?" For="@(() => ArticleToUpdate.CategoryId)" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
+                    <MudSelect @bind-Value="ArticleToUpdate.CategoryId" T="Guid" For="@(() => ArticleToUpdate.CategoryId)" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
                         @if (Categories is not null)
                         {
                             @foreach (var category in Categories)
                             {
-                                <MudSelectItem T="Guid?" Value="@category.Id">@category.Name</MudSelectItem>
+                                <MudSelectItem T="Guid" Value="@category.Id">@category.Name</MudSelectItem>
                             }
                         }
-                    </MudSelect> 
+                    </MudSelect>
+
                     <FilesUpload />
                 </MudCardContent>
             </MudCard>
@@ -61,4 +60,4 @@
             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
          </MudItem>
      </MudGrid>
- </EditForm> *@
+ </EditForm>

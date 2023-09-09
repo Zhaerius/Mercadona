@@ -6,7 +6,7 @@
 
 <div class="d-flex gap-6 align-content-center justify-space-between">
     <div>
-        <MudFileUpload T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
+        <MudFileUpload Class="mb-1" T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
             <ButtonTemplate>
                 <MudButton HtmlTag="label"
                            Variant="Variant.Filled"
@@ -24,12 +24,18 @@
         {
             @foreach (var uploadResult in UploadState.UploadResults)
             {
+                string preview = @path + @uploadResult.StoredFileName;
                 if (uploadResult.Uploaded)
                 {
-                    <div class="d-flex align-content-center gap-2">
-                        <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
-                        <MudText>@uploadResult.FileName</MudText>
+                    <div class="d-flex align-content-center flex-wrap flex-grow-1 gap-2">
+                        <MudImage Src="@preview" ObjectFit="ObjectFit.Cover" Height="80" Width="80" Elevation="10" Class="rounded-lg" />
+                        <div class="align-self-center d-flex">
+                            <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
+                            <MudText>@uploadResult.FileName</MudText>
+                        </div>
                     </div>
+
+                    
                 }
                 else
                 {

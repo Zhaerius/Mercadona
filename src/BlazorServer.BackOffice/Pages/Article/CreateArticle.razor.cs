@@ -1,7 +1,7 @@
-﻿using BlazorServer.BackOffice.Models.Article;
+﻿using BlazorServer.BackOffice.Components.Upload;
+using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
-using BlazorServer.BackOffice.Shared.Upload;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -17,7 +17,7 @@ namespace BlazorServer.BackOffice.Pages.Article
         
         protected CreateArticleRequest ArticleToCreate { get; set; } = new();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
-        protected IEnumerable<Models.Category.Category>? Categories { get; set; }
+        protected IEnumerable<CategoryModel>? Categories { get; set; }
 
         protected async override Task OnInitializedAsync()
         {

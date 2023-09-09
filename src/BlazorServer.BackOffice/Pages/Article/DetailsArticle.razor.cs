@@ -9,7 +9,7 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class DetailsBase : ComponentBase
     {
-        protected Models.Article.Article? articleModel;
+        protected Models.Article.ArticleModel? articleModel;
 
         [Parameter] public Guid Id { get; set; }
         [Inject] private IArticleService ArticleService { get; set; } = null!;

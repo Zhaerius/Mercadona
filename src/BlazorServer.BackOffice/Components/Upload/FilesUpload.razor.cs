@@ -4,14 +4,21 @@ using Microsoft.AspNetCore.Components.Forms;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace BlazorServer.BackOffice.Shared.Upload
+namespace BlazorServer.BackOffice.Components.Upload
 {
     public class FilesUploadBase: ComponentBase
     {
         protected List<IBrowserFile> files = new();
         protected bool shouldRender;
+        protected string? path;
         [Inject] protected IArticleService ArticleService { get; set; } = null!;
         [Inject] protected UploadState UploadState { get; set; } = null!;
+        [Inject] IConfiguration Configuration { get; set; } = null!;
+
+        protected override void OnInitialized()
+        {
+            path = Configuration.GetValue<string>("PathFileImg");
+        }
 
         protected async Task OnInputFileChange(IReadOnlyList<IBrowserFile> browserFiles)
         {

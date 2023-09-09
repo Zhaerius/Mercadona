@@ -14,5 +14,6 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
         double BasePrice,
         string Image,
         Guid CategoryId,
+        bool Publish,
         IEnumerable<Guid>? PromotionsIds) : IRequest{}
 }

@@ -15,9 +15,9 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavManager { get; set; } = null!;
         
-        protected CreateArticleModel ArticleToCreate { get; set; } = new();
+        protected CreateArticleRequest ArticleToCreate { get; set; } = new();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
-        protected IEnumerable<CategoryModel>? Categories { get; set; }
+        protected IEnumerable<Models.Category.Category>? Categories { get; set; }
 
         protected async override Task OnInitializedAsync()
         {

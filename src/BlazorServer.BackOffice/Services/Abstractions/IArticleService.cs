@@ -6,9 +6,9 @@ namespace BlazorServer.BackOffice.Services.Abstractions
     public interface IArticleService
     {
         Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
-        Task<ArticleModel> GetDetailsArticle(Guid id);
+        Task<Article> GetArticleById(Guid id);
         Task<bool> DeleteArticle(Guid id);
         Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content);
-        Task<bool> CreateArticle(CreateArticleModel createArticle);
+        Task<bool> CreateArticle(CreateArticleRequest createArticle);
     }
 }

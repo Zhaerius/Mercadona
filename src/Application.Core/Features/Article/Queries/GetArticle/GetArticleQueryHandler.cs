@@ -2,6 +2,7 @@
 using AutoMapper;
 using MediatR;
 using Application.Core.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Queries.GetArticle
 {
@@ -17,11 +18,14 @@ namespace Application.Core.Features.Article.Queries.GetArticle
         }
         public async Task<GetArticleQueryResponse> Handle(GetArticleQuery request, CancellationToken cancellationToken)
         {
-            var article = await _dbContext
-                .Articles
-                .FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
+            var article = await _dbContext.Articles
+                .Include(a => a.Category)
+                .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException();
+            Console.WriteLine("dsdsdsd");
 
-            return _mapper.Map<GetArticleQueryResponse>(article);
+            var test =  _mapper.Map<GetArticleQueryResponse>(article);
+
+            return test;
         }
     }
 }

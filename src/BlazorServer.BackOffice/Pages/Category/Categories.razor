@@ -11,7 +11,7 @@
     <MudTable Items="@Categories" Dense="false" Hover="true" CanCancelEdit="true" Elevation="10" Class="rounded-lg categories"
               CommitEditTooltip="Modifier"
               CancelEditTooltip="Annuler"
-              Filter="new Func<CategoryModel,bool>(FilterFunc)"
+              Filter="new Func<Category,bool>(FilterFunc)"
               EditTrigger="TableEditTrigger.EditButton"
               RowEditPreview="BackupItem"
               RowEditCancel="ResetItemToOriginalValues"

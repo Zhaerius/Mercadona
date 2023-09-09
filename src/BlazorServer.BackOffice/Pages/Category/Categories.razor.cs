@@ -13,11 +13,11 @@ namespace BlazorServer.BackOffice.Pages.Category
         protected string searchString = "";
         protected int rowPerPage = 10;
         protected bool displayRowNavigation = false;
-        protected CategoryModel? elementBeforeEdit;
+        protected Models.Category.Category? elementBeforeEdit;
 
         [Inject] private ICategoryService CategoryService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
-        protected IEnumerable<CategoryModel> Categories { get; set; } = null!;
+        protected IEnumerable<Models.Category.Category> Categories { get; set; } = null!;
         [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
         protected string LinkAddCategory { get; set; } = "/category/create";
 
@@ -30,7 +30,7 @@ namespace BlazorServer.BackOffice.Pages.Category
                 displayRowNavigation = true;
         }
 
-        protected bool FilterFunc(CategoryModel category)
+        protected bool FilterFunc(Models.Category.Category category)
         {
             if (string.IsNullOrWhiteSpace(searchString))
                 return true;
@@ -55,23 +55,23 @@ namespace BlazorServer.BackOffice.Pages.Category
 
         protected void BackupItem(object element)
         {
-            elementBeforeEdit = new CategoryModel()
+            elementBeforeEdit = new Models.Category.Category()
             {
-                Name = ((CategoryModel)element).Name,
+                Name = ((Models.Category.Category)element).Name,
             };
         }
 
         protected void ResetItemToOriginalValues(object element)
         {
-            ((CategoryModel)element).Name = elementBeforeEdit!.Name;
+            ((Models.Category.Category)element).Name = elementBeforeEdit!.Name;
         }
 
         protected async void ItemHasBeenCommittedAsync(object element)
         {
             var categoryUpdated = new UpdateCategoryRequest()
             {
-                Id = ((CategoryModel)element).Id,
-                Name = ((CategoryModel)element).Name
+                Id = ((Models.Category.Category)element).Id,
+                Name = ((Models.Category.Category)element).Name
             };
 
             var result = await CategoryService.UpdateCategory(categoryUpdated);

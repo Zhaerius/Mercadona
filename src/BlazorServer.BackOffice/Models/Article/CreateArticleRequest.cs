@@ -3,7 +3,7 @@
 
 namespace BlazorServer.BackOffice.Models.Article
 {
-    public class CreateArticleModel
+    public class CreateArticleRequest
     {
         [Required(ErrorMessage = "Le champ ne doit pas être vide")]
         public string? Name { get; set; }

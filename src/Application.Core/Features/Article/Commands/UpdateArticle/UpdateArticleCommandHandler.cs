@@ -44,6 +44,7 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
             articleToUpdate.Image = request.Image;
             articleToUpdate.BasePrice = request.BasePrice;
             articleToUpdate.CategoryId = request.CategoryId;
+            articleToUpdate.Publish = request.Publish;
 
             _dbContext.Articles.Update(articleToUpdate);
             await _dbContext.SaveChangesAsync(cancellationToken);

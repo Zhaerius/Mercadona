@@ -11,7 +11,7 @@ namespace Application.Core.Features.Article.Queries.GetArticle
 {
     public class GetArticleQueryResponse
     {
-        public GetArticleQueryResponse(Guid id, string name, string description, string image, double basePrice, double discountPrice, string categoryName, bool publish)
+        public GetArticleQueryResponse(Guid id, string name, string description, string image, double basePrice, double discountPrice, Guid categoryId, string categoryName, bool publish)
         {
             Id = id;
             Name = name;
@@ -19,6 +19,7 @@ namespace Application.Core.Features.Article.Queries.GetArticle
             Image = image;
             BasePrice = basePrice;
             DiscountPrice = discountPrice;
+            CategoryId = categoryId;
             CategoryName = categoryName;
             Publish = publish;
         }
@@ -28,9 +29,9 @@ namespace Application.Core.Features.Article.Queries.GetArticle
         public string Description { get; set; }
         public string Image { get; set; }
         public double BasePrice { get; set; }
-        public double DiscountPrice { get; set; }
+        public Guid CategoryId { get; set; }
         public string CategoryName { get; set; }
         public bool Publish { get; set; }
-
+        public double DiscountPrice { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Application.Core.Features.Article.Queries.SearchArticles;
-using Application.Core.Features.Category.Commands.CreateCategories;
+﻿using Application.Core.Features.Category.Commands.CreateCategories;
 using Application.Core.Features.Category.Commands.CreateCategory;
 using Application.Core.Features.Category.Commands.DeleteCategory;
 using Application.Core.Features.Category.Commands.UpdateCategory;
+using Application.Core.Features.Category.Queries.GetCategorie;
 using Application.Core.Features.Category.Queries.GetCategories;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +15,8 @@ namespace WebApi.Endpoints
         {
             group.MapGet("", GetAll);
 
+            group.MapGet("/{id:guid}", GetById);
+
             group.MapDelete("/{Id:guid}", Delete);
 
             group.MapPost("", CreateOne);
@@ -24,6 +26,12 @@ namespace WebApi.Endpoints
             group.MapPut("", Update);
 
             return group;
+        }
+
+        private static async Task<IResult> GetById([FromRoute] Guid id, [FromServices] IMediator mediator)
+        {
+            var categorie = await mediator.Send(new GetCategorieQuery(id));
+            return Results.Ok(categorie);
         }
 
         private static async Task<IResult> GetAll([FromServices] IMediator mediator)

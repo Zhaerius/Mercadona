@@ -38,7 +38,7 @@
                         <MudTd Style="text-align:right">
                             <MudMenu Icon="@Icons.Material.Filled.MoreVert">
                                  <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">Consulter</MudMenuItem>
-                                <MudMenuItem>Modifier</MudMenuItem>
+                                 <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
                                 <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
                             </MudMenu>
                         </MudTd>

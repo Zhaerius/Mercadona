@@ -9,7 +9,7 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class DetailsBase : ComponentBase
     {
-        protected ArticleModel? articleModel;
+        protected Models.Article.Article? articleModel;
 
         [Parameter] public Guid Id { get; set; }
         [Inject] private IArticleService ArticleService { get; set; } = null!;
@@ -22,7 +22,8 @@ namespace BlazorServer.BackOffice.Pages.Article
 
         protected async override Task OnInitializedAsync()
         {
-            var article = await ArticleService.GetDetailsArticle(Id);
+            //TODO = récupérer le nom de la catégory
+            var article = await ArticleService.GetArticleById(Id);
             if (article != null)
             {
                 articleModel = article;

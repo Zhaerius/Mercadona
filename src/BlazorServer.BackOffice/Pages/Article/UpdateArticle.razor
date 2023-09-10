@@ -5,59 +5,67 @@
 
 <MudText Typo="Typo.h4" Class="mb-8">Mise à jour d'un article</MudText>
 
-<EditForm Model="@ArticleToUpdate" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <MudGrid Class="mb-4">
-        <MudItem xs="3">
-            <MudText Typo="Typo.h6">Détails</MudText>
-            <MudText Typo="Typo.body2">Nom, description...</MudText>
-        </MudItem>
-        <MudItem xs="9">
-            <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
-                <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.Name" For="@(() => ArticleToUpdate.Name)" Label="Nom" />
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.Description" For="@(() => ArticleToUpdate.Description)" Label="Description" T="string" Lines="5" />
-                    <MudSelect @bind-Value="ArticleToUpdate.CategoryId" T="Guid" For="@(() => ArticleToUpdate.CategoryId)" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
-                        @if (Categories is not null)
-                        {
-                            @foreach (var category in Categories)
+@if (ArticleToUpdate != null)
+{
+    <EditForm Model="@ArticleToUpdate" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudGrid Class="mb-4">
+            <MudItem xs="3">
+                <MudText Typo="Typo.h6">Détails</MudText>
+                <MudText Typo="Typo.body2">Nom, description...</MudText>
+            </MudItem>
+            <MudItem xs="9">
+                <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
+                    <MudCardContent Class="d-flex flex-column gap-4">
+                        <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.Name" For="@(() => ArticleToUpdate.Name)" Label="Nom" />
+                        <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.Description" For="@(() => ArticleToUpdate.Description)" Label="Description" T="string" Lines="5" />
+                        <MudSelect @bind-Value="ArticleToUpdate.CategoryId" T="Guid" For="@(() => ArticleToUpdate.CategoryId)" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
+                            @if (Categories is not null)
                             {
-                                <MudSelectItem T="Guid" Value="@category.Id">@category.Name</MudSelectItem>
+                                @foreach (var category in Categories)
+                                {
+                                    <MudSelectItem T="Guid" Value="@category.Id">@category.Name</MudSelectItem>
+                                }
                             }
-                        }
-                    </MudSelect>
+                        </MudSelect>
 
-                    <FilesUpload />
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+                        <FilesUpload />
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
 
-    <MudGrid>
-        <MudItem xs="3">
-            <MudText Typo="Typo.h6">Prix</MudText>
-            <MudText Typo="Typo.body2">Prix de vente et promotions</MudText>
-        </MudItem>
-        <MudItem xs="9">
-            <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
-                <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudNumericField T="double?" HideSpinButtons="true" Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.BasePrice" For="@(() => ArticleToUpdate.BasePrice)" Label="Prix de base" />
-                    <MudSelect T="string" Variant="Variant.Outlined" Label="Promotions" AnchorOrigin="Origin.BottomCenter">
-                        <MudSelectItem Value="@("Chaussures")" />
-                        <MudSelectItem Value="@("Fruit")" />
-                        <MudSelectItem Value="@("Légumes")" />
-                    </MudSelect>
-                 </MudCardContent>
-             </MudCard>
-         </MudItem>
-     </MudGrid>  
+        <MudGrid>
+            <MudItem xs="3">
+                <MudText Typo="Typo.h6">Prix</MudText>
+                <MudText Typo="Typo.body2">Prix de vente et promotions</MudText>
+            </MudItem>
+            <MudItem xs="9">
+                <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
+                    <MudCardContent Class="d-flex flex-column gap-4">
+                        <MudNumericField T="double?" HideSpinButtons="true" Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.BasePrice" For="@(() => ArticleToUpdate.BasePrice)" Label="Prix de base" />
+                        <MudSelect T="string" Variant="Variant.Outlined" Label="Promotions" AnchorOrigin="Origin.BottomCenter">
+                            <MudSelectItem Value="@("Chaussures")" />
+                            <MudSelectItem Value="@("Fruit")" />
+                            <MudSelectItem Value="@("Légumes")" />
+                        </MudSelect>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        </MudGrid>
 
-     <MudGrid Class="my-4">
-         <MudItem xs="3">
-         </MudItem>
-         <MudItem xs="9" Class="d-flex justify-space-between flex-grow-1">
-             <MudSwitch T="bool" @bind-Checked="@ArticleToUpdate.Publish" Color="Color.Primary" Label="Publié" /> 
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
-         </MudItem>
-     </MudGrid>
- </EditForm>
+        <MudGrid Class="my-4">
+            <MudItem xs="3">
+            </MudItem>
+            <MudItem xs="9" Class="d-flex justify-space-between flex-grow-1">
+                <MudSwitch T="bool" @bind-Checked="@ArticleToUpdate.Publish" Color="Color.Primary" Label="Publié" />
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+}
+else
+{
+    <MudText Typo="Typo.body2" Class="mb-8">Impossible d'accéder à l'article</MudText>
+}
+

@@ -15,7 +15,7 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] IConfiguration Configuration { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
-        [Inject] private NavigationManager NavManager { get; set; } = null!;
+        [Inject] protected NavigationManager NavManager { get; set; } = null!;
 
 
 

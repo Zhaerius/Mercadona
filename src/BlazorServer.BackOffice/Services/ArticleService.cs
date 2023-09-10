@@ -1,6 +1,7 @@
 ﻿using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 using BlazorServer.BackOffice.Models.Article;
+using BlazorServer.BackOffice.Models.Category;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -50,6 +51,14 @@ namespace BlazorServer.BackOffice.Services
         public async Task<bool> DeleteArticle(Guid id)
         {
             var response = await _httpClient.DeleteAsync($"article/{id}");
+
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UpdateArticle(UpdateArticleRequest updateArticleRequest)
+        {
+            var jsonContent = JsonContent.Create(updateArticleRequest);
+            var response = await _httpClient.PutAsync($"article/", jsonContent);
 
             return response.IsSuccessStatusCode;
         }

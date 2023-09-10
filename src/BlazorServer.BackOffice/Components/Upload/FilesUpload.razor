@@ -19,7 +19,6 @@
             </ButtonTemplate>
         </MudFileUpload>
 
-
         @if (UploadState.UploadResults != null)
         {
             @foreach (var uploadResult in UploadState.UploadResults)
@@ -33,9 +32,7 @@
                             <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
                             <MudText>@uploadResult.FileName</MudText>
                         </div>
-                    </div>
-
-                    
+                    </div>                
                 }
                 else
                 {
@@ -56,6 +53,7 @@
 
         }
     </div>
+
     <div class="align-self-center">
         <MudAlert Severity="Severity.Info" Variant="Variant.Text" ContentAlignment="HorizontalAlignment.Center">
             JPEG, JPG, PNG / 500 ko Max

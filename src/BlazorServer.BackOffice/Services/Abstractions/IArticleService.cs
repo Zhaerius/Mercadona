@@ -9,5 +9,6 @@ namespace BlazorServer.BackOffice.Services.Abstractions
         Task<bool> DeleteArticle(Guid id);
         Task<HttpResponseMessage> UploadImage(MultipartFormDataContent content);
         Task<bool> CreateArticle(CreateArticleRequest createArticle);
+        Task<bool> UpdateArticle(UpdateArticleRequest updateArticleRequest);
     }
 }

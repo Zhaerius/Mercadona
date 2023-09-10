@@ -3,7 +3,7 @@
 @inherits DetailsBase;
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
-@if (articleModel is not null)
+@if (articleModel != null)
 {
     <MudGrid Justify="Justify.Center">
         <MudItem xs="5">
@@ -25,7 +25,7 @@
                 </MudCardContent>
 
                 <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary">Mise à jour</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo("/article"))">Mise à jour</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@DeleteArticle">Supression</MudButton>
                 </MudCardActions>
             </MudCard>

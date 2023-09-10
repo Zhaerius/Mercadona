@@ -3,7 +3,7 @@ using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
+using MudBlazor;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
@@ -13,48 +13,60 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] private ICategoryService CategoryService { get; set; } = null!;
         [Inject] private UploadState UploadState { get; set; } = null!;
-        protected UpdateArticleRequest ArticleToUpdate { get; set; } = new();
+        [Inject] private ISnackbar Snackbar { get; set; } = null!;
+        [Inject] private NavigationManager NavManager { get; set; } = null!;
+        protected UpdateArticleRequest? ArticleToUpdate { get; set; }
         protected IEnumerable<CategoryModel>? Categories { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             UploadState.OnChange += StateHasChanged;
-
-            var articleDetails = await ArticleService.GetArticleById(Id);
-            if (articleDetails == null)
-            {
-                //Todo Gestion Erreur
-            }
-
-            ArticleToUpdate = new UpdateArticleRequest()
-            {
-                Id = articleDetails.Id,
-                Name = articleDetails.Name,
-                Description = articleDetails.Description,
-                CategoryId = articleDetails.CategoryId,
-                Image = articleDetails.Image,
-                BasePrice = articleDetails.BasePrice,
-                Publish = articleDetails.Publish
-            };
-
             Categories = await CategoryService.GetCategories();
 
-            if (!string.IsNullOrEmpty(articleDetails.Image))
+            var articleDetails = await ArticleService.GetArticleById(Id);
+
+            if (articleDetails != null)
             {
-                var result = new UploadResult()
+                ArticleToUpdate = new UpdateArticleRequest()
                 {
-                    FileName = articleDetails.Image,
-                    ErrorCode = 0,
-                    StoredFileName = articleDetails.Image,
-                    Uploaded = true
+                    Id = articleDetails.Id,
+                    Name = articleDetails.Name,
+                    Description = articleDetails.Description,
+                    CategoryId = articleDetails.CategoryId,
+                    Image = articleDetails.Image,
+                    BasePrice = articleDetails.BasePrice,
+                    Publish = articleDetails.Publish
                 };
-                UploadState.AddToList(result);
-            }
+
+                if (!string.IsNullOrEmpty(articleDetails.Image))
+                {
+                    var result = new UploadResult(true, articleDetails.Image, articleDetails.Image, 0);
+                    UploadState.AddToList(result);
+                }
+            }           
         }
 
-        protected void OnValidSubmit()
+        protected async Task OnValidSubmit()
         {
+            if (UploadState.UploadResults.Count > 0)
+            {
+                var uploadResult = UploadState.UploadResults.FirstOrDefault();
+                if (uploadResult != null && uploadResult.Uploaded)
+                    ArticleToUpdate.Image = uploadResult.StoredFileName;
+            }
 
+            var result = await ArticleService.UpdateArticle(ArticleToUpdate);
+
+            DisplayResultSubmit(result);
+            NavManager.NavigateTo("/article");
+        }
+
+        private void DisplayResultSubmit(bool result)
+        {
+            if (result)
+                Snackbar.Add("Article mis à jour avec succès", Severity.Success);
+            else
+                Snackbar.Add("Impossible de mettre à jour l'article", Severity.Error);
         }
 
         public void Dispose()
@@ -62,6 +74,5 @@ namespace BlazorServer.BackOffice.Pages.Article
             UploadState.OnChange -= StateHasChanged;
             UploadState.ClearList();
         }
-
     }
 }

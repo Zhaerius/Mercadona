@@ -15,8 +15,8 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private UploadState UploadState { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavManager { get; set; } = null!;
-        protected UpdateArticleRequest? ArticleToUpdate { get; set; }
-        protected IEnumerable<CategoryModel>? Categories { get; set; }
+        protected UpdateArticleRequest ArticleToUpdate { get; set; } = new();
+        protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -56,9 +56,10 @@ namespace BlazorServer.BackOffice.Pages.Article
             }
 
             var result = await ArticleService.UpdateArticle(ArticleToUpdate);
-
             DisplayResultSubmit(result);
-            NavManager.NavigateTo("/article");
+
+            if (result)
+                NavManager.NavigateTo($"/article/{ArticleToUpdate.Id}");
         }
 
         private void DisplayResultSubmit(bool result)

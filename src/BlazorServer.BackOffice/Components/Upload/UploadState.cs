@@ -7,7 +7,7 @@ namespace BlazorServer.BackOffice.Components.Upload
         public int Number { get; set; } = 0;
         public List<UploadResult> UploadResults { get; set; } = new();
 
-        public event Action OnChange;
+        public event Action OnChange = null!;
 
         public void AddToList(UploadResult uploadResult)
         {

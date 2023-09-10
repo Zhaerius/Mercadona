@@ -3,15 +3,15 @@
 @inherits DetailsBase;
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
-@if (articleModel != null)
+@if (ArticleModel != null)
 {
     <MudGrid Justify="Justify.Center">
         <MudItem xs="5">
             <MudCard Elevation="10">
-                <MudCardMedia Image="@articleModel.Image" Height="300" />
+                <MudCardMedia Image="@ArticleModel.Image" Height="300" />
                 <MudCardContent>
-                    <MudText Typo="Typo.h5">@articleModel.Name</MudText>
-                    @if (@articleModel.Publish)
+                    <MudText Typo="Typo.h5">@ArticleModel.Name</MudText>
+                    @if (@ArticleModel.Publish)
                     {
                         <MudText Typo="Typo.body2" Color="Color.Success">En ligne</MudText>
                     }
@@ -20,12 +20,12 @@
                         <MudText Typo="Typo.body2" Color="Color.Warning">Hors ligne</MudText>
                     }
                     <br />
-                    <MudText Typo="Typo.h5">@articleModel.CategoryName</MudText>
-                    <MudText Typo="Typo.body2">@articleModel.Description</MudText>
+                    <MudText Typo="Typo.h5">@ArticleModel.CategoryName</MudText>
+                    <MudText Typo="Typo.body2">@ArticleModel.Description</MudText>
                 </MudCardContent>
 
                 <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo("/article"))">Mise à jour</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo($"/article/update/{ArticleModel.Id}"))">Mise à jour</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@DeleteArticle">Supression</MudButton>
                 </MudCardActions>
             </MudCard>
@@ -35,13 +35,13 @@
             <MudPaper Class="pa-4 mud-theme-primary d-flex align-content-center flex-wrap flex-grow-1 gap-4" Elevation="10">
                 <MudIcon Icon="@Icons.Material.TwoTone.MonetizationOn" Size="Size.Large" Class="align-self-center" />
                 <MudText Typo="Typo.body1" Class="align-self-center">
-                    Prix de base : @articleModel.BasePrice €
+                    Prix de base : @ArticleModel.BasePrice €
                 </MudText>
             </MudPaper>
             <MudPaper Class="pa-4 mud-theme-secondary d-flex align-content-center flex-wrap flex-grow-1 gap-4" Elevation="10">
                 <MudIcon Icon="@Icons.Material.Filled.Percent" Size="Size.Large" Class="align-self-center" />
                 <MudText Typo="Typo.body1" Class="align-self-center">
-                    Prix calculé : @articleModel.BasePrice €
+                    Prix calculé : @ArticleModel.BasePrice €
                 </MudText>
             </MudPaper>
             <MudPaper Class="pa-4 mud-theme-tertiary d-flex align-content-center flex-wrap flex-grow-1 gap-4" Elevation="10">

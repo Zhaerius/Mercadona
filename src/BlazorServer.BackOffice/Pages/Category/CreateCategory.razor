@@ -15,17 +15,17 @@
         </MudTooltip>
     </div>
 
-    <MudForm @ref="form" @bind-IsValid="@success">
+    <MudForm @ref="_form" @bind-IsValid="@_success">
         <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
             <MudCardContent Class="d-flex flex-column gap-4">
-                @foreach (var category in createCategories.Categories)
+                @foreach (var category in CreateCategories.Categories!)
                 {
                     <MudTextField T="string" Variant="Variant.Outlined" Placeholder="Céréales" Label="Nom" @bind-Value="category.Name" Required="true" RequiredError="Le champ ne doit pas être vide" Immediate="true" />
                 }
             </MudCardContent>
         </MudCard>
         <MudCardActions>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="@OnValidSubmit">Valider</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!_success)" Class="ml-auto" OnClick="@OnValidSubmit">Valider</MudButton>
         </MudCardActions>
     </MudForm>
 </MudContainer>

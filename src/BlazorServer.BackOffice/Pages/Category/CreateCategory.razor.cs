@@ -1,5 +1,4 @@
 ﻿using BlazorServer.BackOffice.Models.Category;
-using BlazorServer.BackOffice.Services;
 using BlazorServer.BackOffice.Services.Abstractions;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -8,9 +7,13 @@ namespace BlazorServer.BackOffice.Pages.Category
 {
     public class CreateCategoryBase : ComponentBase
     {
-        protected MudForm form;
-        protected bool success;
-        protected CreateCategoriesRequest createCategories = new CreateCategoriesRequest()
+        protected MudForm _form = null!;
+        protected bool _success;
+
+        [Inject] private ICategoryService CategoryService { get; set; } = null!;
+        [Inject] private ISnackbar Snackbar { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        protected CreateCategoriesRequest CreateCategories { get; set; } = new CreateCategoriesRequest()
         {
             Categories = new List<CreateCategoryRequest>()
             {
@@ -18,29 +21,28 @@ namespace BlazorServer.BackOffice.Pages.Category
             }
         };
 
-        [Inject] protected ICategoryService CategoryService { get; set; } = null!;
-        [Inject] protected ISnackbar Snackbar { get; set; } = null!;
-
 
         protected void AddElementToList()
         {
-            createCategories.Categories.Add(new CreateCategoryRequest());
+            CreateCategories.Categories!.Add(new CreateCategoryRequest());
         }
 
         protected void RemoveLastIndexToList()
         {
-            if (createCategories.Categories.Count > 1)
+            var nbCategories = CreateCategories.Categories!.Count;
+
+            if (nbCategories > 1)
             {
-                createCategories.Categories.RemoveAt(createCategories.Categories.Count - 1);
+                CreateCategories.Categories.RemoveAt(nbCategories - 1);
                 CheckValidationInputs();
             }
         }
 
         public async Task OnValidSubmit()
         {
-            bool result = await CategoryService.CreateCategories(createCategories);
+            bool result = await CategoryService.CreateCategories(CreateCategories);
             DisplayResultSubmit(result);
-            StateHasChanged();
+            NavigationManager.NavigateTo("/category");
         }
 
         private void DisplayResultSubmit(bool result)
@@ -53,12 +55,12 @@ namespace BlazorServer.BackOffice.Pages.Category
 
         private void CheckValidationInputs()
         {
-            var ValidationStatus = createCategories.Categories.Any(c => string.IsNullOrWhiteSpace(c.Name));
+            var ValidationStatus = CreateCategories.Categories!.Any(c => string.IsNullOrWhiteSpace(c.Name));
 
             if (ValidationStatus)
-                success = false;
+                _success = false;
             else
-                success = true;
+                _success = true;
         }
     }
 }

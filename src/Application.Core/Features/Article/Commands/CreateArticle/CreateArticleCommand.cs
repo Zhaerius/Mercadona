@@ -10,5 +10,5 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
         string Image,
         Guid CategoryId,
         IEnumerable<Guid>? PromotionsIds,
-        bool Publish) : IRequest{ }
+        bool Publish) : IRequest<Guid>{ }
 }

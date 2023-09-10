@@ -1,5 +1,6 @@
 ﻿using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
+using BlazorServer.BackOffice.Pages.Article;
 using BlazorServer.BackOffice.Services.Abstractions;
 using System.Text.Json;
 
@@ -14,54 +15,34 @@ namespace BlazorServer.BackOffice.Services
             _httpClient = httpClient;
         }
 
+        public async Task<bool> CreateCategories(CreateCategoriesRequest createCategoriesRequest)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"category/multimode", createCategoriesRequest);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<CategoryModel> GetCategoryById(Guid id)
         {
-            var response = await _httpClient.GetAsync($"category/{id}");
-
-            if (!response.IsSuccessStatusCode)
-                return null!;
-
-            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var jsonData = await response.Content.ReadAsStringAsync();
-
-            return JsonSerializer.Deserialize<CategoryModel>(jsonData, jsonOptions)!;
+            var category = await _httpClient.GetFromJsonAsync<CategoryModel>($"category/{id}");
+            return category;
         }
 
         public async Task<IEnumerable<CategoryModel>> GetCategories()
         {
-            var response = await _httpClient.GetAsync("category/");
+            var categories = await _httpClient.GetFromJsonAsync<IEnumerable<CategoryModel>>("category/");
+            return categories;
+        }
 
-            if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                return Enumerable.Empty<CategoryModel>();
-
-            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var jsonData = await response.Content.ReadAsStringAsync();
-
-            return JsonSerializer.Deserialize<IEnumerable<CategoryModel>>(jsonData, jsonOptions)!;
+        public async Task<bool> UpdateCategory(UpdateCategoryRequest updateCategoryRequest)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"category/", updateCategoryRequest);
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> DeleteCategory(Guid id)
         {
             var response = await _httpClient.DeleteAsync($"category/{id}");
-
             return response.IsSuccessStatusCode;
         }
-
-        public async Task<bool> UpdateCategory(UpdateCategoryRequest updateCategoryRequest)
-        {
-            var jsonContent = JsonContent.Create(updateCategoryRequest);
-            var response = await _httpClient.PutAsync($"category/", jsonContent);
-
-            return response.IsSuccessStatusCode;
-        }
-
-        public async Task<bool> CreateCategories(CreateCategoriesRequest createCategoriesRequest)
-        {
-            var jsonContent = JsonContent.Create(createCategoriesRequest);
-            var response = await _httpClient.PostAsync($"category/multimode", jsonContent);
-
-            return response.IsSuccessStatusCode;
-        }
-
     }
 }

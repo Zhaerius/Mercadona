@@ -8,21 +8,21 @@ namespace BlazorServer.BackOffice.Components.Upload
 {
     public class FilesUploadBase: ComponentBase
     {
-        protected List<IBrowserFile> files = new();
-        protected bool shouldRender;
-        protected string? path;
+        protected List<IBrowserFile> _files = new();
+        protected bool _shouldRender;
+        protected string? _path;
         [Inject] protected IArticleService ArticleService { get; set; } = null!;
         [Inject] protected UploadState UploadState { get; set; } = null!;
         [Inject] IConfiguration Configuration { get; set; } = null!;
 
         protected override void OnInitialized()
         {
-            path = Configuration.GetValue<string>("PathFileImg");
+            _path = Configuration.GetValue<string>("PathFileImg");
         }
 
         protected async Task OnInputFileChange(IReadOnlyList<IBrowserFile> browserFiles)
         {
-            shouldRender = false;
+            _shouldRender = false;
             bool upload = false;
             long maxFileSize = 1024 * 500;
             using var content = new MultipartFormDataContent();
@@ -34,7 +34,7 @@ namespace BlazorServer.BackOffice.Components.Upload
                     try
                     {
                         UploadState.ClearList();
-                        files.Add(browserFile);
+                        _files.Add(browserFile);
 
                         var fileContent = new StreamContent(browserFile.OpenReadStream(maxFileSize));
                         fileContent.Headers.ContentType = new MediaTypeHeaderValue(browserFile.ContentType);
@@ -42,7 +42,7 @@ namespace BlazorServer.BackOffice.Components.Upload
 
                         upload = true;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         var result = new UploadResult()
                         {
@@ -72,9 +72,9 @@ namespace BlazorServer.BackOffice.Components.Upload
                 }
             }
 
-            shouldRender = true;
+            _shouldRender = true;
         }
 
-        protected override bool ShouldRender() => shouldRender;
+        protected override bool ShouldRender() => _shouldRender;
     }
 }

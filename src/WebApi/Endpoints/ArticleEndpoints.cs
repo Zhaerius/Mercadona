@@ -57,8 +57,8 @@ namespace WebApi.Endpoints
 
         private static async Task<IResult> Add([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator)
         {
-            await mediator.Send(request);
-            return Results.NoContent();
+            var result = await mediator.Send(request);
+            return Results.Ok(result);
         }
 
         private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)

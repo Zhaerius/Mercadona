@@ -7,7 +7,7 @@ namespace BlazorServer.BackOffice.Pages.Authentication
 {
     public class LoginBase : ComponentBase
     {
-        protected bool error;
+        protected bool _error;
         [Inject] private IAuthenticationService AuthenticationService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [CascadingParameter] private Task<AuthenticationState> AuthenticationState { get; set; } = null!;
@@ -29,7 +29,7 @@ namespace BlazorServer.BackOffice.Pages.Authentication
             if (result.Success)
                 NavigationManager.NavigateTo("/");
             else
-                error = true;
+                _error = true;
         }
     }
 }

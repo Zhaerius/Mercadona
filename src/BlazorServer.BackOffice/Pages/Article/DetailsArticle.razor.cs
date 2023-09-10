@@ -9,31 +9,24 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class DetailsBase : ComponentBase
     {
-        protected Models.Article.ArticleModel? articleModel;
-
         [Parameter] public Guid Id { get; set; }
         [Inject] private IArticleService ArticleService { get; set; } = null!;
         [Inject] IConfiguration Configuration { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] protected NavigationManager NavManager { get; set; } = null!;
-
-
+        protected ArticleModel ArticleModel { get; set; } = new();
 
 
         protected async override Task OnInitializedAsync()
         {
-            //TODO = récupérer le nom de la catégory
-            var article = await ArticleService.GetArticleById(Id);
-            if (article != null)
-            {
-                articleModel = article;
-                articleModel.Image = Configuration.GetValue<string>("PathFileImg") + article.Image;
-            }
+            ArticleModel = await ArticleService.GetArticleById(Id);
+            if (ArticleModel != null)
+                ArticleModel.Image = Configuration.GetValue<string>("PathFileImg") + ArticleModel.Image;
         }
 
         protected async Task DeleteArticle()
         {
-            var result = await ArticleService.DeleteArticle(articleModel!.Id);
+            var result = await ArticleService.DeleteArticle(ArticleModel.Id);
             DisplayResultSubmit(result);
             NavManager.NavigateTo("/article");
         }

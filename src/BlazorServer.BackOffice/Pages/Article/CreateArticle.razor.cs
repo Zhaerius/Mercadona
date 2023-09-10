@@ -16,8 +16,8 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private NavigationManager NavManager { get; set; } = null!;
         
         protected CreateArticleRequest ArticleToCreate { get; set; } = new();
+        protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
-        protected IEnumerable<CategoryModel>? Categories { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
@@ -30,15 +30,18 @@ namespace BlazorServer.BackOffice.Pages.Article
             if (UploadState.UploadResults.Count > 0)
             {
                 var uploadResult = UploadState.UploadResults.FirstOrDefault();
-                if (uploadResult.Uploaded)
+                if (uploadResult!.Uploaded)
                     ArticleToCreate.Image = uploadResult.StoredFileName;
             }
             
-            var result = await ArticleService.CreateArticle(ArticleToCreate);
+            Guid? id = await ArticleService.CreateArticle(ArticleToCreate);
 
-            DisplayResultSubmit(result);
+            bool valueToDisplay = id != null ? true : false;
 
-            NavManager.NavigateTo("/article");
+            if (valueToDisplay)
+                NavManager.NavigateTo($"/article/{id}");
+
+            DisplayResultSubmit(valueToDisplay);
         }
 
         private void DisplayResultSubmit(bool result)

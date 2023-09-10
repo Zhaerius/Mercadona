@@ -2,17 +2,12 @@
 using Application.Core.Abstractions;
 using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Commands.CreateArticle
 {
-    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand>
+    public class CreateArticleCommandHandler : IRequestHandler<CreateArticleCommand, Guid>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -23,7 +18,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             _mapper = mapper;
         }
 
-        public async Task Handle(CreateArticleCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
         {
             var article = _mapper.Map<ArticleEntity>(request);
 
@@ -38,6 +33,8 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
 
             _dbContext.Articles.Add(article);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return article.Id;
         }
     }
 }

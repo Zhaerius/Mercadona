@@ -10,28 +10,28 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapPromotionEndpoints(this RouteGroupBuilder group)
         {
-            // Creation d'une promotion
-            group.MapPost("", async ([FromBody] CreatePromotionCommand createPromotion, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(createPromotion);
-                return Results.NoContent();
-            });
+            group.MapPost("", Add);
 
-            // Supression d'une promotion
-            group.MapPost("/{Id:guid}", async ([FromRoute] Guid Id, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(new DeletePromotionCommand(Id));
-                return Results.NoContent();
-            });
+            group.MapPost("/{Id:guid}", Delete);
 
-            //Update d'une promotion
-            group.MapPut("", async ([FromBody] UpdatePromotionCommand updatePromotion, [FromServices] IMediator mediator) =>
-            {
-                await mediator.Send(updatePromotion);
-                return Results.NoContent();
-            });
+            group.MapPut("", Update);
 
             return group;
+        }
+        private static async Task<IResult> Add([FromBody] CreatePromotionCommand createPromotion, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(createPromotion);
+            return Results.NoContent();
+        }
+        private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(new DeletePromotionCommand(Id));
+            return Results.NoContent();
+        }
+        private static async Task<IResult> Update([FromBody] UpdatePromotionCommand updatePromotion, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(updatePromotion);
+            return Results.NoContent();
         }
     }
 }

@@ -1,0 +1,43 @@
+﻿@page "/promotion/create"
+@inherits CreatePromotionBase;
+@attribute [Authorize(Policy = "RequireUserMercadona")]
+
+<MudText Typo="Typo.h4" Class="mb-8">Création d'une Promotion</MudText>
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <EditForm Model="@CreatePromotion" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
+            <MudCardContent Class="d-flex flex-column gap-4">
+                <MudTextField 
+                    Label="Nom" 
+                    Placeholder="Promotion de Noel"
+                    Variant="Variant.Outlined"
+                    @bind-Value="CreatePromotion.Name"
+                    For="@(() => CreatePromotion.Name)" />
+                <MudDateRangePicker 
+                    Variant="Variant.Outlined"
+                    Label="Durée de la promotion" 
+                    @bind-DateRange="_dateRange" />
+                <MudNumericField 
+                    T="double?" 
+                    Variant="Variant.Outlined"
+                    Label="Réduction"
+                    Placeholder="20"
+                    AdornmentIcon="@Icons.Material.Filled.Percent"
+                    For="@(() => CreatePromotion.Discount)"
+                    @bind-Value="CreatePromotion.Discount" />
+            </MudCardContent>
+        </MudCard>
+        <MudCardActions>
+            <MudButton 
+                ButtonType="ButtonType.Submit" 
+                Variant="Variant.Filled" 
+                Color="Color.Primary" 
+                Class="ml-auto">
+                Valider
+            </MudButton>
+        </MudCardActions>
+    </EditForm>
+</MudContainer>
+

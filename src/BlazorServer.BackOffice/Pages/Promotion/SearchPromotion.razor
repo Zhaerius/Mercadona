@@ -1,8 +1,13 @@
 ﻿@page "/promotion/search"
+@using BlazorServer.BackOffice.Components
 @attribute [Authorize]
 
 <h3>SearchPromotion</h3>
 
-@code {
+<CascadingValue Value="@_linkAdd">
+    <AddButton></AddButton>
+</CascadingValue>
 
+@code {
+    public string _linkAdd = "/promotion/create";
 }

@@ -8,13 +8,13 @@ namespace Application.Core.Entities
 {
     public class PromotionEntity : BaseEntity
     {
+        private bool _isActive;
+
         public required string Name { get; set; }
         public DateOnly Start { get; set; }
         public DateOnly End { get; set; }
         public int Discount { get; set; }
         public IEnumerable<ArticleEntity>? Articles { get; set; }
-
-        private bool _isActive;
         public bool IsActive
         {
             get { return _isActive; }

@@ -1,10 +1,11 @@
 ﻿using BlazorServer.BackOffice.Models.Article;
+using BlazorServer.BackOffice.Models.Promotion;
 
 namespace BlazorServer.BackOffice.Services.Abstractions
 {
     public interface IPromotionService
     {
-        Task<Guid?> CreateArticle(CreateArticleRequest createArticle);
+        Task<bool> CreatePromotion(CreatePromotionRequest createPromotion);
         //Task<ArticleModel> GetArticleById(Guid id);
         //Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name);
         //Task<bool> UpdateArticle(UpdateArticleRequest updateArticleRequest);

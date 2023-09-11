@@ -2,6 +2,7 @@
 using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
 using System.Text.Json;
+using BlazorServer.BackOffice.Models.Promotion;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -14,16 +15,10 @@ namespace BlazorServer.BackOffice.Services
             _httpClient = httpClient;
         }
 
-        public async Task<Guid?> CreateArticle(CreateArticleRequest createArticle)
+        public async Task<bool> CreatePromotion(CreatePromotionRequest createPromotion)
         {
-            var response = await _httpClient.PostAsJsonAsync("article", createArticle);
-
-            if (!response.IsSuccessStatusCode)
-                return null;
-
-            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            var jsonData = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<Guid>(jsonData, jsonOptions)!;
+            var response = await _httpClient.PostAsJsonAsync("promotion", createPromotion);
+            return response.IsSuccessStatusCode;
 
         }
 

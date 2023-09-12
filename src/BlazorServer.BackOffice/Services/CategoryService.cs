@@ -23,14 +23,22 @@ namespace BlazorServer.BackOffice.Services
 
         public async Task<CategoryModel> GetCategoryById(Guid id)
         {
-            var category = await _httpClient.GetFromJsonAsync<CategoryModel>($"category/{id}");
-            return category;
+            var response = await _httpClient.GetAsync($"category/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                return null!;
+
+            return await DeserializeFromHttpResponse<CategoryModel>(response);
         }
 
         public async Task<IEnumerable<CategoryModel>> GetCategories()
         {
-            var categories = await _httpClient.GetFromJsonAsync<IEnumerable<CategoryModel>>("category/");
-            return categories;
+            var response = await _httpClient.GetAsync("category/");
+
+            if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                return Enumerable.Empty<CategoryModel>();
+
+            return await DeserializeFromHttpResponse<IEnumerable<CategoryModel>>(response);
         }
 
         public async Task<bool> UpdateCategory(UpdateCategoryRequest updateCategoryRequest)

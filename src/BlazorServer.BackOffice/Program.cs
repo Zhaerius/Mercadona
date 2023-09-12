@@ -24,9 +24,9 @@ builder.Services.AddUIDependencies();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-builder.Services.AddScoped<IArticleService, ArticleService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IPromotionService, PromotionService>();
+builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<PromotionService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<AuthenticationStateProvider, TokenAuthenticationStateProvider>();
 builder.Services.AddScoped<UploadState>();

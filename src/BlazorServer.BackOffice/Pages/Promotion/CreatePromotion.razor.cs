@@ -1,5 +1,5 @@
 ﻿using BlazorServer.BackOffice.Models.Promotion;
-using BlazorServer.BackOffice.Services.Abstractions;
+using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -10,7 +10,7 @@ namespace BlazorServer.BackOffice.Pages.Promotion
         protected bool _success;
         protected DateRange _dateRange = new DateRange(DateTime.Now.Date, DateTime.Now.AddMonths(1).Date);
 
-        [Inject] IPromotionService PromotionService { get; set; } = null!;
+        [Inject] PromotionService PromotionService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
         protected CreatePromotionRequest CreatePromotion { get; set; } = new();

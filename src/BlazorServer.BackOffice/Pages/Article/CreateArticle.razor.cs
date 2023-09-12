@@ -1,7 +1,7 @@
 ﻿using BlazorServer.BackOffice.Components.Upload;
 using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
-using BlazorServer.BackOffice.Services.Abstractions;
+using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -9,8 +9,8 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class CreateArticleBase : ComponentBase, IDisposable
     {
-        [Inject] private IArticleService ArticleService { get; set; } = null!;
-        [Inject] private ICategoryService CategoryService { get; set; } = null!;
+        [Inject] private ArticleService ArticleService { get; set; } = null!;
+        [Inject] private CategoryService CategoryService { get; set; } = null!;
         [Inject] private UploadState UploadState { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavManager { get; set; } = null!;

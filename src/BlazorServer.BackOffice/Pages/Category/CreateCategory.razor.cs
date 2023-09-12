@@ -1,5 +1,5 @@
 ﻿using BlazorServer.BackOffice.Models.Category;
-using BlazorServer.BackOffice.Services.Abstractions;
+using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -10,7 +10,7 @@ namespace BlazorServer.BackOffice.Pages.Category
         protected MudForm _form = null!;
         protected bool _success;
 
-        [Inject] private ICategoryService CategoryService { get; set; } = null!;
+        [Inject] private CategoryService CategoryService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         protected CreateCategoriesRequest CreateCategories { get; set; } = new CreateCategoriesRequest()

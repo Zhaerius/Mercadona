@@ -6,7 +6,7 @@ using BlazorServer.BackOffice.Models.Promotion;
 
 namespace BlazorServer.BackOffice.Services
 {
-    public class PromotionService : IPromotionService
+    public class PromotionService : HttpService
     {
         private readonly HttpClient _httpClient;
 

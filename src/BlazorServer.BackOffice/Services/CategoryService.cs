@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace BlazorServer.BackOffice.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : HttpService
     {
         private readonly HttpClient _httpClient;
 

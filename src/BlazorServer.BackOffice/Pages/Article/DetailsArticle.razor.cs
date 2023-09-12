@@ -1,16 +1,14 @@
-﻿using BlazorServer.BackOffice.Services.Abstractions;
-using MediatR;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using BlazorServer.BackOffice.Models.Article;
-using System.IO;
 using MudBlazor;
+using BlazorServer.BackOffice.Services;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
     public class DetailsBase : ComponentBase
     {
         [Parameter] public Guid Id { get; set; }
-        [Inject] private IArticleService ArticleService { get; set; } = null!;
+        [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] IConfiguration Configuration { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] protected NavigationManager NavManager { get; set; } = null!;

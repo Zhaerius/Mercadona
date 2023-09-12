@@ -1,8 +1,8 @@
-﻿using BlazorServer.BackOffice.Services.Abstractions;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using static MudBlazor.Defaults.Classes;
 using BlazorServer.BackOffice.Models.Article;
+using BlazorServer.BackOffice.Services;
 
 namespace BlazorServer.BackOffice.Pages.Article
 {
@@ -13,7 +13,7 @@ namespace BlazorServer.BackOffice.Pages.Article
         protected int _articleCount = 0;
         protected string _linkAdd = "/article/create";
 
-        [Inject] private IArticleService ArticleService { get; set; } = null!;
+        [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [Inject] ISnackbar Snackbar { get; set; } = null!;
         protected SearchArticlesRequest SearchArticlesRequest { get; set; } = new();

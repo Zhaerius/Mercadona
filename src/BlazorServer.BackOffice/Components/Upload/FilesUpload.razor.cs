@@ -1,4 +1,4 @@
-﻿using BlazorServer.BackOffice.Services.Abstractions;
+﻿using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Net.Http.Headers;
@@ -11,7 +11,7 @@ namespace BlazorServer.BackOffice.Components.Upload
         protected List<IBrowserFile> _files = new();
         protected bool _shouldRender;
         protected string? _path;
-        [Inject] protected IArticleService ArticleService { get; set; } = null!;
+        [Inject] protected ArticleService ArticleService { get; set; } = null!;
         [Inject] protected UploadState UploadState { get; set; } = null!;
         [Inject] IConfiguration Configuration { get; set; } = null!;
 

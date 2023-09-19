@@ -3,6 +3,7 @@ using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
 using System.Text.Json;
 using BlazorServer.BackOffice.Models.Promotion;
+using Bogus.DataSets;
 
 namespace BlazorServer.BackOffice.Services
 {
@@ -19,7 +20,22 @@ namespace BlazorServer.BackOffice.Services
         {
             var response = await _httpClient.PostAsJsonAsync("promotion", createPromotion);
             return response.IsSuccessStatusCode;
+        }
 
+        public async Task<IEnumerable<PromotionModel>> GetPromotionByStatus(bool isActive)
+        {
+            var response = await _httpClient.GetAsync($"promotion/{isActive}");
+
+            if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                return Enumerable.Empty<PromotionModel>();
+
+            return await DeserializeFromHttpResponse<IEnumerable<PromotionModel>>(response);
+        }
+
+        public async Task<bool> DeletePromotion(Guid id)
+        {
+            var response = await _httpClient.DeleteAsync($"promotion/{id}");
+            return response.IsSuccessStatusCode;
         }
 
         //public async Task<ArticleModel> GetArticleById(Guid id)

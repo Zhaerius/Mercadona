@@ -1,6 +1,7 @@
 ﻿using Application.Core.Features.Promotion.Commands.CreatePromotion;
 using Application.Core.Features.Promotion.Commands.DeletePromotion;
 using Application.Core.Features.Promotion.Commands.UpdatePromotion;
+using Application.Core.Features.Promotion.Queries.GetPromotionsByStatus;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,11 @@ namespace WebApi.Endpoints
         {
             group.MapPost("", Add);
 
-            group.MapPost("/{Id:guid}", Delete);
+            group.MapDelete("/{id:guid}", Delete);
 
             group.MapPut("", Update);
+
+            group.MapGet("/{isActive:bool}", GetPromotionsByStatus);
 
             return group;
         }
@@ -23,15 +26,34 @@ namespace WebApi.Endpoints
             await mediator.Send(createPromotion);
             return Results.NoContent();
         }
-        private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)
+
+        private static async Task<IResult> GetPromotionsByStatus([FromRoute] bool isActive, [FromServices] IMediator mediator)
         {
-            await mediator.Send(new DeletePromotionCommand(Id));
+            var promotions = await mediator.Send(new GetPromotionsByStatusQuery(isActive));
+
+            if (!promotions.Any())
+                return Results.NoContent();
+
+            return Results.Ok(promotions);
+        }
+
+        private static async Task<IResult> Delete([FromRoute] Guid id, [FromServices] IMediator mediator)
+        {
+            await mediator.Send(new DeletePromotionCommand(id));
             return Results.NoContent();
         }
+
+
+
+
+
+
         private static async Task<IResult> Update([FromBody] UpdatePromotionCommand updatePromotion, [FromServices] IMediator mediator)
         {
             await mediator.Send(updatePromotion);
             return Results.NoContent();
         }
+
+
     }
 }

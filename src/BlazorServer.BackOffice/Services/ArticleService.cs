@@ -47,7 +47,7 @@ namespace BlazorServer.BackOffice.Services
 
         public async Task<IEnumerable<SearchArticlesResponse>> SearchArticles(string name)
         {
-            var response = await _httpClient.GetAsync($"article/search?name={name}");
+            var response = await _httpClient.GetAsync($"article/search/{name}");
 
             if (!response.IsSuccessStatusCode || response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 return Enumerable.Empty<SearchArticlesResponse>();

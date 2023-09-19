@@ -17,7 +17,7 @@ namespace WebApi.Endpoints
 
             group.MapGet("/{id:guid}", GetById);
 
-            group.MapDelete("/{Id:guid}", Delete);
+            group.MapDelete("/{id:guid}", Delete);
 
             group.MapPost("", CreateOne);
 
@@ -44,9 +44,9 @@ namespace WebApi.Endpoints
             return Results.Ok(categories);
         }
 
-        private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)
+        private static async Task<IResult> Delete([FromRoute] Guid id, [FromServices] IMediator mediator)
         {
-            await mediator.Send(new DeleteCategoryCommand(Id));
+            await mediator.Send(new DeleteCategoryCommand(id));
             return Results.NoContent();
         }
 

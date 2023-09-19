@@ -13,7 +13,7 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapArticleEndpoints(this RouteGroupBuilder group)
         {
-            group.MapGet("/search", Search);
+            group.MapGet("/search/{name}", Search);
 
             group.MapGet("/{id:guid}", GetById);
 
@@ -29,7 +29,7 @@ namespace WebApi.Endpoints
         }
 
 
-        private static async Task<IResult> Search([FromQuery] string name, [FromServices] IMediator mediator)
+        private static async Task<IResult> Search([FromRoute] string name, [FromServices] IMediator mediator)
         {
             var articles = await mediator.Send(new SearchArticlesQuery(name));
 

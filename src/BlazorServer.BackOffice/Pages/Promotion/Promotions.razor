@@ -1,0 +1,55 @@
+﻿@page "/promotion"
+@using BlazorServer.BackOffice.Components
+@using BlazorServer.BackOffice.Models.Promotion;
+@inherits SearchPromotionBase
+@attribute [Authorize]
+
+<CascadingValue Value="@linkAdd">
+    <AddButton></AddButton>
+</CascadingValue>
+
+@if (Promotions.Any())
+{
+    <div>
+        <MudTable Dense="true"
+                  Elevation="10"
+                  RowsPerPage="@rowPerPage"
+                  Items="Promotions"
+                  Filter="new Func<PromotionModel,bool>(FilterFunc)"
+                  Class="mb-8 rounded-lg">
+            <ToolBarContent>
+                <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.MonetizationOn" Color="Color.Inherit" />
+                <MudText Typo="Typo.h6">Liste des promotions</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString" Placeholder="Rechercher une promotion" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Variant="Variant.Text" Class="mt-0"></MudTextField>
+                <MudCheckBox T="bool" Label="En cours" Class="mr-5" Checked="isActive" CheckedChanged="RefreshPromotions" />
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Nom</MudTh>
+                <MudTh>Date de début</MudTh>
+                <MudTh>Date de fin</MudTh>
+                <MudTh>Réduction</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nom"><MudLink Href="@($"article/{context.Id}")">@context.Name</MudLink></MudTd>
+                <MudTd DataLabel="Catégorie">@context.Start</MudTd>
+                <MudTd DataLabel="Prix">@context.End</MudTd>
+                <MudTd DataLabel="Réduction">@context.Discount</MudTd>
+                <MudTd Style="text-align:right">
+                    <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                        <MudMenuItem>Consulter</MudMenuItem>
+                        <MudMenuItem>Modifier</MudMenuItem>
+                        <MudMenuItem @onclick="() => DeletePromotion(context.Id)">Supprimer</MudMenuItem>
+                    </MudMenu>
+                </MudTd>
+            </RowTemplate>
+            @*         <PagerContent>
+        @if (@_displayRowNavigation)
+        {
+        <MudTablePager RowsPerPageString="Ligne par page" />
+        }
+        </PagerContent> *@
+        </MudTable>
+    </div>
+}

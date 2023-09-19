@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Core.Features.Promotion.Queries.GetPromotions
+namespace Application.Core.Features.Promotion.Queries.GetPromotionsByStatus
 {
-    public record GetPromotionsQueryResponse(
+    public record GetPromotionsByStatusQueryResponse(
+        Guid Id,
         string Name,
         DateOnly Start,
         DateOnly End,
-        int Discount)
-    {
-    }
+        int Discount) {}
 }

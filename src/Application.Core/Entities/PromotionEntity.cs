@@ -8,22 +8,12 @@ namespace Application.Core.Entities
 {
     public class PromotionEntity : BaseEntity
     {
-        private bool _isActive;
 
         public required string Name { get; set; }
         public DateOnly Start { get; set; }
         public DateOnly End { get; set; }
         public int Discount { get; set; }
         public IEnumerable<ArticleEntity>? Articles { get; set; }
-        public bool IsActive
-        {
-            get { return _isActive; }
-            private set 
-            { 
-                if (this.End <= DateOnly.FromDateTime(DateTime.Now))
-                    _isActive = true; 
-            }
-        }
-
+        public bool IsActive => this.End >= DateOnly.FromDateTime(DateTime.Now);
     }
 }

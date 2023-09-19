@@ -8,8 +8,7 @@
     <AddButton></AddButton>
 </CascadingValue>
 
-@if (Promotions.Any())
-{
+
     <div>
         <MudTable Dense="true"
                   Elevation="10"
@@ -31,7 +30,10 @@
                 <MudTh>Réduction</MudTh>
                 <MudTh></MudTh>
             </HeaderContent>
+
             <RowTemplate>
+            @if (Promotions.Any())
+            {
                 <MudTd DataLabel="Nom"><MudLink Href="@($"article/{context.Id}")">@context.Name</MudLink></MudTd>
                 <MudTd DataLabel="Catégorie">@context.Start</MudTd>
                 <MudTd DataLabel="Prix">@context.End</MudTd>
@@ -43,13 +45,7 @@
                         <MudMenuItem @onclick="() => DeletePromotion(context.Id)">Supprimer</MudMenuItem>
                     </MudMenu>
                 </MudTd>
+            }
             </RowTemplate>
-            @*         <PagerContent>
-        @if (@_displayRowNavigation)
-        {
-        <MudTablePager RowsPerPageString="Ligne par page" />
-        }
-        </PagerContent> *@
         </MudTable>
     </div>
-}

@@ -1,6 +1,7 @@
 ﻿using Application.Core.Features.Promotion.Commands.CreatePromotion;
 using Application.Core.Features.Promotion.Commands.DeletePromotion;
 using Application.Core.Features.Promotion.Commands.UpdatePromotion;
+using Application.Core.Features.Promotion.Queries.GetPromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotionsByStatus;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +20,20 @@ namespace WebApi.Endpoints
 
             group.MapGet("/{isActive:bool}", GetPromotionsByStatus);
 
+            group.MapGet("/{id:guid}", GetById);
+
             return group;
         }
         private static async Task<IResult> Add([FromBody] CreatePromotionCommand createPromotion, [FromServices] IMediator mediator)
         {
             await mediator.Send(createPromotion);
             return Results.NoContent();
+        }
+
+        private static async Task<IResult> GetById([FromRoute] Guid id, [FromServices] IMediator mediator)
+        {
+            var article = await mediator.Send(new GetPromotionQuery(id));
+            return Results.Ok(article);
         }
 
         private static async Task<IResult> GetPromotionsByStatus([FromRoute] bool isActive, [FromServices] IMediator mediator)

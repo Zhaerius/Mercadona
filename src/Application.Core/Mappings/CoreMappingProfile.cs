@@ -5,6 +5,7 @@ using Application.Core.Features.Article.Queries.SearchArticles;
 using Application.Core.Features.Category.Queries.GetCategorie;
 using Application.Core.Features.Category.Queries.GetCategories;
 using Application.Core.Features.Promotion.Commands.CreatePromotion;
+using Application.Core.Features.Promotion.Queries.GetPromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotionsByStatus;
 using AutoMapper;
 
@@ -28,6 +29,7 @@ namespace Application.Core.Mappings
 
             CreateMap<CreatePromotionCommand, PromotionEntity>();
             CreateMap<PromotionEntity, GetPromotionsByStatusQueryResponse>();
+            CreateMap<PromotionEntity, GetPromotionQueryResponse>();
 
             //CreateMap<ArticleEntity, UpdateArticleCommand>().ReverseMap();
         }

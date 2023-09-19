@@ -21,11 +21,8 @@ namespace Application.Core.Features.Article.Queries.GetArticle
             var article = await _dbContext.Articles
                 .Include(a => a.Category)
                 .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException();
-            Console.WriteLine("dsdsdsd");
 
-            var test =  _mapper.Map<GetArticleQueryResponse>(article);
-
-            return test;
+            return _mapper.Map<GetArticleQueryResponse>(article);
         }
     }
 }

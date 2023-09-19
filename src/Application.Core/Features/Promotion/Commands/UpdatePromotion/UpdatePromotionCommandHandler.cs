@@ -27,7 +27,6 @@ namespace Application.Core.Features.Promotion.Commands.UpdatePromotion
             promotionToUpdate.End = request.End;
             promotionToUpdate.Discount = request.Discount;
 
-            _dbContext.Promotions.Update(promotionToUpdate);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

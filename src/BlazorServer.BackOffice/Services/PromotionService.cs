@@ -22,6 +22,16 @@ namespace BlazorServer.BackOffice.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<PromotionModel> GetPromotionById(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"promotion/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                return null!;
+
+            return await DeserializeFromHttpResponse<PromotionModel>(response);
+        }
+
         public async Task<IEnumerable<PromotionModel>> GetPromotionByStatus(bool isActive)
         {
             var response = await _httpClient.GetAsync($"promotion/{isActive}");
@@ -37,6 +47,15 @@ namespace BlazorServer.BackOffice.Services
             var response = await _httpClient.DeleteAsync($"promotion/{id}");
             return response.IsSuccessStatusCode;
         }
+
+
+        public async Task<bool> UpdateArticle(UpdatePromotionRequest updatePromotionRequest)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"promotion/", updatePromotionRequest);
+            return response.IsSuccessStatusCode;
+        }
+
+
 
         //public async Task<ArticleModel> GetArticleById(Guid id)
         //{

@@ -15,9 +15,10 @@ namespace BlazorServer.BackOffice.Pages.Promotion
         protected int rowPerPage = 15;
         protected string searchString = "";
 
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [Inject] PromotionService PromotionService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
-        public IEnumerable<PromotionModel> Promotions { get; set; } = new List<PromotionModel>();
+        public IEnumerable<PromotionModel>? Promotions { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -53,5 +54,7 @@ namespace BlazorServer.BackOffice.Pages.Promotion
                 Snackbar.Add("Suppresion impossible", Severity.Error);
             }
         }
+
+        protected void RedirectToUpdate(Guid id) => NavigationManager.NavigateTo($"/promotion/update/{id}");
     }
 }

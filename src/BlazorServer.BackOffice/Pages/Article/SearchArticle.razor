@@ -11,7 +11,7 @@
 <div>
     <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
         <DataAnnotationsValidator />
-        <MudTextField Class="search-bar" @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Placeholder="Rechercher un article par son nom..." />
+        <MudTextField Class="search-bar mr-5" @bind-Value="SearchArticlesRequest.Name" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Default" Placeholder="Rechercher un article par son nom..." />
     </EditForm>
 
     @if (Articles != null)

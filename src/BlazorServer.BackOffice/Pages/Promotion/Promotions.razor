@@ -38,13 +38,12 @@
                     <MudTh></MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Nom"><MudLink Href="@($"article/{context.Id}")">@context.Name</MudLink></MudTd>
+                    <MudTd DataLabel="Nom">@context.Name</MudTd>
                     <MudTd DataLabel="Catégorie">@context.Start</MudTd>
                     <MudTd DataLabel="Prix">@context.End</MudTd>
                     <MudTd DataLabel="Réduction">@context.Discount</MudTd>
                     <MudTd Style="text-align:right">
                         <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                            <MudMenuItem>Consulter</MudMenuItem>
                             <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
                             <MudMenuItem @onclick="() => DeletePromotion(context.Id)">Supprimer</MudMenuItem>
                         </MudMenu>

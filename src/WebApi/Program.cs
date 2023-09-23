@@ -1,52 +1,13 @@
-using Infrastructure;
-using Application.Core;
 using WebApi.Endpoints;
 using WebApi.Middlewares;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Infrastructure.Persistence;
+using WebApi;
+using Application.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSwaggerGen();
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.InjectDependencies();
 builder.Services.AddApplicationCore();
-
-builder.Services
-    .AddAuthentication(otps =>
-    {
-        otps.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        otps.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        otps.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
-    {
-        opts.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            RequireExpirationTime = true,
-            ValidateIssuerSigningKey = true,
-            ValidAudience = builder.Configuration["JWT:Audience"],
-            ValidIssuer = builder.Configuration["JWT:Issuer"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]!)),
-            ClockSkew = TimeSpan.Zero
-        };
-    });
-
-builder.Services.AddCors(policy =>
-{
-    policy.AddPolicy("CorsPolicy",
-        builder => builder
-            .AllowAnyMethod()
-            .AllowCredentials()
-            .SetIsOriginAllowed((host) => true)
-            .AllowAnyHeader());
-});
 
 var app = builder.Build();
 

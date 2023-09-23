@@ -1,6 +1,7 @@
 ﻿using BlazorServer.BackOffice.Components.Upload;
 using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Models.Category;
+using BlazorServer.BackOffice.Models.Promotion;
 using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -11,18 +12,21 @@ namespace BlazorServer.BackOffice.Pages.Article
     {
         [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] private CategoryService CategoryService { get; set; } = null!;
+        [Inject] private PromotionService PromotionService { get; set; } = null!;
         [Inject] private UploadState UploadState { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavManager { get; set; } = null!;
         
         protected CreateArticleRequest ArticleToCreate { get; set; } = new();
         protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+        protected IEnumerable<PromotionModel> Promotions { get; set; } = new List<PromotionModel>();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
 
         protected async override Task OnInitializedAsync()
         {
             UploadState.OnChange += StateHasChanged;
             Categories = await CategoryService.GetCategories();
+            Promotions = await PromotionService.GetPromotionByStatus(true);
         }
 
         protected async Task OnValidSubmit()

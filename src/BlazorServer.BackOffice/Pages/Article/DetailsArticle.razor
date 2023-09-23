@@ -27,6 +27,7 @@
                 <MudCardActions>
                     <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo($"/article/update/{ArticleModel.Id}"))">Mise à jour</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@DeleteArticle">Supression</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo($"/article/handler-promotion/{ArticleModel.Id}"))">Gestionnaire</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>

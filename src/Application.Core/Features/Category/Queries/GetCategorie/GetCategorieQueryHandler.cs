@@ -1,5 +1,5 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using Application.Core.Features.Article.Queries.GetArticle;
 using AutoMapper;
 using MediatR;

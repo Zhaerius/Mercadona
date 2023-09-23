@@ -1,6 +1,6 @@
 ﻿using Application.Core.Abstractions;
 using Application.Core.Entities;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using MediatR;
 
 namespace Application.Core.Features.Category.Commands.CreateCategory

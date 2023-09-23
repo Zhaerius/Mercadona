@@ -1,4 +1,4 @@
-﻿using Application.Core.Exceptions;
+﻿using Application.Core.Common.Exceptions;
 using System.Net;
 using WebApi.Models;
 
@@ -37,7 +37,7 @@ namespace WebApi.Middlewares
                 Message = exception.Message
             };
 
-            if (exception is Application.Core.Exceptions.ValidationException validationException)
+            if (exception is ValidationException validationException)
                 error.Detail = string.Join(" ", validationException.Errors);
 
             if (exception is NotFoundException)

@@ -4,7 +4,7 @@ using MediatR;
 using FluentValidation;
 using Application.Core.Behaviours;
 
-namespace Application.Core.Extensions
+namespace Application.Core.Common.Extensions
 {
     //Dépendance Assembly nécessite d'être dans le projet d'utilisation
     public static class Dependencies

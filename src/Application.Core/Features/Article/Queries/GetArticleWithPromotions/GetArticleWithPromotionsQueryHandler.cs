@@ -1,7 +1,7 @@
 ﻿using Application.Core.Abstractions;
 using AutoMapper;
 using MediatR;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Queries.GetArticleWithPromotions

@@ -1,5 +1,5 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Identity.Services

@@ -1,7 +1,6 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Category.Commands.DeleteCategory
 {

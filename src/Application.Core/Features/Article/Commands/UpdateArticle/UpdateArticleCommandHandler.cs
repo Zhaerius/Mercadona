@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Commands.UpdateArticle

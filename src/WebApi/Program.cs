@@ -2,7 +2,7 @@ using WebApi.Endpoints;
 using WebApi.Middlewares;
 using Infrastructure.Persistence;
 using WebApi;
-using Application.Core.Extensions;
+using Application.Core.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

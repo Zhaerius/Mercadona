@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Core.Exceptions
+namespace Application.Core.Common.Exceptions
 {
     public class ValidationException : Exception
     {

@@ -1,5 +1,5 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Exceptions;
+using Application.Core.Common.Exceptions;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;  

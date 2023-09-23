@@ -9,7 +9,7 @@ using Application.Core.Features.Promotion.Queries.GetPromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotionsByStatus;
 using AutoMapper;
 
-namespace Application.Core.Mappings
+namespace Application.Core.Common.Mappings
 {
     public class CoreMappingProfile : Profile
     {

@@ -10,22 +10,28 @@
             <MudCard Elevation="10">
                 <MudCardMedia Image="@ArticleModel.Image" Height="300" />
                 <MudCardContent>
-                    <MudText Typo="Typo.h5">@ArticleModel.Name</MudText>
-                    @if (@ArticleModel.Publish)
-                    {
-                        <MudText Typo="Typo.body2" Color="Color.Success">En ligne</MudText>
-                    }
-                    else
-                    {
-                        <MudText Typo="Typo.body2" Color="Color.Warning">Hors ligne</MudText>
-                    }
+                    <div class="d-flex justify-space-between align-content-center flex-wrap flex-grow-1">
+                        <div>
+                            <MudText Typo="Typo.h5">@ArticleModel.Name</MudText>
+                            <MudText Typo="Typo.button">@ArticleModel.CategoryName</MudText>
+                        </div>
+                        <div>
+                            @if (@ArticleModel.Publish)
+                            {
+                                <MudText Typo="Typo.body2" Color="Color.Success">En ligne</MudText>
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.body2" Color="Color.Warning">Hors ligne</MudText>
+                            }
+                        </div>
+                    </div>
                     <br />
-                    <MudText Typo="Typo.h5">@ArticleModel.CategoryName</MudText>
                     <MudText Typo="Typo.body2">@ArticleModel.Description</MudText>
                 </MudCardContent>
 
                 <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo($"/article/update/{ArticleModel.Id}"))">Mise à jour</MudButton>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo($"/article/update/{ArticleModel.Id}"))">MAJ</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@DeleteArticle">Supression</MudButton>
                     <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(()=> NavManager.NavigateTo($"/article/handler-promotion/{ArticleModel.Id}"))">Gestionnaire</MudButton>
                 </MudCardActions>

@@ -22,6 +22,8 @@ namespace Application.Core.Features.Article.Queries.GetArticle
                 .Include(a => a.Category)
                 .FirstOrDefaultAsync(a => a.Id == request.Id, cancellationToken) ?? throw new NotFoundException();
 
+            Console.WriteLine("dsdsd");
+
             return _mapper.Map<GetArticleQueryResponse>(article);
         }
     }

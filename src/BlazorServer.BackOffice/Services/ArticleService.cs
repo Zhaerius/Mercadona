@@ -33,14 +33,14 @@ namespace BlazorServer.BackOffice.Services
             return await DeserializeFromHttpResponse<ArticleModel>(response);
         }
 
-        public async Task<HandlerArticlePromotionResponse> GetArticleByIdWithPromotions(Guid id)
+        public async Task<ArticleModel> GetArticleByIdWithPromotions(Guid id)
         {
             var response = await _httpClient.GetAsync($"article/promotion/{id}");
 
             if (!response.IsSuccessStatusCode)
                 return null!;
 
-            return await DeserializeFromHttpResponse<HandlerArticlePromotionResponse>(response);
+            return await DeserializeFromHttpResponse<ArticleModel>(response);
         }
 
         public async Task<bool> UpdateArticle(UpdateArticleRequest updateArticleRequest)

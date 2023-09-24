@@ -1,16 +1,15 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Behaviours;
-using FluentValidation;
 using Infrastructure.Identity.Options;
 using Infrastructure.Identity.Services;
 using Infrastructure.Persistence;
 using Infrastructure.Services;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace WebApi
 {

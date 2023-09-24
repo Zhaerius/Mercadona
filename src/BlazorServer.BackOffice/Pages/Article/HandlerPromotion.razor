@@ -1,0 +1,61 @@
+﻿@page "/article/handler-promotion/{Id:guid}"
+@inherits HandlerArticlePromotionBase
+
+<MudText Typo="Typo.h4">Gestionnaire de promotion</MudText>
+<MudChip Class="mb-8" Color="Color.Primary">@ArticleWithPromotions.Name</MudChip>
+
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="6">
+        <MudPaper Elevation="10" Class="pa-6">
+            <MudText Typo="Typo.h6" Class="mb-3">Affecté</MudText>
+            @if (ArticleWithPromotions.Promotions is not null)
+            {
+                <MudSimpleTable Style="overflow-x: auto;" Elevation="0" Hover="true">
+                    <tbody>
+                        @foreach (var item in ArticleWithPromotions.Promotions)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.End</td>
+                                <td>@item.Discount %</td>
+                                <td><MudIconButton Icon="@Icons.Material.Filled.Remove" Variant="Variant.Outlined" Color="Color.Secondary" Size="Size.Small" /></td>                             
+                            </tr>
+                        }
+                    </tbody>
+                </MudSimpleTable>
+
+                @if (!ArticleWithPromotions.Promotions.Any())
+                {
+                    <div>aaaaa</div>
+                }
+            }
+
+
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="6">
+        <MudPaper Elevation="10" Class="pa-6">
+            <MudText Typo="Typo.h6" Class="mb-3">Disponible</MudText>
+            @if (ArticleWithPromotions is not null)
+            {
+                <MudSimpleTable Style="overflow-x: auto;" Elevation="0" Hover="true">
+                    <tbody>
+                        @foreach (var item in @PromotionsAvailable)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.End</td>
+                                <td>@item.Discount %</td>
+                                <td><MudIconButton Icon="@Icons.Material.Filled.Add" Variant="Variant.Outlined" Color="Color.Secondary" Size="Size.Small" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </MudSimpleTable>
+            }
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+<div class="d-flex justify-content-end mt-6">
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Sauvegarder</MudButton>
+</div>

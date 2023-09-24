@@ -1,4 +1,5 @@
 ﻿using BlazorServer.BackOffice.Models.Category;
+using BlazorServer.BackOffice.Models.Promotion;
 
 namespace BlazorServer.BackOffice.Models.Article
 {
@@ -13,6 +14,8 @@ namespace BlazorServer.BackOffice.Models.Article
         public string CategoryName { get; set; } = string.Empty;
         public bool Publish { get; set; }
         public double DiscountPrice { get; set; }
+        public ICollection<PromotionModel>? Promotions { get; set; }
+        public PromotionModel? CurrentPromotion { get; set; }
 
     }
 }

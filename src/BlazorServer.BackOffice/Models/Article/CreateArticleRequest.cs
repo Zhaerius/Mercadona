@@ -26,6 +26,6 @@ namespace BlazorServer.BackOffice.Models.Article
 
         public bool Publish { get; set; } = true;
 
-        public IEnumerable<Guid?>? PromotionsIds { get; set; }
+        public IEnumerable<Guid>? PromotionsIds { get; set; }
     }
 }

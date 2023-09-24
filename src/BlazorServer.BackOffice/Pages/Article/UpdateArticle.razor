@@ -44,10 +44,17 @@
                 <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
                     <MudCardContent Class="d-flex flex-column gap-4">
                         <MudNumericField T="double?" HideSpinButtons="true" Variant="Variant.Outlined" @bind-Value="ArticleToUpdate.BasePrice" For="@(() => ArticleToUpdate.BasePrice)" Label="Prix de base" />
-                        <MudSelect T="string" Variant="Variant.Outlined" Label="Promotions" AnchorOrigin="Origin.BottomCenter">
-                            <MudSelectItem Value="@("Chaussures")" />
-                            <MudSelectItem Value="@("Fruit")" />
-                            <MudSelectItem Value="@("Légumes")" />
+                        <MudSelect 
+                            T="Guid" 
+                            Label="Promotions" 
+                            AnchorOrigin="Origin.BottomCenter" 
+                            Variant="Variant.Outlined" 
+                            MultiSelection="true" 
+                            @bind-SelectedValues="ArticleToUpdate.PromotionsIds">
+                                @foreach (var promotion in Promotions)
+                                {
+                                    <MudSelectItem T="Guid" Value="@promotion.Id">@promotion.Name</MudSelectItem>
+                                }
                         </MudSelect>
                     </MudCardContent>
                 </MudCard>

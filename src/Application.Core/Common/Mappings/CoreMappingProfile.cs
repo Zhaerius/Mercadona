@@ -1,7 +1,6 @@
 ﻿using Application.Core.Entities;
 using Application.Core.Features.Article.Commands.CreateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
-using Application.Core.Features.Article.Queries.GetArticleWithPromotions;
 using Application.Core.Features.Article.Queries.SearchArticles;
 using Application.Core.Features.Category.Queries.GetCategorie;
 using Application.Core.Features.Category.Queries.GetCategories;
@@ -21,8 +20,6 @@ namespace Application.Core.Common.Mappings
 
             CreateMap<ArticleEntity, SearchArticlesQueryResponse>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
-
-            CreateMap<ArticleEntity, GetArticleWithPromotionsQueryResponse>();
 
             CreateMap<CreateArticleCommand, ArticleEntity>();
 

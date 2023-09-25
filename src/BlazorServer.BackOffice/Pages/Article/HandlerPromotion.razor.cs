@@ -18,16 +18,16 @@ namespace BlazorServer.BackOffice.Pages.Article
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavManager { get; set; } = null!;
 
-        protected ArticleModel ArticleWithPromotions { get; set; } = new ArticleModel();
+        protected ArticleModel Articles { get; set; } = new ArticleModel();
         protected IEnumerable<PromotionModel> PromotionsAvailable { get; set; } = new List<PromotionModel>();
 
         protected override async Task OnInitializedAsync()
         {
-            ArticleWithPromotions = await ArticleService.GetArticleByIdWithPromotions(Id);
+            Articles = await ArticleService.GetArticleById(Id);
             PromotionsAvailable = await PromotionService.GetPromotionByStatus(true);
 
-            var idToAdd = ArticleWithPromotions.Promotions!.Select(p => p.Id);
-            var promotionsToAddSelected = PromotionsAvailable.Where(p => idToAdd.Any(i => p.Id == i)).ToList();
+            var idsToAdd = Articles.Promotions!.Select(p => p.Id);
+            var promotionsToAddSelected = PromotionsAvailable.Where(p => idsToAdd.Any(i => p.Id == i)).ToList();
 
             foreach (var promotion in promotionsToAddSelected)
             {
@@ -39,13 +39,13 @@ namespace BlazorServer.BackOffice.Pages.Article
         {
             var articleToUpdate = new UpdateArticleRequest()
             {
-                Id = ArticleWithPromotions.Id,
-                BasePrice = ArticleWithPromotions.BasePrice,
-                Description = ArticleWithPromotions.Description,
-                CategoryId = ArticleWithPromotions.CategoryId,
-                Image = ArticleWithPromotions.Image,
-                Name = ArticleWithPromotions.Name,
-                Publish = ArticleWithPromotions.Publish,
+                Id = Articles.Id,
+                BasePrice = Articles.BasePrice,
+                Description = Articles.Description,
+                CategoryId = Articles.CategoryId,
+                Image = Articles.Image,
+                Name = Articles.Name,
+                Publish = Articles.Publish,
                 PromotionsIds = selectedItems.Select(p => p.Id)
             };
 

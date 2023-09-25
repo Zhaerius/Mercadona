@@ -27,7 +27,7 @@ namespace BlazorServer.BackOffice.Pages.Article
             Categories = await CategoryService.GetCategories();
             Promotions = await PromotionService.GetPromotionByStatus(true);
 
-            var articleDetails = await ArticleService.GetArticleByIdWithPromotions(Id);
+            var articleDetails = await ArticleService.GetArticleById(Id);
 
             if (articleDetails != null)
             {

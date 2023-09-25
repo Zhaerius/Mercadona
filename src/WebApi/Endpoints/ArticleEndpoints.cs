@@ -2,7 +2,6 @@
 using Application.Core.Features.Article.Commands.DeleteArticle;
 using Application.Core.Features.Article.Commands.UpdateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
-using Application.Core.Features.Article.Queries.GetArticleWithPromotions;
 using Application.Core.Features.Article.Queries.SearchArticles;
 using Application.Core.Features.Upload.Commands.SaveFiles;
 using MediatR;
@@ -17,8 +16,6 @@ namespace WebApi.Endpoints
             group.MapGet("/search/{name}", Search);
 
             group.MapGet("/{id:guid}", GetById);
-
-            group.MapGet("/promotion/{id:guid}", GetByIdWithPromotion);
 
             group.MapPost("", Add);
 
@@ -43,12 +40,6 @@ namespace WebApi.Endpoints
         private static async Task<IResult> GetById([FromRoute] Guid id, [FromServices] IMediator mediator)
         {
             var article = await mediator.Send(new GetArticleQuery(id));
-            return Results.Ok(article);
-        }
-
-        private static async Task<IResult> GetByIdWithPromotion([FromRoute] Guid id, [FromServices] IMediator mediator)
-        {
-            var article = await mediator.Send(new GetArticleWithPromotionsQuery(id));
             return Results.Ok(article);
         }
 

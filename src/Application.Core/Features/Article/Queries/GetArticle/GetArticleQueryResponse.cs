@@ -21,6 +21,7 @@ namespace Application.Core.Features.Article.Queries.GetArticle
         public string CategoryName { get; set; }
         public bool Publish { get; set; }
         public double DiscountPrice { get; set; }
+        public ICollection<GetPromotionQueryResponse>? Promotions { get; set; }
         public GetPromotionQueryResponse? CurrentPromotion { get; set; }
     }
 }

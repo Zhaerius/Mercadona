@@ -1,4 +1,5 @@
 ﻿using Application.Core.Entities;
+using Application.Core.Features.Promotion.Queries.GetPromotion;
 using MediatR;
 using System;
 using System.Collections;
@@ -11,19 +12,6 @@ namespace Application.Core.Features.Article.Queries.GetArticle
 {
     public class GetArticleQueryResponse
     {
-        public GetArticleQueryResponse(Guid id, string name, string description, string image, double basePrice, double discountPrice, Guid categoryId, string categoryName, bool publish)
-        {
-            Id = id;
-            Name = name;
-            Description = description;
-            Image = image;
-            BasePrice = basePrice;
-            DiscountPrice = discountPrice;
-            CategoryId = categoryId;
-            CategoryName = categoryName;
-            Publish = publish;
-        }
-
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -33,5 +21,6 @@ namespace Application.Core.Features.Article.Queries.GetArticle
         public string CategoryName { get; set; }
         public bool Publish { get; set; }
         public double DiscountPrice { get; set; }
+        public GetPromotionQueryResponse? CurrentPromotion { get; set; }
     }
 }

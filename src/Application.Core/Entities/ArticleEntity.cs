@@ -10,9 +10,6 @@ namespace Application.Core.Entities
 {
     public class ArticleEntity : BaseEntity
     {
-        private PromotionEntity? _currentPromotion;
-        private double _discountPrice;
-
         public required string Name { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
@@ -26,31 +23,31 @@ namespace Application.Core.Entities
         //Application auto de la promotion la plus avantageuse pour le client
         public PromotionEntity? CurrentPromotion
         {
-            get => _currentPromotion;
-            private set
+            get 
             {
-                if (this.Promotions is null) 
-                    return;
+                if (this.Promotions is null)
+                    return null;
 
-                _currentPromotion = Promotions
+                var promotion = Promotions
                     .Where(p => p.IsActive)
                     .MaxBy(p => p.Discount);
 
-                if (_currentPromotion != null)
+                if (promotion != null)
                     this.OnDiscount = true;
+
+                return promotion;
             }
         }
 
         //Calcul du prix avec remise
         public double DiscountPrice
         {
-            get => _discountPrice;
-            private set
+            get
             {
-                if (this.CurrentPromotion is null) 
-                    return;
+                if (this.CurrentPromotion is null)
+                    return BasePrice;
 
-                _discountPrice = this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
+                return this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
             }
         }
     }

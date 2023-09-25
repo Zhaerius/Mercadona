@@ -2,30 +2,34 @@
 @using BlazorServer.BackOffice.Models.Promotion;
 @inherits HandlerArticlePromotionBase
 
-<MudTable @ref="mudTable" T="PromotionModel" Items="@PromotionsAvailable" MultiSelection="true" Hover="true" @bind-SelectedItems="selectedItems" @bind-SelectOnRowClick="@selectOnRowClick"
-          Class="my-8 mb-6 rounded-lg search-result" Elevation="10">
-    <ToolBarContent>
-        <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
-        <MudText Typo="Typo.h6">Gestionnaire de promotion</MudText>
-        <MudSpacer />
-        <MudChip Variant="Variant.Text" Color="Color.Primary">@ArticleWithPromotions.Name</MudChip>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Nom</MudTh>
-        <MudTh>Début</MudTh>
-        <MudTh>Fin</MudTh>
-        <MudTh>Remise</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd>@context.Name</MudTd>
-        <MudTd>@context.Start</MudTd>
-        <MudTd>@context.End</MudTd>
-        <MudTd>@context.Discount</MudTd>
-    </RowTemplate>
-</MudTable>
+@if (PromotionsAvailable.Any())
+{
+    <MudTable @ref="mudTable" T="PromotionModel" Items="@PromotionsAvailable" MultiSelection="true" Hover="true" @bind-SelectedItems="selectedItems" @bind-SelectOnRowClick="@selectOnRowClick"
+              Class="my-8 mb-6 rounded-lg search-result" Elevation="10">
+        <ToolBarContent>
+            <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
+            <MudText Typo="Typo.h6">Gestionnaire de promotion</MudText>
+            <MudSpacer />
+            <MudChip Variant="Variant.Text" Color="Color.Primary">@ArticleWithPromotions.Name</MudChip>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Nom</MudTh>
+            <MudTh>Début</MudTh>
+            <MudTh>Fin</MudTh>
+            <MudTh>Remise</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Name</MudTd>
+            <MudTd>@context.Start</MudTd>
+            <MudTd>@context.End</MudTd>
+            <MudTd>@context.Discount</MudTd>
+        </RowTemplate>
+    </MudTable>
 
 
 
-<div class="d-flex justify-content-end mt-6">
-    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="OnValidSubmit">Sauvegarder</MudButton>
-</div>
+    <div class="d-flex justify-content-end mt-6">
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="OnValidSubmit">Sauvegarder</MudButton>
+    </div>
+}
+

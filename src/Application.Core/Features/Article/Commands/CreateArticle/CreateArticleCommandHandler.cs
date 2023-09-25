@@ -26,7 +26,7 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
             {
                 var promotions = await _dbContext.Promotions
                     .Where(p => request.PromotionsIds.Contains(p.Id))
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
                 article.Promotions = promotions;
             }

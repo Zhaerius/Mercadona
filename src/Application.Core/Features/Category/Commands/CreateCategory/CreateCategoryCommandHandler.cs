@@ -18,8 +18,8 @@ namespace Application.Core.Features.Category.Commands.CreateCategory
         {
             var categoryToCreate = new CategoryEntity() { Name = request.Name};
 
-            await _dbContext.Categories.AddAsync(categoryToCreate, cancellationToken); 
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Categories.AddAsync(categoryToCreate); 
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

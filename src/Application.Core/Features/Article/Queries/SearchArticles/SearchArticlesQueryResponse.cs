@@ -8,17 +8,9 @@ namespace Application.Core.Features.Article.Queries.SearchArticles
 {
     public class SearchArticlesQueryResponse
     {
-        public SearchArticlesQueryResponse(Guid id, string? name, string? categoryName, double basePrice)
-        {
-            Id = id;
-            Name = name;
-            CategoryName = categoryName;
-            BasePrice = basePrice;
-        }
-
         public Guid Id { get; init; }
-        public string? Name { get; init; }
-        public string? CategoryName { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string CategoryName { get; init; } = string.Empty;
         public double BasePrice { get; init; }
     }
 }

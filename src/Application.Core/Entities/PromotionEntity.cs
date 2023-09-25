@@ -14,6 +14,7 @@ namespace Application.Core.Entities
         public DateOnly End { get; set; }
         public int Discount { get; set; }
         public IEnumerable<ArticleEntity>? Articles { get; set; }
+
         public bool IsActive => this.End >= DateOnly.FromDateTime(DateTime.Now);
     }
 }

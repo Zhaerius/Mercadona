@@ -10,21 +10,21 @@ namespace Application.Core.Features.Promotion.Queries.GetPromotion
 {
     public class GetPromotionQueryHandler : IRequestHandler<GetPromotionQuery, GetPromotionQueryResponse>
     {
-        private readonly IApplicationDbContext dbContext;
-        private readonly IMapper mapper;
+        private readonly IApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public GetPromotionQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
         {
-            this.dbContext = dbContext;
-            this.mapper = mapper;
+            _dbContext = dbContext;
+            _mapper = mapper;
         }
 
         public async Task<GetPromotionQueryResponse> Handle(GetPromotionQuery request, CancellationToken cancellationToken)
         {
-            var promotions = await dbContext.Promotions
+            var promotions = await _dbContext.Promotions
                 .FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
 
-            return mapper.Map<GetPromotionQueryResponse>(promotions);
+            return _mapper.Map<GetPromotionQueryResponse>(promotions);
         }
     }
 }

@@ -17,9 +17,7 @@ namespace Application.Core.Features.Category.Commands.DeleteCategory
         public async Task<bool> CategoryEmpty(Guid id)
         {
             var articles = await _dbContext.Articles.Where(a => a.CategoryId == id).ToListAsync();
-            if (articles.Any())
-                return false;
-            return true;
+            return !articles.Any();
         }
     }
 }

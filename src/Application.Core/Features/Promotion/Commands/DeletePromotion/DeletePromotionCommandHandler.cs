@@ -17,10 +17,10 @@ namespace Application.Core.Features.Promotion.Commands.DeletePromotion
         {
             var promotionToDelete = await _dbContext
                 .Promotions
-                .FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
+                .FindAsync(request.Id) ?? throw new NotFoundException();
 
             _dbContext.Promotions.Remove(promotionToDelete);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

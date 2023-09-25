@@ -46,7 +46,6 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
             articleToUpdate.CategoryId = request.CategoryId;
             articleToUpdate.Publish = request.Publish;
 
-            _dbContext.Articles.Update(articleToUpdate);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

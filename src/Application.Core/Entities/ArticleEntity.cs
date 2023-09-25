@@ -11,13 +11,14 @@ namespace Application.Core.Entities
     public class ArticleEntity : BaseEntity
     {
         public required string Name { get; set; }
-        public string? Description { get; set; }
-        public string? Image { get; set; }
+        public required string Description { get; set; }
+        public required string Image { get; set; }
         public double BasePrice { get; set; }
-        public Guid? CategoryId { get; set; }
+        public Guid CategoryId { get; set; }
         public CategoryEntity? Category { get; set; }
         public ICollection<PromotionEntity>? Promotions { get; set; }
         public bool Publish { get; set; }
+
         public bool OnDiscount { get; set; }
 
         //Application auto de la promotion la plus avantageuse pour le client

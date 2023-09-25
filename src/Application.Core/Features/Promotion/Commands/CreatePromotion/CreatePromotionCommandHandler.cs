@@ -25,8 +25,8 @@ namespace Application.Core.Features.Promotion.Commands.CreatePromotion
         {
             var promotionToCreate = _mapper.Map<PromotionEntity>(request);
 
-            await _dbContext.Promotions.AddAsync(promotionToCreate, cancellationToken);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Promotions.AddAsync(promotionToCreate);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

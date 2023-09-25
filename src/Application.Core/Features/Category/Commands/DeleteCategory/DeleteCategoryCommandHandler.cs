@@ -14,11 +14,11 @@ namespace Application.Core.Features.Category.Commands.DeleteCategory
         }
         public async Task Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
-            var CategoryToDelete = await _dbContext
+            var categoryToDelete = await _dbContext
                 .Categories
-                .FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
+                .FindAsync(request.Id) ?? throw new NotFoundException();
 
-            _dbContext.Categories.Remove(CategoryToDelete);
+            _dbContext.Categories.Remove(categoryToDelete);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

@@ -30,7 +30,7 @@ namespace Infrastructure.Persistence
                 await GenerateDefaultRoles(roleManager, userOptions);
                 await userManager.AddToRolesAsync(user, userOptions.Roles);
 
-                mercaDbContext.SaveChanges();
+                await mercaDbContext.SaveChangesAsync();
             }
         }
 

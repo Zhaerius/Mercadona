@@ -20,12 +20,11 @@ namespace Application.Core.Features.Category.Commands.UpdateCategory
 
         public async Task Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var categoryToUpdate = await _dbContext.Categories.FindAsync(request.Id, cancellationToken) ?? throw new NotFoundException();
-
+            var categoryToUpdate = await _dbContext.Categories.FindAsync(request.Id) ?? throw new NotFoundException();
             categoryToUpdate.Name = request.Name;
 
             _dbContext.Categories.Update(categoryToUpdate);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

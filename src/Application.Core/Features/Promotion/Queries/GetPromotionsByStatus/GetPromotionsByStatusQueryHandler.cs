@@ -9,13 +9,13 @@ namespace Application.Core.Features.Promotion.Queries.GetPromotionsByStatus
 {
     public class GetPromotionsByStatusQueryHandler : IRequestHandler<GetPromotionsByStatusQuery, IEnumerable<GetPromotionsByStatusQueryResponse>>
     {
-        private readonly IApplicationDbContext dbContext;
-        private readonly IMapper mapper;
+        private readonly IApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
 
         public GetPromotionsByStatusQueryHandler(IApplicationDbContext dbContext, IMapper mapper)
         {
-            this.dbContext = dbContext;
-            this.mapper = mapper;
+            this._dbContext = dbContext;
+            this._mapper = mapper;
         }
 
         public async Task<IEnumerable<GetPromotionsByStatusQueryResponse>> Handle(GetPromotionsByStatusQuery request, CancellationToken cancellationToken)
@@ -27,11 +27,11 @@ namespace Application.Core.Features.Promotion.Queries.GetPromotionsByStatus
             else
                 filterPredicate = p => p.End < DateOnly.FromDateTime(DateTime.Now);
 
-            var promotions = await dbContext.Promotions
+            var promotions = await _dbContext.Promotions
                 .Where(filterPredicate)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
-            return mapper.Map<IEnumerable<GetPromotionsByStatusQueryResponse>>(promotions);
+            return _mapper.Map<IEnumerable<GetPromotionsByStatusQueryResponse>>(promotions);
         }
     }
 }

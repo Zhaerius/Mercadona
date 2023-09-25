@@ -25,8 +25,8 @@ namespace Application.Core.Features.Category.Queries.GetCategories
 
             foreach (var category in categories)
             {
-                var artToAdd = new GetCategoriesQueryResponse(category.Id, category.Name, category.Articles.Count());
-                categoriesDto.Add(artToAdd);
+                var articleToAdd = new GetCategoriesQueryResponse(category.Id, category.Name, category.Articles!.Count());
+                categoriesDto.Add(articleToAdd);
             }
 
             return categoriesDto.OrderByDescending(o => o.NumberArticles);

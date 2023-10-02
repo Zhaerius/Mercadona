@@ -44,7 +44,7 @@ namespace BlazorServer.BackOffice.Pages.Promotion
         private void DisplayResultSubmit(bool result)
         {
             if (result)
-                Snackbar.Add("Promotion modidié", Severity.Success);
+                Snackbar.Add("Promotion modifié", Severity.Success);
             else
                 Snackbar.Add("Action impossible", Severity.Error);
         }

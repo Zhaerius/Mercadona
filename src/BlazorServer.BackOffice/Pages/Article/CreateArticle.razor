@@ -18,9 +18,27 @@
         <MudItem xs="9">
             <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
                 <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Name" For="@(() => ArticleToCreate.Name)" Label="Nom" Placeholder="@FakePlaceholder.Name" />
-                    <MudTextField Variant="Variant.Outlined" @bind-Value="ArticleToCreate.Description" For="@(() => ArticleToCreate.Description)" Label="Description" Placeholder="@FakePlaceholder.Description" T="string" Lines="5" />
-                    <MudSelect @bind-Value="ArticleToCreate.CategoryId" T="Guid?" For="@(() => ArticleToCreate.CategoryId)" Placeholder="@FakePlaceholder.CategoryName" Variant="Variant.Outlined" Label="Catégorie" AnchorOrigin="Origin.BottomCenter">
+
+                    <MudTextField @bind-Value="ArticleToCreate.Name"
+                                  For="@(() => ArticleToCreate.Name)"
+                                  Variant="Variant.Outlined"
+                                  Label="Nom"
+                                  Placeholder="@FakePlaceholder.Name" />
+
+                    <MudTextField @bind-Value="ArticleToCreate.Description"
+                                  For="@(() => ArticleToCreate.Description)"
+                                  Variant="Variant.Outlined"
+                                  Label="Description"
+                                  Placeholder="@FakePlaceholder.Description"
+                                  T="string" Lines="5" />
+
+                    <MudSelect @bind-Value="ArticleToCreate.CategoryId"
+                               For="@(() => ArticleToCreate.CategoryId)"
+                               T="Guid?"
+                               Placeholder="@FakePlaceholder.CategoryName"
+                               Variant="Variant.Outlined"
+                               Label="Catégorie"
+                               AnchorOrigin="Origin.BottomCenter">
                         @if (Categories is not null)
                         {
                             @foreach (var category in Categories)
@@ -29,13 +47,15 @@
                             }
                         }
                     </MudSelect>
+
                     <FilesUpload />
+
                 </MudCardContent>
             </MudCard>
         </MudItem>
     </MudGrid>
 
-   <MudGrid>
+    <MudGrid>
         <MudItem xs="3">
             <MudText Typo="Typo.h6">Prix</MudText>
             <MudText Typo="Typo.body2">Prix de vente et promotions</MudText>
@@ -43,24 +63,45 @@
         <MudItem xs="9">
             <MudCard Elevation="10" Class="rounded-lg px-3 py-1">
                 <MudCardContent Class="d-flex flex-column gap-4">
-                    <MudNumericField T="double?" HideSpinButtons="true" Variant="Variant.Outlined" @bind-Value="ArticleToCreate.BasePrice" For="@(() => ArticleToCreate.BasePrice)" Label="Prix de base" Placeholder="@FakePlaceholder.BasePrice.ToString()" />  
-                    <MudSelect T="Guid" Label="Promotions" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined" MultiSelection="true" @bind-SelectedValues="ArticleToCreate.PromotionsIds">
+                    <MudNumericField @bind-Value="ArticleToCreate.BasePrice"
+                                     For="@(() => ArticleToCreate.BasePrice)"
+                                     T="decimal?"
+                                     HideSpinButtons="true"
+                                     Variant="Variant.Outlined"
+                                     Label="Prix de base"
+                                     Placeholder="@FakePlaceholder.BasePrice.ToString()" />
+
+                    <MudSelect @bind-SelectedValues="ArticleToCreate.PromotionsIds"
+                               T="Guid"
+                               Label="Promotions"
+                               AnchorOrigin="Origin.BottomCenter"
+                               Variant="Variant.Outlined"
+                               MultiSelection="true">
                         @foreach (var promotion in Promotions)
                         {
                             <MudSelectItem T="Guid" Value="@promotion.Id">@promotion.Name</MudSelectItem>
                         }
                     </MudSelect>
-                 </MudCardContent>
-             </MudCard>
-         </MudItem>
-     </MudGrid> 
 
-     <MudGrid Class="my-4">
-         <MudItem xs="3">
-         </MudItem>
-         <MudItem xs="9" Class="d-flex justify-space-between flex-grow-1">
-             <MudSwitch T="bool" @bind-Checked="@ArticleToCreate.Publish" Color="Color.Primary" Label="Publié" />
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Valider</MudButton>
-         </MudItem>
-     </MudGrid>
- </EditForm>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <MudGrid Class="my-4">
+        <MudItem xs="3">
+        </MudItem>
+        <MudItem xs="9" Class="d-flex justify-space-between flex-grow-1">
+            <MudSwitch @bind-Checked="@ArticleToCreate.Publish"
+                       T="bool"
+                       Color="Color.Primary"
+                       Label="Publié" />
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Class="ml-auto">
+                Valider
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+</EditForm>

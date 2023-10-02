@@ -11,7 +11,7 @@ namespace BlazorServer.BackOffice.Pages.Promotion
         protected DateRange _dateRange = new DateRange(DateTime.Now.Date, DateTime.Now.AddMonths(1).Date);
 
         [Parameter] public Guid Id { get; set; }
-        [Inject] PromotionService PromotionService { get; set; } = null!;
+        [Inject] private PromotionService PromotionService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
         protected UpdatePromotionRequest UpdatePromotion { get; set; } = new();
@@ -44,9 +44,9 @@ namespace BlazorServer.BackOffice.Pages.Promotion
         private void DisplayResultSubmit(bool result)
         {
             if (result)
-                Snackbar.Add("Promotion modidié avec succès", Severity.Success);
+                Snackbar.Add("Promotion modidié", Severity.Success);
             else
-                Snackbar.Add("Modification Impossible", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
         }
 
     }

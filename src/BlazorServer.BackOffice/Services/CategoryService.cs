@@ -1,8 +1,5 @@
-﻿using BlazorServer.BackOffice.Models.Article;
-using BlazorServer.BackOffice.Models.Category;
-using BlazorServer.BackOffice.Pages.Article;
+﻿using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services.Abstractions;
-using System.Text.Json;
 
 namespace BlazorServer.BackOffice.Services
 {

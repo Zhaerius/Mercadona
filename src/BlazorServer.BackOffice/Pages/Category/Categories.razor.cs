@@ -16,7 +16,7 @@ namespace BlazorServer.BackOffice.Pages.Category
 
         [Inject] private CategoryService CategoryService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
-        [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
+        //[Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
         protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         protected string LinkAddCategory { get; set; } = "/category/create";
 
@@ -43,12 +43,12 @@ namespace BlazorServer.BackOffice.Pages.Category
 
             if (isSucces)
             {
-                Snackbar.Add("Catégorie correctement supprimé", Severity.Success);
+                Snackbar.Add("Catégorie supprimé", Severity.Success);
                 Categories = Categories.Where(a => a.Id != id).ToList();
             }
             else
             {
-                Snackbar.Add("Suppresion impossible, la catégorie ne doit pas contenir d'article", Severity.Error);
+                Snackbar.Add("Action impossible, la catégorie doit être vide", Severity.Error);
             }
         }
 
@@ -82,7 +82,6 @@ namespace BlazorServer.BackOffice.Pages.Category
             else
             {
                 Snackbar.Add("Modification impossible", Severity.Error);
-                StateHasChanged();
             }
         }
     }

@@ -21,7 +21,7 @@ namespace BlazorServer.BackOffice.Models.Article
 
 
         [Required(ErrorMessage = "Le champ ne doit pas être vide")]
-        public double? BasePrice { get; set; }
+        public decimal? BasePrice { get; set; }
 
 
         public bool Publish { get; set; } = true;

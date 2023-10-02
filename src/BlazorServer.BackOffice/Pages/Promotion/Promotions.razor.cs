@@ -1,10 +1,7 @@
-﻿using BlazorServer.BackOffice.Models.Category;
-using BlazorServer.BackOffice.Models.Promotion;
-using BlazorServer.BackOffice.Pages.Category;
+﻿using BlazorServer.BackOffice.Models.Promotion;
 using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System.Collections;
 
 namespace BlazorServer.BackOffice.Pages.Promotion
 {
@@ -16,7 +13,7 @@ namespace BlazorServer.BackOffice.Pages.Promotion
         protected string searchString = "";
 
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-        [Inject] PromotionService PromotionService { get; set; } = null!;
+        [Inject] private PromotionService PromotionService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         public IEnumerable<PromotionModel>? Promotions { get; set; }
 
@@ -46,12 +43,12 @@ namespace BlazorServer.BackOffice.Pages.Promotion
 
             if (isSucces)
             {
-                Snackbar.Add("Promotion correctement supprimé", Severity.Success);
+                Snackbar.Add("Promotion supprimé", Severity.Success);
                 Promotions = Promotions.Where(a => a.Id != id).ToList();
             }
             else
             {
-                Snackbar.Add("Suppresion impossible", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
             }
         }
 

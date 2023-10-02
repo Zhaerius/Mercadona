@@ -2,7 +2,7 @@
 {
     public class FakePlaceholderArticle
     {
-        public FakePlaceholderArticle(string name, string description, string categoryName, double basePrice, bool publish)
+        public FakePlaceholderArticle(string name, string description, string categoryName, decimal basePrice, bool publish)
         {
             Name = name;
             Description = description;
@@ -14,7 +14,7 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public string CategoryName { get; set; }
-        public double BasePrice { get; set; }
+        public decimal BasePrice { get; set; }
         public bool Publish { get; set; }
     }
 }

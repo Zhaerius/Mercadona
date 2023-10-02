@@ -11,19 +11,29 @@
 @if (Categories.Any())
 {
     <div class="pb-16">
-        <MudTable Items="@Categories" Dense="false" Hover="true" CanCancelEdit="true" Elevation="10" Class="rounded-lg categories"
-        CommitEditTooltip="Modifier"
-        CancelEditTooltip="Annuler"
-        Filter="new Func<CategoryModel,bool>(FilterFunc)"
-        EditTrigger="TableEditTrigger.EditButton"
-        RowEditPreview="BackupItem"
-        RowEditCancel="ResetItemToOriginalValues"
-        RowEditCommit="ItemHasBeenCommittedAsync">
+        <MudTable Items="@Categories"
+                  Dense="false"
+                  Hover="true"
+                  CanCancelEdit="true"
+                  Elevation="10"
+                  Class="rounded-lg categories"
+                  CommitEditTooltip="Modifier"
+                  CancelEditTooltip="Annuler"
+                  Filter="new Func<CategoryModel,bool>(FilterFunc)"
+                  EditTrigger="TableEditTrigger.EditButton"
+                  RowEditPreview="BackupItem"
+                  RowEditCancel="ResetItemToOriginalValues"
+                  RowEditCommit="ItemHasBeenCommittedAsync">
             <ToolBarContent>
                 <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.Kitchen" Color="Color.Inherit" />
                 <MudText Typo="Typo.h6">Liste des catégories</MudText>
                 <MudSpacer />
-                <MudTextField @bind-Value="_searchString" Placeholder="Rechercher une catégorie" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudTextField @bind-Value="_searchString"
+                              Placeholder="Rechercher une catégorie"
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Class="mt-0" />
             </ToolBarContent>
             <ColGroup>
                 <col />
@@ -40,14 +50,16 @@
                 <MudTd DataLabel="Nom" style="margin-top: 0px!important;">@context.Name</MudTd>
                 <MudTd DataLabel="Nb Articles">@context.NumberArticles</MudTd>
                 <MudTd Style="text-align:right">
-                    <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Delete" OnClick="@(() => DeleteCategory(@context.Id))">Supprimer</MudIconButton>
+                    <MudIconButton Size="Size.Small"
+                                   Icon="@Icons.Material.Outlined.Delete"
+                                   OnClick="@(() => DeleteCategory(@context.Id))">
+                        Supprimer
+                    </MudIconButton>
                 </MudTd>
             </RowTemplate>
             <RowEditingTemplate>
                 <MudTd DataLabel="Nom">
-                    <MudTextField @bind-Value="@context.Name"     
-                Required
-                     />
+                    <MudTextField @bind-Value="@context.Name" Required />
                  </MudTd>
                  <MudTd DataLabel="Nb Articles">@context.NumberArticles</MudTd>
                  <MudTd></MudTd>
@@ -59,7 +71,10 @@
                 }
             </PagerContent>
             <EditButtonContent Context="button">
-                <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@button.ButtonAction" Disabled="@button.ButtonDisabled" />
+                <MudIconButton Size="Size.Small"
+                               Icon="@Icons.Material.Outlined.Edit"
+                               OnClick="@button.ButtonAction"
+                               Disabled="@button.ButtonDisabled" />
             </EditButtonContent>
         </MudTable>
     </div>

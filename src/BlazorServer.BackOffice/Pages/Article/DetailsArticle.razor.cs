@@ -9,13 +9,13 @@ namespace BlazorServer.BackOffice.Pages.Article
     {
         [Parameter] public Guid Id { get; set; }
         [Inject] private ArticleService ArticleService { get; set; } = null!;
-        [Inject] IConfiguration Configuration { get; set; } = null!;
+        [Inject] private IConfiguration Configuration { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] protected NavigationManager NavManager { get; set; } = null!;
         protected ArticleModel ArticleModel { get; set; } = new();
 
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             ArticleModel = await ArticleService.GetArticleById(Id);
             if (ArticleModel != null)
@@ -32,7 +32,7 @@ namespace BlazorServer.BackOffice.Pages.Article
         private void DisplayResultSubmit(bool result)
         {
             if (result)
-                Snackbar.Add("Article correctement supprimé", Severity.Success);
+                Snackbar.Add("Article supprimé", Severity.Success);
             else
                 Snackbar.Add("Action impossible", Severity.Error);
         }

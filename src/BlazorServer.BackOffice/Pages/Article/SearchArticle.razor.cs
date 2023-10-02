@@ -42,11 +42,11 @@ namespace BlazorServer.BackOffice.Pages.Article
             {
                 Articles = Articles!.Where(a => a.Id != id).ToList();
                 _articleCount = Articles.Count();
-                Snackbar.Add("Article correctement supprimé", Severity.Success);
+                Snackbar.Add("Article supprimé", Severity.Success);
             }
             else
             {
-                Snackbar.Add("Impossible de supprimer cet article", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
             }
         }
         protected void RedirectToDetails(Guid id) => NavigationManager.NavigateTo($"/article/{id}");

@@ -5,7 +5,7 @@
 @inherits LoginBase;
 
 <MudContainer MaxWidth="MaxWidth.Small" Class="mt-12">
-    <MudContainer Class="d-flex flex-column">      
+    <MudContainer Class="d-flex flex-column">
         <MudText Align="Align.Center" Typo="Typo.h4" Class="mb-6">
             <MudAvatar Color="Color.Primary" Variant="Variant.Filled">
                 <MudIcon Class="text-white" Icon="@Icons.Material.Outlined.Lock" Size="Size.Medium" />
@@ -13,17 +13,43 @@
             <br />
             Connexion
         </MudText>
-        <MudText Align="Align.Justify">Une connexion est requise pour accéder à l'espace d'administration du site. Si vous ne possédez pas de compte, merci de contacter le service IT à l'adresse <span class="mud-secondary-text">it@mercadona.com</span></MudText>
+        <MudText Align="Align.Justify">
+            Une connexion est requise pour accéder à l'espace d'administration du site. Si vous ne possédez pas de compte, merci de contacter le service IT à l'adresse <span class="mud-secondary-text">it@mercadona.com</span>
+        </MudText>
     </MudContainer>
 
     <EditForm Model="@LoginRequest" OnValidSubmit="@Login">
         <DataAnnotationsValidator />
         <MudContainer>
-            <MudTextField @bind-Value="LoginRequest.Username" For="@(() => LoginRequest.Username)" Class="my-6" Label="Email" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Outlined.AlternateEmail" AdornmentColor="Color.Dark" InputType="InputType.Email" />
-            <MudTextField @bind-Value="LoginRequest.Password" For="@(() => LoginRequest.Password)" Label="Mot de passe" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Outlined.Password" AdornmentColor="Color.Dark" InputType="InputType.Password" />
+            <MudTextField @bind-Value="LoginRequest.Username"
+                          For="@(() => LoginRequest.Username)"
+                          Class="my-6"
+                          Label="Email"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Outlined.AlternateEmail"
+                          AdornmentColor="Color.Dark"
+                          InputType="InputType.Email" />
+
+            <MudTextField @bind-Value="LoginRequest.Password"
+                          For="@(() => LoginRequest.Password)"
+                          Label="Mot de passe"
+                          Variant="Variant.Outlined"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Outlined.Password"
+                          AdornmentColor="Color.Dark"
+                          InputType="InputType.Password" />
         </MudContainer>
         <MudContainer Class="mt-4">
-            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" Size="Size.Large" Class="ml-auto" StartIcon="@Icons.Material.Filled.Login">Connexion</MudButton>
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       FullWidth="true"
+                       Size="Size.Large"
+                       Class="ml-auto"
+                       StartIcon="@Icons.Material.Filled.Login">
+                Connexion
+            </MudButton>
         </MudContainer>
     </EditForm>
 

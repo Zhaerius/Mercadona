@@ -9,8 +9,8 @@ namespace Application.Core.Features.Article.Queries.SearchArticles
     public class SearchArticlesQueryResponse
     {
         public Guid Id { get; init; }
-        public string Name { get; init; } = string.Empty;
-        public string CategoryName { get; init; } = string.Empty;
+        public required string Name { get; init; }
+        public required string CategoryName { get; init; }
         public decimal BasePrice { get; init; }
     }
 }

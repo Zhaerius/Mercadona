@@ -48,9 +48,9 @@ namespace BlazorServer.BackOffice.Pages.Category
         private void DisplayResultSubmit(bool result)
         {          
             if (result)
-                Snackbar.Add("Catégories ajouté avec succès", Severity.Success);
+                Snackbar.Add("Catégories ajouté", Severity.Success);
             else
-                Snackbar.Add("Impossible d'ajouter la liste de catégorie", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
         }
 
         private void CheckValidationInputs()

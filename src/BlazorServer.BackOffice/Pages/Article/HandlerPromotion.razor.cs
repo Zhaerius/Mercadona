@@ -8,9 +8,9 @@ namespace BlazorServer.BackOffice.Pages.Article
 {
     public class HandlerArticlePromotionBase : ComponentBase
     {
-        protected HashSet<PromotionModel> selectedItems = new HashSet<PromotionModel>();
-        protected bool selectOnRowClick = true;
-        protected MudTable<PromotionModel> mudTable;
+        protected HashSet<PromotionModel> _selectedItems = new();
+        protected bool _selectOnRowClick = true;
+        protected MudTable<PromotionModel>? _mudTable;
 
         [Parameter] public Guid Id { get; set; }
         [Inject] private ArticleService ArticleService { get; set; } = null!;
@@ -31,7 +31,7 @@ namespace BlazorServer.BackOffice.Pages.Article
 
             foreach (var promotion in promotionsToAddSelected)
             {
-                selectedItems.Add(promotion);
+                _selectedItems.Add(promotion);
             }
         }
 
@@ -46,7 +46,7 @@ namespace BlazorServer.BackOffice.Pages.Article
                 Image = Articles.Image,
                 Name = Articles.Name,
                 Publish = Articles.Publish,
-                PromotionsIds = selectedItems.Select(p => p.Id)
+                PromotionsIds = _selectedItems.Select(p => p.Id)
             };
 
             var result = await ArticleService.UpdateArticle(articleToUpdate);
@@ -59,9 +59,9 @@ namespace BlazorServer.BackOffice.Pages.Article
         private void DisplayResultSubmit(bool result)
         {
             if (result)
-                Snackbar.Add("Promotion à jour", Severity.Success);
+                Snackbar.Add("Promotions à jour", Severity.Success);
             else
-                Snackbar.Add("Maj impossible", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
         }
     }
 }

@@ -13,12 +13,12 @@ namespace Application.Core.Features.Article.Queries.GetArticle
     public class GetArticleQueryResponse
     {
         public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required string Image { get; set; }
         public decimal BasePrice { get; set; }
         public Guid CategoryId { get; set; }
-        public string CategoryName { get; set; } = string.Empty;
+        public required string CategoryName { get; set; }
         public bool Publish { get; set; }
         public double DiscountPrice { get; set; }
         public ICollection<GetPromotionQueryResponse>? Promotions { get; set; }

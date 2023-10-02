@@ -70,9 +70,9 @@ namespace BlazorServer.BackOffice.Pages.Article
         private void DisplayResultSubmit(bool result)
         {
             if (result)
-                Snackbar.Add("Article mis à jour avec succès", Severity.Success);
+                Snackbar.Add("Article mis à jour", Severity.Success);
             else
-                Snackbar.Add("Impossible de mettre à jour l'article", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
         }
 
         public void Dispose()

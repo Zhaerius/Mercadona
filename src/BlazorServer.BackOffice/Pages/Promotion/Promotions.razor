@@ -28,7 +28,13 @@
                     <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.MonetizationOn" Color="Color.Inherit" />
                     <MudText Typo="Typo.h6">Liste des promotions</MudText>
                     <MudSpacer />
-                    <MudTextField @bind-Value="searchString" Placeholder="Rechercher une promotion" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Variant="Variant.Text" Class="mt-0"></MudTextField>
+                    <MudTextField @bind-Value="searchString"
+                                  Placeholder="Rechercher une promotion"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.Filled.Search"
+                                  IconSize="Size.Medium"
+                                  Variant="Variant.Text"
+                                  Class="mt-0" />
                 </ToolBarContent>
                 <HeaderContent>
                     <MudTh>Nom</MudTh>
@@ -54,7 +60,12 @@
         }
         else
         {
-            <MudText Typo="Typo.h3" Align="Align.Center" Class="mt-12" Style="@($"color:{Colors.Grey.Lighten1};")">Aucun résultat</MudText>
+            <MudText Typo="Typo.h3"
+                     Align="Align.Center"
+                     Class="mt-12"
+                     Style="@($"color:{Colors.Grey.Lighten1};")">
+                Aucun résultat
+            </MudText>
         }
     }
 </div>

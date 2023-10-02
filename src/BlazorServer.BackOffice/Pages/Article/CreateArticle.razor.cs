@@ -22,7 +22,7 @@ namespace BlazorServer.BackOffice.Pages.Article
         protected IEnumerable<PromotionModel> Promotions { get; set; } = new List<PromotionModel>();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
 
-        protected async override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             UploadState.OnChange += StateHasChanged;
             Categories = await CategoryService.GetCategories();
@@ -51,9 +51,9 @@ namespace BlazorServer.BackOffice.Pages.Article
         private void DisplayResultSubmit(bool result)
         {
             if (result)
-                Snackbar.Add("Article ajouté avec succès", Severity.Success);
+                Snackbar.Add("Article ajouté", Severity.Success);
             else
-                Snackbar.Add("Impossible d'ajouter l'article", Severity.Error);
+                Snackbar.Add("Action impossible", Severity.Error);
         }
 
         public void Dispose()
@@ -69,7 +69,7 @@ namespace BlazorServer.BackOffice.Pages.Article
                 "Coco Pops",
                 "Pour bien commencer la journée, rien de tel qu'un petit déjeuner avec Coco Pops de Kellogg's et son ami Coco, le singe malicieux ! De délicieuses céréales de riz soufflé au bon goût de chocolat de la jungle",
                 "Céréales",
-                2.49,
+                2.49M,
                 true
                 );
         }

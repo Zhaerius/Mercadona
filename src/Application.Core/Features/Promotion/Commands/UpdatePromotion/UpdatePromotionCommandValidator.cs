@@ -21,11 +21,6 @@ namespace Application.Core.Features.Promotion.Commands.UpdatePromotion
                 .NotNull()
                 .MinimumLength(2);
 
-            RuleFor(p => p.Start)
-                .NotEmpty()
-                .NotNull()
-                .GreaterThanOrEqualTo(_today);
-
             RuleFor(p => p.End)
                 .NotEmpty()
                 .NotNull()

@@ -11,7 +11,7 @@ namespace Application.Core.Features.Article.Commands.UpdateArticle
         Guid Id,
         string Name,
         string Description,
-        double BasePrice,
+        decimal BasePrice,
         string Image,
         Guid CategoryId,
         bool Publish,

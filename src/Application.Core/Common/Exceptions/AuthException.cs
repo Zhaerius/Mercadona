@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Common.Exceptions
 {
-    public class NotFoundException : Exception
+    public class AuthException : Exception
     {
-        public NotFoundException() : base("Aucun Article trouvé")
+        public AuthException() : base("Connexion impossible, username ou mdp invalide")
         {
         }
-
-
     }
 }

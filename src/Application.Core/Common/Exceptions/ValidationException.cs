@@ -12,7 +12,7 @@ namespace Application.Core.Common.Exceptions
         public List<string> Errors { get; }
 
         public ValidationException()
-        : base("One or more validation failures have occurred.")
+        : base("Une ou plusieurs erreurs de validation se sont produites")
         {
             Errors = new List<string>();
         }

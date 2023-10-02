@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Common.Exceptions
 {
-    public class AuthException : Exception
+    public class NotFoundException : Exception
     {
-        public AuthException() : base("Connexion impossible, username/mdp non valide")
+        public NotFoundException() : base("Impossible de trouver l'entité")
         {
         }
-
-
     }
 }

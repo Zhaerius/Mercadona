@@ -24,23 +24,14 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
 
             if (request.PromotionsIds is not null && request.PromotionsIds.Any())
             {
-                //var promotions = await _dbContext.Promotions
-                //    .Where(p => request.PromotionsIds.Contains(p.Id))
-                //    .ToListAsync(cancellationToken);
+                var promotions = await _dbContext.Promotions
+                    .Where(p => request.PromotionsIds.Contains(p.Id))
+                    .ToListAsync(cancellationToken);
 
-                //article.Promotions = promotions;
-                article.Promotions = new List<PromotionEntity>();
-
-                for (int i = 0; i < request.PromotionsIds.Count(); i++)
-                {
-                    var promotion = new PromotionEntity() { Id = request.PromotionsIds.ToList()[i] };
-                    _dbContext.Promotions.Attach(promotion);
-
-                    article.Promotions.Add(promotion);
-                }
+                article.Promotions = promotions;
             }
 
-            _dbContext.Articles.Add(article);
+            await _dbContext.Articles.AddAsync(article, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             return article.Id;

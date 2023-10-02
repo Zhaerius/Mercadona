@@ -11,7 +11,7 @@ namespace Application.Core.Features.Category.Commands.DeleteCategory
         public DeleteCategoryCommandValidator(IApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            RuleFor(c => c.Id).MustAsync(async (entity, value, c) => await CategoryEmpty(value)).WithMessage("Supression impossible, la catégorie contien des articles");
+            RuleFor(c => c.Id).MustAsync(async (entity, value, c) => await CategoryEmpty(value)).WithMessage("Supression impossible, la catégorie contient des articles");
         }
 
         public async Task<bool> CategoryEmpty(Guid id)

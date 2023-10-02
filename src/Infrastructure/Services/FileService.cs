@@ -27,7 +27,6 @@ namespace Infrastructure.Services
 
                 var uploadResult = new UploadResult();
                 uploadResult.FileName = file.FileName;
-                string trustedFileNameForFileStorage;
 
 
                 if (filesProcessed < maxAllowedFiles)
@@ -44,7 +43,7 @@ namespace Infrastructure.Services
                     {
                         try
                         {
-                            trustedFileNameForFileStorage = Path.GetRandomFileName().Replace(".", "");
+                            var trustedFileNameForFileStorage = Path.GetRandomFileName().Replace(".", "");
                             var path = Path.Combine(_configuration["PathFileImg"]!, trustedFileNameForFileStorage + extension);
 
                             await using FileStream fs = new(path, FileMode.Create);
@@ -53,7 +52,7 @@ namespace Infrastructure.Services
                             uploadResult.Uploaded = true;
                             uploadResult.StoredFileName = trustedFileNameForFileStorage + extension;
                         }
-                        catch (IOException ex)
+                        catch (IOException)
                         {
                             uploadResult.ErrorCode = 3;
                         }

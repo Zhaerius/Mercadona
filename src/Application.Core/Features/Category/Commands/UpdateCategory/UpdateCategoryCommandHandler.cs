@@ -23,7 +23,6 @@ namespace Application.Core.Features.Category.Commands.UpdateCategory
             var categoryToUpdate = await _dbContext.Categories.FindAsync(request.Id) ?? throw new NotFoundException();
             categoryToUpdate.Name = request.Name;
 
-            _dbContext.Categories.Update(categoryToUpdate);
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }

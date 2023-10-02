@@ -13,7 +13,7 @@ namespace Application.Core.Entities
         public required string Name { get; set; }
         public required string Description { get; set; }
         public required string Image { get; set; }
-        public double BasePrice { get; set; }
+        public decimal BasePrice { get; set; }
         public Guid CategoryId { get; set; }
         public CategoryEntity? Category { get; set; }
         public ICollection<PromotionEntity>? Promotions { get; set; }
@@ -41,7 +41,7 @@ namespace Application.Core.Entities
         }
 
         //Calcul du prix avec remise
-        public double DiscountPrice
+        public decimal DiscountPrice
         {
             get
             {

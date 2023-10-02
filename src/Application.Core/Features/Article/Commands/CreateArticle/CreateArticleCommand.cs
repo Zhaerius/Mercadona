@@ -7,8 +7,8 @@ namespace Application.Core.Features.Article.Commands.CreateArticle
         string Name,
         string Description,
         string Image,
-        double BasePrice,
+        decimal BasePrice,
         Guid CategoryId,
         IEnumerable<Guid>? PromotionsIds,
-        bool Publish) : IRequest<Guid>{ }
+        bool Publish) : IRequest<Guid> {}
 }

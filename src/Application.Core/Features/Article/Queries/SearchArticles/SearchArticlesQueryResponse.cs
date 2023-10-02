@@ -11,6 +11,6 @@ namespace Application.Core.Features.Article.Queries.SearchArticles
         public Guid Id { get; init; }
         public string Name { get; init; } = string.Empty;
         public string CategoryName { get; init; } = string.Empty;
-        public double BasePrice { get; init; }
+        public decimal BasePrice { get; init; }
     }
 }

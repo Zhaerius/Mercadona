@@ -1,6 +1,4 @@
-﻿using Application.Core.Entities;
-using Application.Core.Features.Promotion.Queries.GetPromotion;
-using MediatR;
+﻿using Application.Core.Features.Promotion.Queries.GetPromotion;
 using System;
 using System.Collections;
 using System.Collections.Generic;

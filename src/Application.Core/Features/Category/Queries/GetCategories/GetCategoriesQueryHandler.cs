@@ -1,5 +1,4 @@
 ﻿using Application.Core.Abstractions;
-using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,5 +1,4 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Entities;
 using Application.Core.Common.Exceptions;
 using MediatR;
 using System;

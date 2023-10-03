@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace Application.Core.Features.Article.Commands.CreateArticle
 {

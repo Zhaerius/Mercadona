@@ -1,6 +1,4 @@
-﻿using Application.Core.Entities;
-using Application.Core.Abstractions;
-using AutoMapper;
+﻿using Application.Core.Abstractions;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using Application.Core.Abstractions;
 using Application.Core.Entities;
-using Application.Core.Features.Category.Commands.CreateCategory;
 using MediatR;
 
 namespace Application.Core.Features.Category.Commands.CreateCategories

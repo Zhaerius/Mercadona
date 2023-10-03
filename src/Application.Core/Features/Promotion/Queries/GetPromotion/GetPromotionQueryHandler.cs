@@ -1,10 +1,7 @@
 ﻿using Application.Core.Abstractions;
-using Application.Core.Entities;
 using Application.Core.Common.Exceptions;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Application.Core.Features.Promotion.Queries.GetPromotion
 {

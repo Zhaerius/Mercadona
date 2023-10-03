@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using static MudBlazor.Defaults.Classes;
 using BlazorServer.BackOffice.Models.Article;
 using BlazorServer.BackOffice.Services;
 

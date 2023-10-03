@@ -1,7 +1,6 @@
 ﻿using BlazorServer.BackOffice.Models.Category;
 using BlazorServer.BackOffice.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using MudBlazor;
 
 
@@ -16,7 +15,6 @@ namespace BlazorServer.BackOffice.Pages.Category
 
         [Inject] private CategoryService CategoryService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
-        //[Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
         protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         protected string LinkAddCategory { get; set; } = "/category/create";
 

@@ -1,6 +1,4 @@
-﻿using Application.Core.Features.Upload.Commands.SaveFiles;
-
-namespace BlazorServer.BackOffice.Components.Upload
+﻿namespace BlazorServer.BackOffice.Components.Upload
 {
     public class UploadState
     {

@@ -1,4 +1,5 @@
-﻿using Application.Core.Features.Promotion.Commands.CreatePromotion;
+﻿using Application.Core.Features.Category.Queries.GetCategorie;
+using Application.Core.Features.Promotion.Commands.CreatePromotion;
 using Application.Core.Features.Promotion.Commands.DeletePromotion;
 using Application.Core.Features.Promotion.Commands.UpdatePromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotion;
@@ -12,22 +13,43 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapPromotionEndpoints(this RouteGroupBuilder group)
         {
-            group.MapPost("", Add);
+            group.MapPost("", Add)
+                .Produces<Guid>(201, contentType: "text/plain")
+                .Produces(400)
+                .Produces(401);
 
-            group.MapDelete("/{id:guid}", Delete);
+            group.MapDelete("/{id:guid}", Delete)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401)
+                .Produces(404);
 
-            group.MapPut("", Update);
+            group.MapPut("", Update)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401)
+                .Produces(404);
 
-            group.MapGet("/{isActive:bool}", GetPromotionsByStatus);
+            group.MapGet("/{isActive:bool}", GetPromotionsByStatus)
+                .Produces<IEnumerable<GetPromotionsByStatusQueryResponse>>(200, "application/json")
+                .Produces(204)
+                .Produces(400)
+                .Produces(401);
 
-            group.MapGet("/{id:guid}", GetById);
+            group.MapGet("/{id:guid}", GetById)
+                .WithName("GetPromotionById")
+                .Produces<GetPromotionsByStatusQueryResponse>(200, "application/json")
+                .Produces(401)
+                .Produces(404);
 
             return group;
         }
-        private static async Task<IResult> Add([FromBody] CreatePromotionCommand createPromotion, [FromServices] IMediator mediator)
+        private static async Task<IResult> Add([FromBody] CreatePromotionCommand createPromotion, [FromServices] IMediator mediator, [FromServices] LinkGenerator linkGenerator, HttpContext httpContext)
         {
-            await mediator.Send(createPromotion);
-            return Results.NoContent();
+            var result = await mediator.Send(createPromotion);
+            string path = linkGenerator.GetUriByName(httpContext, "GetPromotionById", new { id = result })!;
+
+            return Results.Created(path, result);
         }
 
         private static async Task<IResult> GetById([FromRoute] Guid id, [FromServices] IMediator mediator)
@@ -52,17 +74,10 @@ namespace WebApi.Endpoints
             return Results.NoContent();
         }
 
-
-
-
-
-
         private static async Task<IResult> Update([FromBody] UpdatePromotionCommand updatePromotion, [FromServices] IMediator mediator)
         {
             await mediator.Send(updatePromotion);
             return Results.NoContent();
         }
-
-
     }
 }

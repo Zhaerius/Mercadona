@@ -13,17 +13,38 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapArticleEndpoints(this RouteGroupBuilder group)
         {
-            group.MapGet("/search/{name}", Search);
+            group.MapGet("/search/{name}", Search)
+                .Produces<IEnumerable<SearchArticlesQueryResponse>>(200, "application/json")
+                .Produces(204)
+                .Produces(400)
+                .Produces(401);
 
-            group.MapGet("/{id:guid}", GetById);
+            group.MapGet("/{id:guid}", GetById)
+                .WithName("GetArticleById")
+                .Produces<GetArticleQueryResponse>(200, "application/json")
+                .Produces(401)
+                .Produces(404);
 
-            group.MapPost("", Add);
+            group.MapPost("", Add)
+                .Produces<Guid>(201, contentType: "text/plain")
+                .Produces(400)
+                .Produces(401);
 
-            group.MapPut("", Update);
+            group.MapPut("", Update)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401)
+                .Produces(404);
 
-            group.MapDelete("/{id:guid}", Delete);
+            group.MapDelete("/{id:guid}", Delete)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401)
+                .Produces(404);
 
-            group.MapPost("/img", Upload);
+            group.MapPost("/img", Upload)
+                .Produces<IEnumerable<UploadResult>>(200, "application/json")
+                .Produces(401);
 
             return group;
         }
@@ -55,10 +76,12 @@ namespace WebApi.Endpoints
             return Results.NoContent();
         }
 
-        private static async Task<IResult> Add([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator)
+        private static async Task<IResult> Add([FromBody] CreateArticleCommand request, [FromServices] IMediator mediator, [FromServices] LinkGenerator linkGenerator, HttpContext httpContext)
         {
             var result = await mediator.Send(request);
-            return Results.Ok(result);
+            string path = linkGenerator.GetUriByName(httpContext, "GetArticleById", new {id = result})!;
+
+            return Results.Created(path, result);
         }
 
         private static async Task<IResult> Delete([FromRoute] Guid Id, [FromServices] IMediator mediator)

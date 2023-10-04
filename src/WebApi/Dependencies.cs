@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace WebApi
@@ -15,13 +16,42 @@ namespace WebApi
     {
         public static void InjectDependencies(this WebApplicationBuilder builder)
         {
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddEndpointsApiExplorer();
-
+            builder.AddSwagger();
             builder.AddInfrastructure();
 
             builder.AddCors();
             builder.AddJwt();
+        }
+
+        private static void AddSwagger(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddSwaggerGen(opts =>
+            {
+                opts.SwaggerDoc("v1", new OpenApiInfo { Title = "MercadonaAPI", Version = "v1" });
+                opts.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme.",
+                    Name = "Authorization",
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Type = SecuritySchemeType.Http
+                });
+                opts.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    new string[] { }
+                }});
+            });
+
+            builder.Services.AddEndpointsApiExplorer();
         }
 
         private static void AddCors(this WebApplicationBuilder builder)

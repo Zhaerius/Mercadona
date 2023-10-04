@@ -28,18 +28,22 @@ app.UseAuthorization();
 
 app.MapGroup("/article")
     .MapArticleEndpoints()
-    .RequireAuthorization("RequireUserMercadona");
+    .RequireAuthorization("RequireUserMercadona")
+    .WithTags("ArticleManagement");
 
 app.MapGroup("/category")
     .MapCategoryEndpoints()
-    .RequireAuthorization("RequireUserMercadona");
+    .RequireAuthorization("RequireUserMercadona")
+    .WithTags("CategoryManagement");
 
 app.MapGroup("/promotion")
     .MapPromotionEndpoints()
-    .RequireAuthorization("RequireUserMercadona");
+    .RequireAuthorization("RequireUserMercadona")
+    .WithTags("PromotionManagement");
 
 app.MapGroup("/auth")
-    .MapAuthEndpoints();
+    .MapAuthEndpoints()
+    .WithTags("Authentication");
 
 app.UseMiddleware<ExceptionMiddleware>();
 

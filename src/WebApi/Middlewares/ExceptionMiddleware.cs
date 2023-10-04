@@ -38,7 +38,11 @@ namespace WebApi.Middlewares
             };
 
             if (exception is ValidationException validationException)
+            {
+                httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                error.StatusCode = httpContext.Response.StatusCode.ToString();
                 error.Detail = string.Join(" ", validationException.Errors);
+            }
 
             if (exception is NotFoundException)
             {

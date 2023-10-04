@@ -13,17 +13,38 @@ namespace WebApi.Endpoints
     {
         public static RouteGroupBuilder MapCategoryEndpoints(this RouteGroupBuilder group)
         {
-            group.MapGet("", GetAll);
+            group.MapGet("", GetAll)
+                .Produces<IEnumerable<GetCategorieQueryResponse>>(200, "application/json")
+                .Produces(204)
+                .Produces(400)
+                .Produces(401);
 
-            group.MapGet("/{id:guid}", GetById);
+            group.MapGet("/{id:guid}", GetById)
+                .Produces<GetCategorieQueryResponse>(200, "application/json")
+                .Produces(401)
+                .Produces(404);
 
-            group.MapDelete("/{id:guid}", Delete);
+            group.MapDelete("/{id:guid}", Delete)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401)
+                .Produces(404);
 
-            group.MapPost("", CreateOne);
+            group.MapPost("", CreateOne)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401);
 
-            group.MapPost("/multimode", CreateMulti);
+            group.MapPost("/multimode", CreateMulti)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401);
 
-            group.MapPut("", Update);
+            group.MapPut("", Update)
+                .Produces(204)
+                .Produces(400)
+                .Produces(401)
+                .Produces(404);
 
             return group;
         }

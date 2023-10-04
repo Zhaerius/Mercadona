@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Core.Features.Promotion.Commands.CreatePromotion
 {
-    public class CreatePromotionCommandHandler : IRequestHandler<CreatePromotionCommand>
+    public class CreatePromotionCommandHandler : IRequestHandler<CreatePromotionCommand, Guid>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -21,12 +21,14 @@ namespace Application.Core.Features.Promotion.Commands.CreatePromotion
             _mapper = mapper;
         }
 
-        public async Task Handle(CreatePromotionCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreatePromotionCommand request, CancellationToken cancellationToken)
         {
             var promotionToCreate = _mapper.Map<PromotionEntity>(request);
 
             await _dbContext.Promotions.AddAsync(promotionToCreate);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
+            return promotionToCreate.Id;
         }
     }
 }

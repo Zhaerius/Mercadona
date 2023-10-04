@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Core.Features.Authentication.Queries.Login
 {
-    public class LoginQueryHandler : IRequestHandler<LoginQuery, string>
+    public class LoginQueryHandler : IRequestHandler<LoginQuery, string?>
     {
         private readonly IIdentityService _identityService;
         private readonly IJwtService _jwtService;
@@ -15,12 +15,13 @@ namespace Application.Core.Features.Authentication.Queries.Login
             _jwtService = jwtService;
         }
 
-        public async Task<string> Handle(LoginQuery request, CancellationToken cancellationToken)
+        public async Task<string?> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
 
             var result = await _identityService.SignInAsync(request.Username, request.Password);
 
-            if (!result) throw new AuthException();
+            if (!result)
+                return null;
 
             var roles = await _identityService.GetRolesByUserNameAsync(request.Username);
 

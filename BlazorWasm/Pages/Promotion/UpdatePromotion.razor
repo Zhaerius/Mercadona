@@ -1,0 +1,41 @@
+﻿@page "/promotion/update/{Id:guid}"
+@inherits UpdatePromotionBase;
+@attribute [Authorize(Policy = "RequireUserMercadona")]
+
+<MudText Typo="Typo.h4" Class="mb-8">Modification d'une promotion</MudText>
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <EditForm Model="@UpdatePromotion" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
+            <MudCardContent Class="d-flex flex-column gap-4">
+                <MudTextField @bind-Value="UpdatePromotion.Name"
+                              For="@(() => UpdatePromotion.Name)"
+                              Label="Nom"
+                              Placeholder="Promotion de Noel"
+                              Variant="Variant.Outlined"/>
+
+                <MudDateRangePicker @bind-DateRange="_dateRange"
+                                    Variant="Variant.Outlined"
+                                    Label="Durée de la promotion"/>
+
+                <MudNumericField @bind-Value="UpdatePromotion.Discount"
+                                 For="@(() => UpdatePromotion.Discount)"
+                                 T="double?"
+                                 Variant="Variant.Outlined"
+                                 Label="Réduction en %"
+                                 Placeholder="20"
+                                 AdornmentIcon="@Icons.Material.Filled.Percent"/>
+            </MudCardContent>
+        </MudCard>
+        <MudCardActions>
+            <MudButton ButtonType="ButtonType.Submit"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Class="ml-auto">
+                Valider
+            </MudButton>
+        </MudCardActions>
+    </EditForm>
+</MudContainer>
+

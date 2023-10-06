@@ -1,0 +1,62 @@
+﻿@using System.Linq
+@using System.Net.Http.Headers
+@inherits FilesUploadBase;
+
+
+<div class="d-flex gap-6 align-content-center justify-space-between">
+    <div>
+        <MudFileUpload Class="mb-1" T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
+            <ButtonTemplate>
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Secondary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           Class="mb-3"
+                           for="@context">
+                    Charger une image
+                </MudButton>
+            </ButtonTemplate>
+        </MudFileUpload>
+
+        @if (UploadState.UploadResults != null)
+        {
+            @foreach (var uploadResult in UploadState.UploadResults)
+            {
+                string preview = @_path + @uploadResult.StoredFileName;
+                if (uploadResult.Uploaded)
+                {
+                    <div class="d-flex align-content-center flex-wrap flex-grow-1 gap-2">
+                        <MudImage Src="@preview" ObjectFit="ObjectFit.Cover" Height="80" Width="80" Elevation="10" Class="rounded-lg" />
+                        <div class="align-self-center d-flex">
+                            <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
+                            <MudText>@uploadResult.FileName</MudText>
+                        </div>
+                    </div>                
+                }
+                else
+                {
+                    <div class="d-flex align-content-center gap-2">
+                        <MudIcon Icon="@Icons.Material.TwoTone.Clear" Color="Color.Secondary" />
+                        <MudText>Erreur : @uploadResult.ErrorCode</MudText>
+                    </div>
+                }
+            }
+        }
+
+        @if (UploadState.UploadResults != null && UploadState.UploadResults.Count == 0)
+        {
+            <div class="d-flex align-content-center gap-2">
+                <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
+                <MudText>Aucun Fichier</MudText>
+            </div>
+
+        }
+    </div>
+
+    <div class="align-self-center">
+        <MudAlert Severity="Severity.Info" Variant="Variant.Text" ContentAlignment="HorizontalAlignment.Center">
+            JPEG, JPG, PNG / 500 ko Max
+        </MudAlert>
+
+    </div>
+</div>

@@ -18,7 +18,7 @@ namespace BlazorWasm.Pages.Authentication
         {
             var authState = await AuthenticationState;
             if (authState.User.Identity!.IsAuthenticated)
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/article");
         }
 
         protected async Task Login()
@@ -27,7 +27,7 @@ namespace BlazorWasm.Pages.Authentication
             LoginResponse = result;
 
             if (result.Success)
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/article");
             else
                 _error = true;
         }

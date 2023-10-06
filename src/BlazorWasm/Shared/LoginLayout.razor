@@ -1,0 +1,28 @@
+﻿@using BlazorWasm.Templates;
+@inherits LayoutComponentBase
+
+<PageTitle>Connexion</PageTitle>
+
+<MudThemeProvider Theme="_mercaTheme" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex">
+            <MudImage Src="/img/logo.svg" Alt="Mony the dog" Class="" Height="45" />
+            <MudSpacer />
+            <MudIconButton Icon="@Icons.Material.Filled.RemoveRedEye" Color="Color.Inherit" Href="/toto"/>
+        </MudContainer>
+    </MudAppBar>
+
+    <MudMainContent>
+            @Body
+    </MudMainContent>
+
+</MudLayout>
+
+@code {
+    readonly MudTheme _mercaTheme = MudCustomTemplate.GetTemplate();
+}

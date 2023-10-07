@@ -19,36 +19,33 @@ namespace Application.Core.Entities
         public ICollection<PromotionEntity>? Promotions { get; set; }
         public bool Publish { get; set; }
 
-        public bool OnDiscount { get; set; }
 
         //Application auto de la promotion la plus avantageuse pour le client
         public PromotionEntity? CurrentPromotion
         {
-            get 
+            get  
             {
-                if (this.Promotions is null)
+                if (Promotions is null)
                     return null;
 
-                var promotion = Promotions
+                return Promotions
                     .Where(p => p.IsActive)
                     .MaxBy(p => p.Discount);
-
-                if (promotion != null)
-                    this.OnDiscount = true;
-
-                return promotion;
             }
         }
+
+        //Determination auto du statut de l'article
+        public bool OnDiscount => CurrentPromotion is not null;
 
         //Calcul du prix avec remise
         public decimal DiscountPrice
         {
             get
             {
-                if (this.CurrentPromotion is null)
+                if (CurrentPromotion is null)
                     return BasePrice;
 
-                return this.BasePrice - (this.BasePrice * this.CurrentPromotion.Discount / 100);
+                return BasePrice - (BasePrice * CurrentPromotion.Discount / 100);
             }
         }
     }

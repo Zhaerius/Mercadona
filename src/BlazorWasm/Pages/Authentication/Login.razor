@@ -30,7 +30,8 @@
                           Adornment="Adornment.Start"
                           AdornmentIcon="@Icons.Material.Outlined.AlternateEmail"
                           AdornmentColor="Color.Dark"
-                          InputType="InputType.Email" />
+                          InputType="InputType.Email"
+                          id="login" />
 
             <MudTextField @bind-Value="LoginRequest.Password"
                           For="@(() => LoginRequest.Password)"
@@ -39,7 +40,8 @@
                           Adornment="Adornment.Start"
                           AdornmentIcon="@Icons.Material.Outlined.Password"
                           AdornmentColor="Color.Dark"
-                          InputType="InputType.Password" />
+                          InputType="InputType.Password"
+                          id="password" />
         </MudContainer>
         <MudContainer Class="mt-4">
             <MudButton ButtonType="ButtonType.Submit"

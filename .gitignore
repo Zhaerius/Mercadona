@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /src/Infrastructure/Persistence/dbsettings.json
 /src/WebApi/Temp
+/.idea/.idea.Mercadona/.idea

@@ -66,7 +66,7 @@ namespace UnitTests.ApplicationCore.Entities
         }
 
         [TestMethod]
-        public void CurrentPromotion_WithNoPromotion_DiscountPrice_EgalToBasePrice()
+        public void CurrentPromotion_WithNoPromotion_DiscountPrice_EgalTo_BasePrice()
         {
             var article = _article;
             article.Promotions = null;
@@ -93,7 +93,7 @@ namespace UnitTests.ApplicationCore.Entities
         }
 
         [TestMethod]
-        public void CurrentPromotion_WithInactivePromotions_DiscountPrice_EgalToBasePrice()
+        public void CurrentPromotion_WithInactivePromotions_DiscountPrice_EgalTo_BasePrice()
         {
             var article = _article;
             article.Promotions = new List<PromotionEntity>() { _invalidPromotion };

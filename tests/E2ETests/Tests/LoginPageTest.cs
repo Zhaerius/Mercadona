@@ -14,12 +14,13 @@ namespace E2ETests.Tests
     public class LoginPageTest
     {
         private IWebDriver _webdriver;
+        private string _baseUrl = "https://localhost:7060/";
 
         [TestInitialize]
         public void SetUp()
         {
             _webdriver = new ChromeDriver();
-            _webdriver.Navigate().GoToUrl("https://localhost:7060/");
+            _webdriver.Navigate().GoToUrl(_baseUrl);
         }
 
         [TestMethod]
@@ -36,10 +37,22 @@ namespace E2ETests.Tests
             Assert.AreEqual(errorMessage, expectedMessage);
         }
 
+        [TestMethod]
+        public void SuccessLogin()
+        {
+            var loginPage = new LoginPage(_webdriver);
+            loginPage.EnterLoginValue("administrateur@mercadona.com");
+            loginPage.EnterPasswordValue("kkk"); //todo var env
+            loginPage.ClickButtonLogin();
+
+            var isRedirect = loginPage.CheckRedirect(_baseUrl + "article");
+
+            Assert.IsTrue(isRedirect);
+        }
+
         [TestCleanup]
         public void CleanUp()
         {
-            Thread.Sleep(2000);
             _webdriver.Quit();
         }
     }

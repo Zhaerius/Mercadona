@@ -42,10 +42,15 @@ namespace E2ETests.ModelPages
             btn.Click();
         }
 
-        public string? GetErrorMessage()
+        public string GetErrorMessage()
         {
             return _webDriver.FindElement(_alertMessage).Text;
         }
-
+        
+        public bool CheckRedirect(string urlExpected)
+        {
+            return _webDriverWait.Until(ExpectedConditions.UrlToBe(urlExpected));
+        }
+        
     }
 }

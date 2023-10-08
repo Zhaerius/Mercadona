@@ -20,5 +20,4 @@ namespace E2ETests.ModelPages
             return elements.Last().GetAttribute("id");           
         }
     }
-
 }

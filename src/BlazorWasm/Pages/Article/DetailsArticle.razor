@@ -6,7 +6,7 @@
 @if (ArticleModel != null)
 {
     <MudGrid Justify="Justify.Center">
-        <MudItem xs="5">
+        <MudItem xs="12" sm="8" md="8" lg="6" xl="5">
             <MudCard Elevation="10">
                 <MudCardMedia Image="@ArticleModel.Image" Height="300" />
                 <MudCardContent>
@@ -48,7 +48,7 @@
                 </MudCardActions>
             </MudCard>
         </MudItem>
-        <MudItem xs="4">
+        <MudItem xs="12" sm="4" md="4" lg="4" xl="4">
             <MudStack>
                 <MudPaper Class="pa-4 mud-theme-primary d-flex align-content-center flex-wrap flex-grow-1 gap-4" Elevation="10">
                     <MudIcon Icon="@Icons.Material.TwoTone.MonetizationOn"

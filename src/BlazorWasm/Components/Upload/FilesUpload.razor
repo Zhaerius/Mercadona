@@ -3,7 +3,7 @@
 @inherits FilesUploadBase;
 
 
-<div class="d-flex gap-6 align-content-center justify-space-between">
+<div class="d-sm-flex gap-6 align-content-center justify-space-between">
     <div>
         <MudFileUpload Class="mb-1" T="IReadOnlyList<IBrowserFile>" FilesChanged="OnInputFileChange" MaximumFileCount="1" Accept=".png, .jpg, .jpeg">
             <ButtonTemplate>
@@ -31,7 +31,7 @@
                             <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
                             <MudText>@uploadResult.FileName</MudText>
                         </div>
-                    </div>                
+                    </div>
                 }
                 else
                 {
@@ -45,7 +45,7 @@
 
         @if (UploadState.UploadResults != null && UploadState.UploadResults.Count == 0)
         {
-            <div class="d-flex align-content-center gap-2">
+            <div class="d-flex align-content-center gap-2 mb-2">
                 <MudIcon Icon="@Icons.Material.TwoTone.AttachFile" />
                 <MudText>Aucun Fichier</MudText>
             </div>
@@ -54,7 +54,9 @@
     </div>
 
     <div class="align-self-center">
-        <MudAlert Severity="Severity.Info" Variant="Variant.Text" ContentAlignment="HorizontalAlignment.Center">
+        <MudAlert Severity="Severity.Info"
+                  Variant="Variant.Text"
+                  ContentAlignment="HorizontalAlignment.Center">
             JPEG, JPG, PNG / 500 ko Max
         </MudAlert>
 

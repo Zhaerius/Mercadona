@@ -1,11 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E2ETests.ModelPages
 {
@@ -13,10 +8,10 @@ namespace E2ETests.ModelPages
     {
         private readonly WebDriverWait _webDriverWait;
         private readonly IWebDriver _webDriver;
-        private By _loginInput = By.Id("login");
-        private By _passwordInput = By.Id("password");
-        private By _alertMessage = By.CssSelector("#alert-message .mud-alert-message");
-        private By _buttonSubmit = By.TagName("button");
+        private readonly By _loginInput = By.Id("login");
+        private readonly By _passwordInput = By.Id("password");
+        private readonly By _alertMessage = By.CssSelector("#alert-message .mud-alert-message");
+        private readonly By _buttonSubmit = By.TagName("button");
 
         public LoginPage(IWebDriver webDriver)
         {
@@ -24,24 +19,13 @@ namespace E2ETests.ModelPages
             _webDriverWait = new WebDriverWait(_webDriver, TimeSpan.FromSeconds(20));
         }
 
-        public void EnterLoginValue(string fieldValue)
+        public void LoginProcess(string userName, string password)
         {
-            var field = _webDriverWait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(_loginInput));
-            field.SendKeys(fieldValue);
+            EnterLoginValue(userName);
+            EnterPasswordValue(password);
+            ClickButtonLogin();
         }
         
-        public void EnterPasswordValue(string fieldValue)
-        {
-            var field = _webDriverWait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(_passwordInput));
-            field.SendKeys(fieldValue);
-        }
-
-        public void ClickButtonLogin()
-        {
-            var btn = _webDriverWait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(_buttonSubmit));
-            btn.Click();
-        }
-
         public string GetErrorMessage()
         {
             return _webDriver.FindElement(_alertMessage).Text;
@@ -52,5 +36,22 @@ namespace E2ETests.ModelPages
             return _webDriverWait.Until(ExpectedConditions.UrlToBe(urlExpected));
         }
         
+        private void EnterLoginValue(string fieldValue)
+        {
+            var field = _webDriverWait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(_loginInput));
+            field.SendKeys(fieldValue);
+        }
+        
+        private void EnterPasswordValue(string fieldValue)
+        {
+            var field = _webDriverWait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(_passwordInput));
+            field.SendKeys(fieldValue);
+        }
+
+        private void ClickButtonLogin()
+        {
+            var btn = _webDriverWait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(_buttonSubmit));
+            btn.Click();
+        }
     }
 }

@@ -2,7 +2,7 @@
 @using MudBlazor;
 @inherits NavMenuBase;
 
-<MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2">
+<MudNavMenu Rounded="true" Margin="Margin.Dense" Color="Color.Primary" Class="pa-2" id="nav-menu">
     <MudStack Row="true" Class="pa-2">
         <MudAvatar Class="text-uppercase" Color="Color.Secondary">@nameLetter</MudAvatar>
         <MudStack Justify="Justify.Center" Spacing="0">
@@ -12,7 +12,7 @@
     </MudStack>
 
     <MudDivider Class="my-2" />
-    <MudNavGroup Title="Gestion" Expanded="true" ExpandIcon="@Icons.Material.Filled.KeyboardArrowDown" Icon="@Icons.Material.TwoTone.CorporateFare">
+    <MudNavGroup id="pannel-user" Title="Gestion" Expanded="true" ExpandIcon="@Icons.Material.Filled.KeyboardArrowDown" Icon="@Icons.Material.TwoTone.CorporateFare">
         <MudNavLink Href="/article" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.LocalMall">Articles</MudNavLink>
         <MudNavLink Href="/category" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Kitchen">Catégories</MudNavLink>
         <MudNavLink Href="/promotion" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.MonetizationOn">Promotions</MudNavLink>
@@ -20,7 +20,7 @@
     <AuthorizeView Policy="RequireAdmin">
         <Authorized>
             <MudDivider Class="my-2" />
-            <MudNavGroup Title="Admin" Expanded="true" ExpandIcon="@Icons.Material.Filled.KeyboardArrowDown" Icon="@Icons.Material.TwoTone.AdminPanelSettings">
+            <MudNavGroup id="pannel-admin" Title="Admin" Expanded="true" ExpandIcon="@Icons.Material.Filled.KeyboardArrowDown" Icon="@Icons.Material.TwoTone.AdminPanelSettings">
                 <MudNavLink Href="/user" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.SupervisedUserCircle">Utilisateurs</MudNavLink>
             </MudNavGroup>
         </Authorized>

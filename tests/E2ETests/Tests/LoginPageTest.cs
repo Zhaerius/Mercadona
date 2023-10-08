@@ -1,35 +1,27 @@
 ﻿using E2ETests.ModelPages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace E2ETests.Tests
 {
     [TestClass]
     public class LoginPageTest
     {
-        private IWebDriver _webdriver;
-        private string _baseUrl = "https://localhost:7060/";
+        private IWebDriver _webDriver = null!;
+        private readonly string _baseUrl = "https://localhost:7060/";
 
         [TestInitialize]
         public void SetUp()
         {
-            _webdriver = new ChromeDriver();
-            _webdriver.Navigate().GoToUrl(_baseUrl);
+            _webDriver = new ChromeDriver();
+            _webDriver.Navigate().GoToUrl(_baseUrl);
         }
 
         [TestMethod]
         public void FailLogin()
         {
-            var loginPage = new LoginPage(_webdriver);
-            loginPage.EnterLoginValue("string@supermail.com");
-            loginPage.EnterPasswordValue("string");
-            loginPage.ClickButtonLogin();
+            var loginPage = new LoginPage(_webDriver);
+            loginPage.LoginProcess("string@supermail.com", "string");
 
             string errorMessage = loginPage.GetErrorMessage();
             string expectedMessage = "Connexion impossible, merci de vérifier vos identifiants";
@@ -40,12 +32,10 @@ namespace E2ETests.Tests
         [TestMethod]
         public void SuccessLogin()
         {
-            var loginPage = new LoginPage(_webdriver);
-            loginPage.EnterLoginValue("test@mercadona.com");
-            loginPage.EnterPasswordValue("@TesteurApp0911!");
-            loginPage.ClickButtonLogin();
+            var loginPage = new LoginPage(_webDriver);
+            loginPage.LoginProcess("test@mercadona.com", "@TesteurApp0911!");
 
-            var isRedirect = loginPage.CheckRedirect(_baseUrl + "article");
+            bool isRedirect = loginPage.CheckRedirect(_baseUrl + "article");
 
             Assert.IsTrue(isRedirect);
         }
@@ -53,7 +43,7 @@ namespace E2ETests.Tests
         [TestCleanup]
         public void CleanUp()
         {
-            _webdriver.Quit();
+            _webDriver.Quit();
         }
     }
 }

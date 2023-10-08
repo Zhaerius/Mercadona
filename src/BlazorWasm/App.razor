@@ -18,8 +18,8 @@
         </Found>
         <NotFound>
             <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+            <LayoutView Layout="@typeof(LoginLayout)">
+                <BlazorWasm.Components.NotFound></BlazorWasm.Components.NotFound>
             </LayoutView>
         </NotFound>
     </Router>

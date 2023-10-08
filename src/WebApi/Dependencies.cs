@@ -109,7 +109,7 @@ namespace WebApi
             });
 
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JWT"));
-            builder.Services.Configure<IdentityUserOptions>(builder.Configuration.GetSection("DefaultAdmin"));
+            builder.Services.Configure<List<IdentityUserOptions>>(builder.Configuration.GetSection("DefaultAdmin"));
 
             builder.Services.AddSingleton<IJwtService, JwtService>();
             builder.Services.AddSingleton<IFileService, FileService>();

@@ -4,6 +4,7 @@ using Infrastructure.Identity.Options;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace Infrastructure.Persistence
 {
@@ -14,7 +15,7 @@ namespace Infrastructure.Persistence
             var mercaDbContext = serviceProvider.GetRequiredService<MercaDbContext>();
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             var roleManager = serviceProvider.GetRequiredService< RoleManager<IdentityRole>>();
-            var userOptions = serviceProvider.GetRequiredService<IOptions<IdentityUserOptions>>().Value;
+            var usersOptions = serviceProvider.GetRequiredService<IOptions<List<IdentityUserOptions>>>().Value;
 
             // Ajout uniquement si table vide
             if (!mercaDbContext.Articles.Any())
@@ -25,10 +26,13 @@ namespace Infrastructure.Persistence
                 foreach (var article in articles)
                     mercaDbContext.Articles.Add(article);
 
-                // Ajout AdminUser et Roles
-                var user = await GenerateDefaultUser(userManager, userOptions);
-                await GenerateDefaultRoles(roleManager, userOptions);
-                await userManager.AddToRolesAsync(user, userOptions.Roles);
+                foreach (var userOptions in usersOptions)
+                {
+                    // Ajout AdminUser et Roles
+                    var user = await GenerateDefaultUser(userManager, userOptions);
+                    await GenerateDefaultRoles(roleManager, userOptions);
+                    await userManager.AddToRolesAsync(user, userOptions.Roles);
+                }
 
                 await mercaDbContext.SaveChangesAsync();
             }
@@ -39,8 +43,13 @@ namespace Infrastructure.Persistence
         {
             foreach (var role in userOptions.Roles)
             {
-                var defaultRole = new IdentityRole(role);
-                await roleManager.CreateAsync(defaultRole);
+                var roleExist = await roleManager.FindByNameAsync(role);
+
+                if (roleExist == null)
+                {
+                    var defaultRole = new IdentityRole(role);
+                    await roleManager.CreateAsync(defaultRole);
+                }
             }
         }
 

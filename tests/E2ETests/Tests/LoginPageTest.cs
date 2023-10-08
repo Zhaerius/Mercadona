@@ -41,8 +41,8 @@ namespace E2ETests.Tests
         public void SuccessLogin()
         {
             var loginPage = new LoginPage(_webdriver);
-            loginPage.EnterLoginValue("administrateur@mercadona.com");
-            loginPage.EnterPasswordValue("kkk"); //todo var env
+            loginPage.EnterLoginValue("test@mercadona.com");
+            loginPage.EnterPasswordValue("@TesteurApp0911!");
             loginPage.ClickButtonLogin();
 
             var isRedirect = loginPage.CheckRedirect(_baseUrl + "article");

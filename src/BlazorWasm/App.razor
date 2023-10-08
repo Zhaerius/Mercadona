@@ -11,7 +11,7 @@
                     }
                     else
                     {
-                        <p>You are not authorized to access this resource.</p>
+                        <BlazorWasm.Components.Error.Unauthorized />
                     }
                 </NotAuthorized>
             </AuthorizeRouteView>
@@ -19,7 +19,7 @@
         <NotFound>
             <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(LoginLayout)">
-                <BlazorWasm.Components.NotFound></BlazorWasm.Components.NotFound>
+                <BlazorWasm.Components.Error.NotFound />
             </LayoutView>
         </NotFound>
     </Router>

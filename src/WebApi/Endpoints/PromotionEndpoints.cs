@@ -1,5 +1,4 @@
-﻿using Application.Core.Features.Category.Queries.GetCategorie;
-using Application.Core.Features.Promotion.Commands.CreatePromotion;
+﻿using Application.Core.Features.Promotion.Commands.CreatePromotion;
 using Application.Core.Features.Promotion.Commands.DeletePromotion;
 using Application.Core.Features.Promotion.Commands.UpdatePromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotion;
@@ -14,29 +13,34 @@ namespace WebApi.Endpoints
         public static RouteGroupBuilder MapPromotionEndpoints(this RouteGroupBuilder group)
         {
             group.MapPost("", Add)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces<Guid>(201, contentType: "text/plain")
                 .Produces(400)
                 .Produces(401);
 
             group.MapDelete("/{id:guid}", Delete)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401)
                 .Produces(404);
 
             group.MapPut("", Update)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401)
                 .Produces(404);
 
             group.MapGet("/{isActive:bool}", GetPromotionsByStatus)
+                .AllowAnonymous()
                 .Produces<IEnumerable<GetPromotionsByStatusQueryResponse>>(200, "application/json")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);
 
             group.MapGet("/{id:guid}", GetById)
+                .AllowAnonymous()
                 .WithName("GetPromotionById")
                 .Produces<GetPromotionsByStatusQueryResponse>(200, "application/json")
                 .Produces(401)

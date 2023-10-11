@@ -14,33 +14,39 @@ namespace WebApi.Endpoints
         public static RouteGroupBuilder MapCategoryEndpoints(this RouteGroupBuilder group)
         {
             group.MapGet("", GetAll)
+                .AllowAnonymous()
                 .Produces<IEnumerable<GetCategorieQueryResponse>>(200, "application/json")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);
 
             group.MapGet("/{id:guid}", GetById)
+                .AllowAnonymous()
                 .Produces<GetCategorieQueryResponse>(200, "application/json")
                 .Produces(401)
                 .Produces(404);
 
             group.MapDelete("/{id:guid}", Delete)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401)
                 .Produces(404);
 
             group.MapPost("", CreateOne)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);
 
             group.MapPost("/multimode", CreateMulti)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);
 
             group.MapPut("", Update)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401)

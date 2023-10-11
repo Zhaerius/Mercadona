@@ -28,17 +28,14 @@ app.UseAuthorization();
 
 app.MapGroup("/article")
     .MapArticleEndpoints()
-    .RequireAuthorization("RequireUserMercadona")
     .WithTags("ArticleManagement");
 
 app.MapGroup("/category")
     .MapCategoryEndpoints()
-    .RequireAuthorization("RequireUserMercadona")
     .WithTags("CategoryManagement");
 
 app.MapGroup("/promotion")
     .MapPromotionEndpoints()
-    .RequireAuthorization("RequireUserMercadona")
     .WithTags("PromotionManagement");
 
 app.MapGroup("/auth")

@@ -12,51 +12,65 @@
 <div>
     @if (Promotions != null)
     {
-        <div class="d-flex justify-end mb-3">
+        <div class="d-flex justify-md-end justify-xs-start mb-3">
             <MudSwitch T="bool" Size="Size.Large" Label="Promotion terminée" Color="Color.Secondary" CheckedChanged="RefreshPromotions" />
         </div>
 
         @if (Promotions.Any())
         {
-            <MudTable Dense="false"
-                      Elevation="10"
-                      RowsPerPage="@rowPerPage"
-                      Items="Promotions"
-                      Filter="new Func<PromotionModel,bool>(FilterFunc)"
-                      Class="mb-8 rounded-lg">
-                <ToolBarContent>
-                    <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.MonetizationOn" Color="Color.Inherit" />
-                    <MudText Typo="Typo.h6">Liste des promotions</MudText>
-                    <MudSpacer />
-                    <MudTextField @bind-Value="searchString"
-                                  Placeholder="Rechercher une promotion"
-                                  Adornment="Adornment.Start"
-                                  AdornmentIcon="@Icons.Material.Filled.Search"
-                                  IconSize="Size.Medium"
-                                  Variant="Variant.Text"
-                                  Class="mt-0" />
-                </ToolBarContent>
-                <HeaderContent>
-                    <MudTh>Nom</MudTh>
-                    <MudTh>Date de début</MudTh>
-                    <MudTh>Date de fin</MudTh>
-                    <MudTh>Réduction</MudTh>
-                    <MudTh></MudTh>
-                </HeaderContent>
-                <RowTemplate>
-                    <MudTd DataLabel="Nom">@context.Name</MudTd>
-                    <MudTd DataLabel="Catégorie">@context.Start</MudTd>
-                    <MudTd DataLabel="Prix">@context.End</MudTd>
-                    <MudTd DataLabel="Réduction">@context.Discount</MudTd>
-                    <MudTd Style="text-align:right">
-                        <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                            <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
-                            <MudMenuItem @onclick="() => DeletePromotion(context.Id)">Supprimer</MudMenuItem>
-                        </MudMenu>
-                    </MudTd>
+            <div class="pb-8">
+                <MudTable Dense="false"
+                          Elevation="10"
+                          RowsPerPage="@rowPerPage"
+                          Items="Promotions"
+                          Filter="new Func<PromotionModel,bool>(FilterFunc)"
+                          Class="mb-8 rounded-lg">
+                    <ToolBarContent>
+                        <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.MonetizationOn" Color="Color.Inherit" />
+                        <MudText Typo="Typo.h6">Liste des promotions</MudText>
+                        <MudSpacer />
+                        <MudHidden Breakpoint="Breakpoint.Xs">
+                            <MudTextField @bind-Value="searchString"
+                                          Placeholder="Rechercher une promotion"
+                                          Adornment="Adornment.Start"
+                                          AdornmentIcon="@Icons.Material.Filled.Search"
+                                          IconSize="Size.Medium"
+                                          Variant="Variant.Text"
+                                          Class="mt-0" />
+                        </MudHidden>
+                    </ToolBarContent>
+                    <HeaderContent>
+                        <MudTh>Nom</MudTh>
+                        <MudTh>Date de début</MudTh>
+                        <MudTh>Date de fin</MudTh>
+                        <MudTh>Réduction</MudTh>
+                        <MudTh></MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Nom">@context.Name</MudTd>
+                        <MudTd DataLabel="Catégorie">@context.Start</MudTd>
+                        <MudTd DataLabel="Prix">@context.End</MudTd>
+                        <MudTd DataLabel="Réduction">@context.Discount</MudTd>
+                        <MudHidden Breakpoint="Breakpoint.Xs">
+                            <MudTd Style="text-align:right">
+                                <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                                    <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
+                                    <MudMenuItem @onclick="() => DeletePromotion(context.Id)">Supprimer</MudMenuItem>
+                                </MudMenu>
+                            </MudTd>
+                        </MudHidden>
+                        <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                            <MudTd Style="text-align:right">
+                                <MudMenu Label="Actions" Variant="Variant.Outlined" Color="Color.Primary" Class="">
+                                    <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
+                                    <MudMenuItem @onclick="() => DeletePromotion(context.Id)">Supprimer</MudMenuItem>
+                                </MudMenu>
+                            </MudTd>
+                        </MudHidden>
 
-                </RowTemplate>
-            </MudTable>
+                    </RowTemplate>
+                </MudTable>
+            </div>
         }
         else
         {

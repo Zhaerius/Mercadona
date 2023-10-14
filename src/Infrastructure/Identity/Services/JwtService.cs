@@ -32,7 +32,7 @@ namespace Infrastructure.Identity.Services
                 issuer: _jwtOptions.Issuer,
                 audience: _jwtOptions.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMonths(1),
                 signingCredentials: signingCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

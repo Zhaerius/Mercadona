@@ -5,6 +5,10 @@
 
 @if (PromotionsAvailable.Any())
 {
+    <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+        <MudChip Variant="Variant.Text" Color="Color.Primary" Size="Size.Large">@Articles.Name</MudChip>
+    </MudHidden>
+
     <MudTable @bind-SelectedItems="_selectedItems" @bind-SelectOnRowClick="@_selectOnRowClick" @ref="_mudTable"
               T="PromotionModel"
               Items="@PromotionsAvailable"
@@ -18,7 +22,9 @@
                      Color="Color.Inherit" />
             <MudText Typo="Typo.h6">Gestionnaire de promotion</MudText>
             <MudSpacer />
-            <MudChip Variant="Variant.Text" Color="Color.Primary">@Articles.Name</MudChip>
+            <MudHidden Breakpoint="Breakpoint.Xs">
+                <MudChip Variant="Variant.Text" Color="Color.Primary">@Articles.Name</MudChip>
+            </MudHidden>
         </ToolBarContent>
         <HeaderContent>
             <MudTh>Nom</MudTh>
@@ -27,10 +33,10 @@
             <MudTh>Remise</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd>@context.Name</MudTd>
-            <MudTd>@context.Start</MudTd>
-            <MudTd>@context.End</MudTd>
-            <MudTd>@context.Discount</MudTd>
+            <MudTd DataLabel="Nom">@context.Name</MudTd>
+            <MudTd DataLabel="Début">@context.Start</MudTd>
+            <MudTd DataLabel="Fin">@context.End</MudTd>
+            <MudTd DataLabel="Remise">@context.Discount</MudTd>
         </RowTemplate>
     </MudTable>
 

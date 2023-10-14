@@ -10,7 +10,7 @@
 <div>
     <EditForm Model="@SearchArticlesRequest" OnValidSubmit="@SearchArticles">
         <DataAnnotationsValidator />
-        <MudTextField Class="search-bar mr-5"
+        <MudTextField Class="search-bar"
                       @bind-Value="SearchArticlesRequest.Name"
                       Variant="Variant.Outlined"
                       Adornment="Adornment.Start"
@@ -29,7 +29,9 @@
                          <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
                          <MudText Typo="Typo.h6">Résultats de recherche</MudText>
                          <MudSpacer />
-                         <MudChip Variant="Variant.Text" Color="Color.Primary">@_articleCount éléments</MudChip>
+                         <MudHidden Breakpoint="Breakpoint.Xs">
+                                 <MudChip Variant="Variant.Text" Color="Color.Primary">@_articleCount éléments</MudChip>
+                         </MudHidden>            
                      </ToolBarContent>
                      <HeaderContent>
                          <MudTh>Nom</MudTh>
@@ -44,13 +46,24 @@
                          <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
                          <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
                          <MudTd Style="text-align:right">
-                             <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                                 <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">
-                                     Consulter
-                                 </MudMenuItem>
-                                 <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
-                                 <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
-                             </MudMenu>
+                             <MudHidden Breakpoint="Breakpoint.Xs">
+                                 <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                                     <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">
+                                         Consulter
+                                     </MudMenuItem>
+                                     <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
+                                     <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
+                                 </MudMenu>
+                             </MudHidden>
+                             <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                                 <MudMenu Label="Actions" Variant="Variant.Outlined" Color="Color.Primary" Class="my-3">
+                                     <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">
+                                         Consulter
+                                     </MudMenuItem>
+                                     <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
+                                     <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
+                                 </MudMenu>
+                             </MudHidden>
                          </MudTd>
                      </RowTemplate>
                      <PagerContent>

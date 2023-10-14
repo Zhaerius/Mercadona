@@ -14,35 +14,41 @@ namespace WebApi.Endpoints
         public static RouteGroupBuilder MapArticleEndpoints(this RouteGroupBuilder group)
         {
             group.MapGet("/search/{name}", Search)
+                .AllowAnonymous()
                 .Produces<IEnumerable<SearchArticlesQueryResponse>>(200, "application/json")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);
 
             group.MapGet("/{id:guid}", GetById)
+                .AllowAnonymous()
                 .WithName("GetArticleById")
                 .Produces<GetArticleQueryResponse>(200, "application/json")
                 .Produces(401)
                 .Produces(404);
 
             group.MapPost("", Add)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces<Guid>(201, contentType: "text/plain")
                 .Produces(400)
                 .Produces(401);
 
             group.MapPut("", Update)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401)
                 .Produces(404);
 
             group.MapDelete("/{id:guid}", Delete)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401)
                 .Produces(404);
 
             group.MapPost("/img", Upload)
+                .RequireAuthorization("RequireUserMercadona")
                 .Produces<IEnumerable<UploadResult>>(200, "application/json")
                 .Produces(401);
 

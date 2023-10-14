@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FBAFCD63
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{BD363C24-96E8-45FD-95F1-91AE7E4F970D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E2ETests", "tests\E2ETests\E2ETests.csproj", "{D77C2054-3218-4571-AC29-BC532D70C411}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E2ETests", "tests\E2ETests\E2ETests.csproj", "{D77C2054-3218-4571-AC29-BC532D70C411}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,7 +12,9 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Notes" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudImage Src="/img/logo.svg" Alt="Mony the dog" Class="" Height="45" />
+        <MudLink Href="/" Class="d-flex">
+            <MudImage Src="/img/logo.svg" Alt="Mercadona" Height="45" />
+        </MudLink>
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Rounded.Logout" Color="Color.Inherit" Edge="Edge.End" OnClick="Logout" />
     </MudAppBar>

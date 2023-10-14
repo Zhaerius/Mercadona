@@ -190,10 +190,10 @@ namespace Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Image = table.Column<string>(type: "text", nullable: true),
-                    BasePrice = table.Column<double>(type: "double precision", nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: false),
+                    BasePrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
                     Publish = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -204,7 +204,7 @@ namespace Infrastructure.Persistence.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

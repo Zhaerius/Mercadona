@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MercaDbContext))]
-    [Migration("20230810132019_InitialCreate")]
+    [Migration("20231014213200_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,16 +31,18 @@ namespace Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<double>("BasePrice")
-                        .HasColumnType("double precision");
+                    b.Property<decimal>("BasePrice")
+                        .HasColumnType("numeric");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -312,7 +314,8 @@ namespace Infrastructure.Persistence.Migrations
                     b.HasOne("Application.Core.Entities.CategoryEntity", "Category")
                         .WithMany("Articles")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });

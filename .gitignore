@@ -364,3 +364,5 @@ FodyWeavers.xsd
 /src/Infrastructure/Persistence/dbsettings.json
 /src/WebApi/Temp
 /.idea/.idea.Mercadona/.idea
+/src/WebApi/Properties/ServiceDependencies/MercadonaDeployTest - Web Deploy/profile.arm.json
+/src/WebApi/Properties/ServiceDependencies/mercadonawebapi - Web Deploy/profile.arm.json

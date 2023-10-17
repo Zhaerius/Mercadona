@@ -20,25 +20,43 @@ namespace Infrastructure.Persistence
             // Ajout uniquement si table vide
             if (!mercaDbContext.Articles.Any())
             {
-                // Ajout Article et Catégories
+                //Génération des entitées
+                var promotions = GeneratePromotions();
                 var categories = GenerateCategories(5);
                 var articles = GenerateArticles(50, categories);
-                foreach (var article in articles)
-                    mercaDbContext.Articles.Add(article);
 
+                // Ajout Promotions
+                foreach (var promotion in promotions)
+                    mercaDbContext.Promotions.Add(promotion);
+
+                // Ajout Article, Catégories et relation promo en fonction de l'index
+                for (int i = 0; i < articles.Count; i++)
+                {
+                    if ((i % 2) == 0)
+                    {
+                        articles[i].Promotions = new List<PromotionEntity>()
+                        {
+                            promotions[GetRandomNumber(promotions.Count)]
+                        };
+                    }
+
+                    mercaDbContext.Articles.Add(articles[i]);
+                }
+
+                // Ajout AdminUser et Roles
                 foreach (var userOptions in usersOptions)
                 {
-                    // Ajout AdminUser et Roles
                     var user = await GenerateDefaultUser(userManager, userOptions);
                     await GenerateDefaultRoles(roleManager, userOptions);
                     await userManager.AddToRolesAsync(user, userOptions.Roles);
                 }
 
+                // Sauvegarde BDD
                 await mercaDbContext.SaveChangesAsync();
             }
         }
 
-
+        //Fake Role
         private async static Task GenerateDefaultRoles(RoleManager<IdentityRole> roleManager, IdentityUserOptions userOptions)
         {
             foreach (var role in userOptions.Roles)
@@ -53,6 +71,7 @@ namespace Infrastructure.Persistence
             }
         }
 
+        //Fake User
         private async static Task<IdentityUser> GenerateDefaultUser(UserManager<IdentityUser> userManager, IdentityUserOptions userOptions)
         {
             var defaultUser = new IdentityUser()
@@ -68,7 +87,7 @@ namespace Infrastructure.Persistence
         }
 
         //Fake Article
-        private static IEnumerable<ArticleEntity> GenerateArticles(int count, IEnumerable<CategoryEntity> categories)
+        private static IList<ArticleEntity> GenerateArticles(int count, IEnumerable<CategoryEntity> categories)
         {
             var faker = new Faker<ArticleEntity>()
                 .RuleFor(a => a.Id, f => Guid.NewGuid())
@@ -77,7 +96,7 @@ namespace Infrastructure.Persistence
                 .RuleFor(a => a.BasePrice, f => decimal.Parse(f.Commerce.Price(1, 50)))
                 .RuleFor(a => a.Image, f => f.Image.PicsumUrl())
                 .RuleFor(a => a.Category, f => f.PickRandom(categories));
-                //.RuleFor(a => a.Categories, f => f.PickRandom(categories, f.Random.Number(1, 2)).ToList());
+                //.RuleFor(a => a.Promotions, f => f.PickRandom(promotions, f.Random.Number(0, 2)).ToList());
 
             return faker.Generate(count);
         }
@@ -89,6 +108,35 @@ namespace Infrastructure.Persistence
                 .RuleFor(c => c.Name, f => f.Commerce.Categories(1)[0]);
 
             return faker.Generate(count);
+        }
+
+        //Fake Promotions
+        private static IList<PromotionEntity> GeneratePromotions()
+        {
+            var promotions = new List<PromotionEntity>();
+
+            var discountList = new List<int>(){ 5, 10, 15, 20 };
+
+            foreach (var discount in discountList)
+            {
+                var promotion = new PromotionEntity()
+                {
+                    Name = $"Super Promo {discount} %",
+                    Discount = discount,
+                    Start = DateOnly.FromDateTime(DateTime.Now),
+                    End = DateOnly.FromDateTime(DateTime.Now.AddYears(1))
+                };
+
+                promotions.Add(promotion);
+            }
+
+            return promotions;
+        }
+
+        private static int GetRandomNumber(int max)
+        {
+            var random = new Random();
+            return random.Next(0, max);
         }
     }
 }

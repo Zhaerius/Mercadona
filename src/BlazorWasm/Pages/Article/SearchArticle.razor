@@ -3,6 +3,8 @@
 @inherits SearchArticleBase;
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
+<PageTitle>Rechercher un article</PageTitle>
+
 <CascadingValue Value="@_linkAdd">
     <AddButton></AddButton>
 </CascadingValue>

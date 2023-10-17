@@ -3,6 +3,8 @@
 @inherits HandlerArticlePromotionBase
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
+<PageTitle>Gestion des promotions</PageTitle>
+
 @if (PromotionsAvailable.Any())
 {
     <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">

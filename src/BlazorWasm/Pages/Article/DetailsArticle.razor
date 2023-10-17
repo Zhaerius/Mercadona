@@ -3,6 +3,8 @@
 @inherits DetailsBase;
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
+<PageTitle>Détails d'un article</PageTitle>
+
 @if (ArticleModel != null)
 {
     <MudGrid Justify="Justify.Center">

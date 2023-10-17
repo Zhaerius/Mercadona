@@ -3,6 +3,8 @@
 @inherits UpdateArticleBase
 @attribute [Authorize(Policy = "RequireUserMercadona")]
 
+<PageTitle>Mise à jour d'un article</PageTitle>
+
 <MudText Typo="Typo.h4" Class="mb-8">Mise à jour d'un article</MudText>
 
 @if (ArticleToUpdate != null)

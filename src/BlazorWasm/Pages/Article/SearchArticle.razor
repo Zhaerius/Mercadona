@@ -21,6 +21,13 @@
                       Placeholder="Rechercher un article par son nom..." />
     </EditForm>
 
+    @if (_loader)
+    {
+        <MudContainer Class="mt-4 d-flex justify-center">
+            <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
+        </MudContainer>
+    }
+
     @if (Articles != null)
     {
         @if (Articles.Any())

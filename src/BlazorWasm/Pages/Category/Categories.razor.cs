@@ -12,10 +12,11 @@ namespace BlazorWasm.Pages.Category
         protected int _rowPerPage = 10;
         protected bool _displayRowNavigation = false;
         protected CategoryModel? _elementBeforeEdit;
+        protected bool _loader;
 
         [Inject] private CategoryService CategoryService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
-        protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+        protected IEnumerable<CategoryModel>? Categories { get; set; }
         protected string LinkAddCategory { get; set; } = "/category/create";
 
 

@@ -11,6 +11,7 @@ namespace BlazorWasm.Pages.Article
         protected bool _displayRowNavigation = false;
         protected int _articleCount = 0;
         protected string _linkAdd = "/article/create";
+        protected bool _loader;
 
         [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -22,9 +23,14 @@ namespace BlazorWasm.Pages.Article
         protected async Task SearchArticles()
         {
             _displayRowNavigation = false;
+            _loader = true;
+            StateHasChanged();
 
             Articles = await ArticleService.SearchArticles(SearchArticlesRequest.Name);
             _articleCount = Articles.Count();
+
+            _loader = false;
+            StateHasChanged();
 
             if (_articleCount == 1)
                 NavigationManager.NavigateTo($"/article/{Articles.First().Id}");

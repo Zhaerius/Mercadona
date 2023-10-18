@@ -8,6 +8,7 @@ namespace BlazorWasm.Pages.Authentication
     public class LoginBase : ComponentBase
     {
         protected bool _error;
+        protected bool _loader;
         [Inject] private IAuthenticationService AuthenticationService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [CascadingParameter] private Task<AuthenticationState> AuthenticationState { get; set; } = null!;
@@ -23,8 +24,13 @@ namespace BlazorWasm.Pages.Authentication
 
         protected async Task Login()
         {
+            _loader = true;
+            StateHasChanged();
+
             var result = await AuthenticationService.Login(LoginRequest);
             LoginResponse = result;
+
+            _loader = false;
 
             if (result.Success)
                 NavigationManager.NavigateTo("/article");

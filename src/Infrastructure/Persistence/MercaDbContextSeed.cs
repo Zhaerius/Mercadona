@@ -94,7 +94,7 @@ namespace Infrastructure.Persistence
                 .RuleFor(a => a.Name, f => f.Commerce.ProductName())
                 .RuleFor(a => a.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(a => a.BasePrice, f => decimal.Parse(f.Commerce.Price(1, 50)))
-                .RuleFor(a => a.Image, f => f.Image.PicsumUrl())
+                .RuleFor(a => a.Image, f => "base.jpg")
                 .RuleFor(a => a.Category, f => f.PickRandom(categories));
                 //.RuleFor(a => a.Promotions, f => f.PickRandom(promotions, f.Random.Number(0, 2)).ToList());
 

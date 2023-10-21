@@ -3,6 +3,7 @@ using WebApi.Middlewares;
 using Infrastructure.Persistence;
 using WebApi;
 using Application.Core.Common.Extensions;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ using (var scope = app.Services.CreateScope())
     var serviceProvider = scope.ServiceProvider;
     await MercaDbContextSeed.SeedAsync(serviceProvider);
 }
+
+app.UseStaticFiles();
 
 app.UseSwagger();
 app.UseSwaggerUI();

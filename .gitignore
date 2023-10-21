@@ -368,3 +368,4 @@ FodyWeavers.xsd
 /src/WebApi/Properties/ServiceDependencies/mercadonawebapi - Web Deploy/profile.arm.json
 /src/WebApi/Properties/ServiceDependencies/mercadonalinuxapi - Zip Deploy
 /src/WebApi/.config
+/src/WebApi/wwwroot

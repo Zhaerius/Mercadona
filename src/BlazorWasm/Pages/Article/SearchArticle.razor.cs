@@ -18,10 +18,17 @@ namespace BlazorWasm.Pages.Article
         [Inject] ISnackbar Snackbar { get; set; } = null!;
         protected SearchArticlesRequest SearchArticlesRequest { get; set; } = new();
         protected IEnumerable<SearchArticlesResponse>? Articles { get; set; }
+        protected event Action<Guid> OnUpdateList = null!;
 
+        protected override void OnInitialized()
+        {
+            OnUpdateList += UpdateArticles;
+            base.OnInitialized();
+        }
 
         protected async Task SearchArticles()
         {
+            Articles = null;
             _displayRowNavigation = false;
             _loader = true;
             StateHasChanged();
@@ -45,8 +52,7 @@ namespace BlazorWasm.Pages.Article
 
             if (isSucces)
             {
-                Articles = Articles!.Where(a => a.Id != id).ToList();
-                _articleCount = Articles.Count();
+                OnUpdateList(id);
                 Snackbar.Add("Article supprimé", Severity.Success);
             }
             else
@@ -57,5 +63,11 @@ namespace BlazorWasm.Pages.Article
         protected void RedirectToDetails(Guid id) => NavigationManager.NavigateTo($"/article/{id}");
 
         protected void RedirectToUpdate(Guid id) => NavigationManager.NavigateTo($"/article/update/{id}");
+
+        private void UpdateArticles(Guid id)
+        {
+            Articles = Articles!.Where(a => a.Id != id).ToList();
+            _articleCount = Articles.Count();
+        }
     }
 }

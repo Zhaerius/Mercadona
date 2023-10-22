@@ -21,7 +21,7 @@
                       Placeholder="Rechercher un article par son nom..." />
     </EditForm>
 
-    @if (_loader)
+    @if (_loader && Articles == null)
     {
         <MudContainer Class="mt-4 d-flex justify-center">
             <MudProgressCircular Color="Color.Primary" Indeterminate="true" />
@@ -30,68 +30,51 @@
 
     @if (Articles != null)
     {
-        @if (Articles.Any())
-        {
-            <div class="pb-8">
-                <MudTable Dense Elevation="10" RowsPerPage="@_rowPerPage" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
-                     <ToolBarContent>
-                         <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
-                         <MudText Typo="Typo.h6">Résultats de recherche</MudText>
-                         <MudSpacer />
-                         <MudHidden Breakpoint="Breakpoint.Xs">
-                                 <MudChip Variant="Variant.Text" Color="Color.Primary">@_articleCount éléments</MudChip>
-                         </MudHidden>            
-                     </ToolBarContent>
-                     <HeaderContent>
-                         <MudTh>Nom</MudTh>
-                         <MudTh>Catégorie</MudTh>
-                         <MudTh>Prix</MudTh>
-                         <MudTh></MudTh>
-                     </HeaderContent>
-                     <RowTemplate>
-                         <MudTd DataLabel="Nom">
-                             <MudLink Href="@($"article/{context.Id}")">@context.Name</MudLink>
-                         </MudTd>
-                         <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
-                         <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
-                         <MudTd Style="text-align:right">
-                             <MudHidden Breakpoint="Breakpoint.Xs">
-                                 <MudMenu Icon="@Icons.Material.Filled.MoreVert">
-                                     <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">
-                                         Consulter
-                                     </MudMenuItem>
-                                     <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
-                                     <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
-                                 </MudMenu>
-                             </MudHidden>
-                             <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
-                                 <MudMenu Label="Actions" Variant="Variant.Outlined" Color="Color.Primary" Class="my-3">
-                                     <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">
-                                         Consulter
-                                     </MudMenuItem>
-                                     <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
-                                     <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
-                                 </MudMenu>
-                             </MudHidden>
-                         </MudTd>
-                     </RowTemplate>
-                     <PagerContent>
-                         @if (@_displayRowNavigation)
-                        {
-                            <MudTablePager RowsPerPageString="Ligne par page" />
-                        }
-                    </PagerContent>
-                </MudTable>
-            </div>
-        }
-        else
-        {
-            <MudText Typo="Typo.h3"
-                     Align="Align.Center"
-                     Class="mt-12"
-                     Style="@($"color:{Colors.Grey.Lighten1};")">
-                Aucun résultat
-            </MudText>
-        }
+        <div class="pb-8">
+            <MudTable Loading="@_loader" LoadingProgressColor="Color.Secondary" Dense Elevation="10" RowsPerPage="@_rowPerPage" Items="Articles" Class="my-8 mb-6 rounded-lg search-result">
+                 <ToolBarContent>
+                     <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
+                     <MudText Typo="Typo.h6">Résultats de recherche</MudText>
+                     <MudSpacer />
+                     <MudHidden Breakpoint="Breakpoint.Xs">
+                         <MudChip Variant="Variant.Text" Color="Color.Primary">@_articleCount éléments</MudChip>
+                     </MudHidden>
+                 </ToolBarContent>
+                 <HeaderContent>
+                     <MudTh>Nom</MudTh>
+                     <MudTh>Catégorie</MudTh>
+                     <MudTh>Prix</MudTh>
+                     <MudTh></MudTh>
+                 </HeaderContent>
+                 <NoRecordsContent>
+                     <MudText Typo="Typo.h5" Class="mud-text-secondary mt-16 mb-16 rounded-lg">Aucun résultat</MudText>
+                 </NoRecordsContent>
+                 <LoadingContent>
+                     <MudText Typo="Typo.h5" Class="mud-text-secondary mt-16 mb-16">Chargement...</MudText>
+                 </LoadingContent>
+                 <RowTemplate>
+                     <MudTd DataLabel="Nom">
+                         <MudLink Href="@($"article/{context.Id}")">@context.Name</MudLink>
+                     </MudTd>
+                     <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
+                     <MudTd DataLabel="Prix">@context.BasePrice</MudTd>
+                     <MudTd Style="text-align:right">
+                        <MudMenu Icon="@Icons.Material.Filled.MoreVert">
+                            <MudMenuItem @onclick="() => RedirectToDetails(context.Id)">
+                                Consulter
+                            </MudMenuItem>
+                            <MudMenuItem @onclick="() => RedirectToUpdate(context.Id)">Modifier</MudMenuItem>
+                            <MudMenuItem @onclick="() => DeleteArticle(context.Id)">Supprimer</MudMenuItem>
+                        </MudMenu>
+                     </MudTd>
+                 </RowTemplate>
+                 <PagerContent>
+                     @if (@_displayRowNavigation)
+                    {
+                        <MudTablePager RowsPerPageString="Ligne par page" />
+                    }
+                </PagerContent>
+            </MudTable>
+        </div>
     }
 </div>

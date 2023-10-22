@@ -28,16 +28,13 @@ namespace BlazorWasm.Pages.Article
 
         protected async Task SearchArticles()
         {
-            Articles = null;
             _displayRowNavigation = false;
             _loader = true;
-            StateHasChanged();
 
             Articles = await ArticleService.SearchArticles(SearchArticlesRequest.Name);
-            _articleCount = Articles.Count();
 
+            _articleCount = Articles.Count();
             _loader = false;
-            StateHasChanged();
 
             if (_articleCount == 1)
                 NavigationManager.NavigateTo($"/article/{Articles.First().Id}");

@@ -1,13 +1,12 @@
 ﻿using Application.Core.Abstractions;
 using Application.Core.Entities;
-using Application.Core.Features.Article.Queries.GetArticle;
 using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Core.Features.Article.Queries.GetArticles;
 
-public class GetArticlesQueryHandler : IRequestHandler<GetArticlesQuery, IEnumerable<GetArticleQueryResponse>>
+public class GetArticlesQueryHandler : IRequestHandler<GetArticlesQuery, IEnumerable<GetArticlesQueryResponse>>
 {
     private readonly IApplicationDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -18,20 +17,29 @@ public class GetArticlesQueryHandler : IRequestHandler<GetArticlesQuery, IEnumer
         _mapper = mapper;
     }
     
-    public async Task<IEnumerable<GetArticleQueryResponse>> Handle(GetArticlesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GetArticlesQueryResponse>> Handle(GetArticlesQuery request, CancellationToken cancellationToken)
     {
         IQueryable<ArticleEntity> articles = _dbContext.Articles;
 
         if (!string.IsNullOrEmpty(request.Name))
-        {
-            articles = articles.Where(a => a.Name.Contains(request.Name));
-        }
+            articles = articles.Where(a => a.Name.ToLower().Contains(request.Name.ToLower()));
         else if (request.CategoryId is not null)
-        {
             articles = articles.Where(a => a.CategoryId == request.CategoryId);
+        else if (request.Publish is not null)
+            articles = articles.Where(a => a.Publish == request.Publish);
+
+        var entities = await articles
+            .Include(a => a.Promotions)
+            .ToListAsync(cancellationToken);
+
+        if (request.OnDiscount is not null)
+        {
+            entities = entities
+                .Where(a => a.OnDiscount == request.OnDiscount)
+                .ToList();
         }
         
-        return _mapper.Map<IEnumerable<GetArticleQueryResponse>>(await articles.ToListAsync(cancellationToken));
+        return _mapper.Map<IEnumerable<GetArticlesQueryResponse>>(entities);
 
     }
 }

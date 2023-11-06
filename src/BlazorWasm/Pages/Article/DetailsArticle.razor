@@ -65,7 +65,7 @@
                              Size="Size.Large"
                              Class="align-self-center" />
                     <MudText Typo="Typo.body1" Class="align-self-center">
-                        Prix calculé : @ArticleModel.DiscountPrice €
+                        Prix calculé : @Math.Round(ArticleModel.DiscountPrice, 2) €
                     </MudText>
                 </MudPaper>
                 @if (@ArticleModel.CurrentPromotion != null)
@@ -75,7 +75,7 @@
                                  Size="Size.Large"
                                  Class="align-self-center" />
                         <MudText Typo="Typo.body1" Class="align-self-center">
-                            En cours : @ArticleModel.CurrentPromotion.Name (@ArticleModel.CurrentPromotion.Discount %)
+                            @ArticleModel.CurrentPromotion.Name
                         </MudText>
                     </MudPaper>
                 }

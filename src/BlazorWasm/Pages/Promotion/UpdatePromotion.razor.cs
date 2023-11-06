@@ -14,7 +14,7 @@ namespace BlazorWasm.Pages.Promotion
         [Inject] private PromotionService PromotionService { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
-        protected UpdatePromotionRequest UpdatePromotion { get; set; } = new();
+        protected UpdatePromotionRequest? UpdatePromotion { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -22,6 +22,7 @@ namespace BlazorWasm.Pages.Promotion
 
             if (promotionToUpdate != null)
             {
+                UpdatePromotion = new UpdatePromotionRequest();
                 UpdatePromotion.Id = promotionToUpdate.Id;
                 UpdatePromotion.Name = promotionToUpdate.Name;
                 UpdatePromotion.Discount = promotionToUpdate.Discount;

@@ -17,7 +17,7 @@ namespace BlazorWasm.Pages.Article
         [Inject] private UploadState UploadState { get; set; } = null!;
         [Inject] private ISnackbar Snackbar { get; set; } = null!;
         [Inject] private NavigationManager NavManager { get; set; } = null!;
-        protected UpdateArticleRequest ArticleToUpdate { get; set; } = new();
+        protected UpdateArticleRequest? ArticleToUpdate { get; set; }
         protected IEnumerable<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
         protected IEnumerable<PromotionModel> Promotions { get; set; } = new List<PromotionModel>();
 

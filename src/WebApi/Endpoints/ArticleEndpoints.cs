@@ -2,6 +2,7 @@
 using Application.Core.Features.Article.Commands.DeleteArticle;
 using Application.Core.Features.Article.Commands.UpdateArticle;
 using Application.Core.Features.Article.Queries.GetArticle;
+using Application.Core.Features.Article.Queries.GetArticles;
 using Application.Core.Features.Article.Queries.SearchArticles;
 using Application.Core.Features.Upload.Commands.SaveFiles;
 using MediatR;
@@ -16,6 +17,13 @@ namespace WebApi.Endpoints
             group.MapGet("/search/{name}", Search)
                 .AllowAnonymous()
                 .Produces<IEnumerable<SearchArticlesQueryResponse>>(200, "application/json")
+                .Produces(204)
+                .Produces(400)
+                .Produces(401);
+            
+            group.MapGet("/", GetAllFilter)
+                .AllowAnonymous()
+                .Produces<IEnumerable<GetArticleQueryResponse>>(200, "application/json")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);
@@ -59,6 +67,14 @@ namespace WebApi.Endpoints
         private static async Task<IResult> Search([FromRoute] string name, [FromServices] IMediator mediator)
         {
             var articles = await mediator.Send(new SearchArticlesQuery(name));
+
+            if (!articles.Any()) return Results.NoContent();
+            return Results.Ok(articles);
+        }
+        
+        private static async Task<IResult> GetAllFilter([AsParameters] GetArticlesQuery filter, [FromServices] IMediator mediator)
+        {
+            var articles = await mediator.Send(filter);
 
             if (!articles.Any()) return Results.NoContent();
             return Results.Ok(articles);

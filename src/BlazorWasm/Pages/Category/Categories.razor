@@ -58,6 +58,12 @@
                     <MudTh>Nb Articles</MudTh>
                     <MudTh></MudTh>
                 </HeaderContent>
+                <NoRecordsContent>
+                    <MudText Typo="Typo.h5" Class="mud-text-secondary mt-16 mb-16">Aucun résultat</MudText>
+                </NoRecordsContent>
+                <LoadingContent>
+                    <MudText Typo="Typo.h5" Class="mud-text-secondary mt-16 mb-16">Chargement...</MudText>
+                </LoadingContent>
                 <RowTemplate>
                     <MudTd DataLabel="Nom" style="margin-top: 0px!important;">@context.Name</MudTd>
                     <MudTd DataLabel="Nb Articles">@context.NumberArticles</MudTd>

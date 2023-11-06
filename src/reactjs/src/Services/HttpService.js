@@ -1,6 +1,6 @@
 ﻿export class HttpService {
     static GetArticles() {
-        const url = "https://mercadonawebapi.azurewebsites.net/category";
+        const url = "https://localhost:7063/article?Publish=true";
          return fetch(url, {
             method: "GET"
         })

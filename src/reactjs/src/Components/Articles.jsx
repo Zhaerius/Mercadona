@@ -10,25 +10,25 @@ export function Articles() {
     }, []);
     
     const articlesToDisplay = articles.map(user => (
-        <tr key={user.id}>
-            <td>{user.id}</td>
-            <td>{user.name}</td>
-            <td>{user.numberArticles}</td>
-        </tr>
+        <div className="col" key={user.id}>
+            <div className="card">
+                <img src={"https://localhost:7063/img/" + user.image} className="card-img-top" alt="..." />
+                <div className="card-body">
+                    <h5 className="card-title">{user.name}</h5>
+                    <p className="card-text">{user.description}</p>
+                    <p className="card-text"><small className="text-body-secondary">{user.basePrice} €</small></p>
+                    {user.basePrice !== user.discountPrice 
+                        ? <p className="card-text"><small className="text-body-secondary">{user.discountPrice} €</small></p>
+                        : null
+                    }
+                </div>
+            </div>
+        </div>
     ));
     
     return (
-        <table className="table">
-            <thead>
-                <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">name</th>
-                    <th scope="col">nbart</th>
-                </tr>
-            </thead>
-            <tbody>
-                { articlesToDisplay }
-            </tbody>
-        </table>
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+            {articlesToDisplay}
+        </div>
     )
 }

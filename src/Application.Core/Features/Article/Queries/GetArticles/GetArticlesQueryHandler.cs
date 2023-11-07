@@ -23,9 +23,9 @@ public class GetArticlesQueryHandler : IRequestHandler<GetArticlesQuery, IEnumer
 
         if (!string.IsNullOrEmpty(request.Name))
             articles = articles.Where(a => a.Name.ToLower().Contains(request.Name.ToLower()));
-        else if (request.CategoryId is not null)
+        if (request.CategoryId is not null)
             articles = articles.Where(a => a.CategoryId == request.CategoryId);
-        else if (request.Publish is not null)
+        if (request.Publish is not null)
             articles = articles.Where(a => a.Publish == request.Publish);
 
         var entities = await articles

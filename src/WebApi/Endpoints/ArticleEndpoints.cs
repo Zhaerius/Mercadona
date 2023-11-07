@@ -23,7 +23,7 @@ namespace WebApi.Endpoints
             
             group.MapGet("/", GetAllFilter)
                 .AllowAnonymous()
-                .Produces<IEnumerable<GetArticleQueryResponse>>(200, "application/json")
+                .Produces<IEnumerable<GetArticlesQueryResponse>>(200, "application/json")
                 .Produces(204)
                 .Produces(400)
                 .Produces(401);

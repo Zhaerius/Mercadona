@@ -1,34 +1,52 @@
 ﻿import {useEffect, useState} from "react";
 import {HttpService} from "../Services/HttpService.js";
+import {ArticleCard} from "./ArticleCard.jsx";
+import {ArticleFilters} from "./ArticleFilters.jsx";
 
 export function Articles() {
     const [articles, setArticles] = useState([]);
-    
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [checkedDiscount, setCheckedDiscount] = useState(null)
+
+    // OnInitialized
     useEffect(() => {
         HttpService.GetArticles()
             .then(articles => setArticles(articles))
+
+        HttpService.GetCategories()
+            .then(categories => setCategories(categories))
     }, []);
-    
-    const articlesToDisplay = articles.map(user => (
-        <div className="col" key={user.id}>
-            <div className="card">
-                <img src={"https://localhost:7063/img/" + user.image} className="card-img-top" alt="..." />
-                <div className="card-body">
-                    <h5 className="card-title">{user.name}</h5>
-                    <p className="card-text">{user.description}</p>
-                    <p className="card-text"><small className="text-body-secondary">{user.basePrice} €</small></p>
-                    {user.basePrice !== user.discountPrice 
-                        ? <p className="card-text"><small className="text-body-secondary">{user.discountPrice} €</small></p>
-                        : null
+
+    // Update Articles
+    useEffect(() => {
+        HttpService.GetArticles(selectedCategory, checkedDiscount)
+            .then(articles => setArticles(articles))
+    }, [selectedCategory, checkedDiscount])
+
+    return (
+        <>
+            <div className="row">
+                <div className="col-3">
+                    <ArticleFilters categories={categories} onSelected={setSelectedCategory} onChecked={setCheckedDiscount}/>
+                </div>
+                <div className="col-9">
+                    {articles != null
+                        ?
+                        <div className="row row-cols-1 row-cols-md-3 g-4">
+                            {
+                                articles.map(article => (
+                                    <ArticleCard article={article} key={article.id}/>
+                                ))
+                            }
+                        </div>
+                        :
+                        <div>Aucun Résultat</div>
                     }
                 </div>
             </div>
-        </div>
-    ));
-    
-    return (
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-            {articlesToDisplay}
-        </div>
+
+
+        </>
     )
 }

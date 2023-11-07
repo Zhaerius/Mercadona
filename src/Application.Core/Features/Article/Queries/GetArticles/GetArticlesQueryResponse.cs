@@ -11,6 +11,7 @@ public class GetArticlesQueryResponse
     public decimal BasePrice { get; set; }
     public Guid CategoryId { get; set; }
     public bool Publish { get; set; }
+    public bool OnDiscount { get; set; }
     public double DiscountPrice { get; set; }
     public GetPromotionQueryResponse? CurrentPromotion { get; set; }
 }

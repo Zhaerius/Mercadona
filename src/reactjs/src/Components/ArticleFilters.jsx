@@ -7,6 +7,9 @@
 
     return (
         <>
+            <div className="d-flex flex-column gap-3 bg-body-secondary p-3 rounded-2">
+                
+            
             <select className="form-select" aria-label="Default select example">
                 <option value="">All</option>
                 {
@@ -24,6 +27,7 @@
             </div>
             
             <button className="btn btn-primary" onClick={handleClick}>Valider</button>
+            </div>
         </>
     )
 }

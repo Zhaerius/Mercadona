@@ -13,14 +13,10 @@ export function ArticleCard({article}) {
                             className={`badge text-bg-primary me-2 ${article.onDiscount ? "text-decoration-line-through" : ""}`}>
                             {article.basePrice} €
                         </span>
-                        {article.onDiscount
-                            ?
+                        {article.onDiscount &&
                             <span className="badge text-bg-danger">
-                                    {article.discountPrice.toFixed(2)} €
-                                </span>
-                            :
-                            null
-                        }
+                                {article.discountPrice.toFixed(2)} €
+                            </span>}
                     </p>
                     <p className="card-text">{article.description}</p>
                 </div>

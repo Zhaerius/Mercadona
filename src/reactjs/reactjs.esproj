@@ -16,7 +16,4 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="src\Components\ArticleFilters.jsx" />
-  </ItemGroup>
 </Project>

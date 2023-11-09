@@ -1,4 +1,4 @@
-﻿import {useEffect, useState} from "react";
+﻿import {useEffect, useRef, useState} from "react";
 import {HttpService} from "../Services/HttpService.js";
 import {ArticleCard} from "./ArticleCard.jsx";
 import {ArticleFilters} from "./ArticleFilters.jsx";
@@ -9,20 +9,25 @@ export function Articles() {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null)
     const [checkedDiscount, setCheckedDiscount] = useState(null)
+    const loadingRef = useRef(true)
 
     // OnInitialized
     useEffect(() => {
+        loadingRef.current = true;
         HttpService.GetArticles()
             .then(articles => setArticles(articles))
 
         HttpService.GetCategories()
             .then(categories => setCategories(categories))
+            .finally(() => loadingRef.current = false)
     }, []);
 
     // Update Articles
     useEffect(() => {
+        loadingRef.current = true;
         HttpService.GetArticles(selectedCategory, checkedDiscount)
             .then(articles => setArticles(articles))
+            .finally(() => loadingRef.current = false)
     }, [selectedCategory, checkedDiscount])
 
     return (
@@ -32,6 +37,8 @@ export function Articles() {
                 </div>
                 
                 <div className="col-sm-12 col-lg-9">
+                    {loadingRef.current && <Spinner />}
+                    
                     {articles != null
                         ?
                         <div className="row row-cols-1 row-cols-md-3 g-4">

@@ -1,5 +1,7 @@
-﻿export class HttpService {
-    static BASE_URL= "https://localhost:7063/"
+﻿import config from "./config.json"
+
+export class HttpService {
+    static BASE_URL= config.API_URL
     static async GetArticles(selected = null, discount = null) {
         let url = HttpService.BASE_URL + "article?Publish=true";
         

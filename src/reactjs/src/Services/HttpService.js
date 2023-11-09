@@ -1,4 +1,4 @@
-﻿import config from "./config.json"
+﻿import config from "../config.json"
 
 export class HttpService {
     static BASE_URL= config.API_URL

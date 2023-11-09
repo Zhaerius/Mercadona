@@ -1,9 +1,11 @@
-﻿export function ArticleCard({article}) {
+﻿import config from "../config.json"
+
+export function ArticleCard({article}) {
     return (
         <div className="col">
             <div className="card bg-white">
                 <div className="card-img-top card-div d-flex align-items-start justify-content-end"
-                     style={{backgroundImage: `url("https://localhost:7063/img/${article.image}")`}} >
+                     style={{backgroundImage: `url("${config.API_URL}/img/${article.image}")`}} >
                         {article.currentPromotion != null &&
                             <p className="fw-semibold py-1 px-2 rounded-1 bg-price text-white m-2">
                                 Promo {article.currentPromotion.discount}%

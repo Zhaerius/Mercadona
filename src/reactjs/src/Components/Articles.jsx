@@ -26,12 +26,12 @@ export function Articles() {
     }, [selectedCategory, checkedDiscount])
 
     return (
-            <div className="row">
+            <div className="row mb-5">
                 <div className="col-sm-12 col-lg-3 mb-5">
                     <ArticleFilters categories={categories} onSelected={setSelectedCategory} onChecked={setCheckedDiscount}/>
                 </div>
                 
-                <div className="col-sm-12 col-lg-9 ">
+                <div className="col-sm-12 col-lg-9">
                     {articles != null
                         ?
                         <div className="row row-cols-1 row-cols-md-3 g-4">

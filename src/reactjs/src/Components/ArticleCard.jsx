@@ -1,24 +1,27 @@
-﻿import {useEffect, useState} from "react";
-import {HttpService} from "../Services/HttpService.js";
-
-export function ArticleCard({article}) {
+﻿export function ArticleCard({article}) {
     return (
         <div className="col">
-            <div className="card">
-                <img src={"https://localhost:7063/img/" + article.image} className="card-img-top" alt="..."/>
+            <div className="card bg-white">
+                <div className="card-img-top card-div d-flex align-items-start justify-content-end"
+                     style={{backgroundImage: `url("https://localhost:7063/img/${article.image}")`}} >
+                        {article.currentPromotion != null &&
+                            <p className="fw-semibold py-1 px-2 rounded-1 bg-price text-white m-2">
+                                Promo {article.currentPromotion.discount}%
+                            </p>}
+                </div>
                 <div className="card-body">
-                    <h5 className="card-title">{article.name}</h5>
+                    <h5 className="card-title text-dark">{article.name}</h5>
                     <p className="card-text gap-1">
                         <span
-                            className={`badge text-bg-primary me-2 ${article.onDiscount ? "text-decoration-line-through" : ""}`}>
+                            className={`fw-semibold py-1 px-2 rounded-1 bg-light text-light-emphasis me-2 ${article.onDiscount ? "text-decoration-line-through" : ""}`}>
                             {article.basePrice} €
                         </span>
                         {article.onDiscount &&
-                            <span className="badge text-bg-danger">
+                            <span className="fw-semibold py-1 px-2 rounded-1 bg-primary text-white">
                                 {article.discountPrice.toFixed(2)} €
                             </span>}
                     </p>
-                    <p className="card-text">{article.description}</p>
+                    <p className="card-text text-body-secondary">{article.description}</p>
                 </div>
             </div>
         </div>

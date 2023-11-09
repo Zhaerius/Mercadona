@@ -1,0 +1,41 @@
+﻿$theme-colors: (
+        "light":      #e5e5de,
+        "dark":       #0b042a,
+        "primary":    #00A773,
+        "secondary":  #E07A5F,
+        "info":       #d4128f,
+        "success":    #569d09,
+        "warning":    #ffbd5a,
+        "danger":     #ee0463,
+);
+
+$theme-colors-text: (
+        "secondary": #b76283,
+);
+
+$body-bg: #F7FAFC;
+
+html {
+  overflow-y: scroll;
+}
+
+.divider {
+  width: 100%;
+  height: 2rem;
+}
+
+.bg-hero {
+  background-image: linear-gradient(to right top, #a15f89, #b76283, #ca6679, #d86e6d, #e07a5f);
+}
+
+.bg-price {
+  background: rgba(30, 30, 30, 0.7);
+}
+
+.card-div{
+  background-position: center;
+  background-size: cover;
+  min-height: 200px;
+  width: 100%;
+}
+@import "../node_modules/bootstrap/scss/bootstrap";

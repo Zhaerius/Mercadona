@@ -38,6 +38,10 @@ public class GetArticlesQueryHandler : IRequestHandler<GetArticlesQuery, IEnumer
                 .Where(a => a.OnDiscount == request.OnDiscount)
                 .ToList();
         }
+
+        entities = entities
+            .OrderByDescending(a => a.OnDiscount)
+            .ToList();
         
         return _mapper.Map<IEnumerable<GetArticlesQueryResponse>>(entities);
 

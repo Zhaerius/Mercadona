@@ -1,3 +1,4 @@
 ﻿{
-  "API_URL" : "https://localhost:7063/"
+  "API_URL" : "https://mercadonawebapi.azurewebsites.net/"
+
 }

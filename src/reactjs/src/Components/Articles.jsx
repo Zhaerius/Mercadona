@@ -13,10 +13,6 @@ export function Articles() {
 
     // OnInitialized
     useEffect(() => {
-        loadingRef.current = true;
-        HttpService.GetArticles()
-            .then(articles => setArticles(articles))
-
         HttpService.GetCategories()
             .then(categories => setCategories(categories))
             .finally(() => loadingRef.current = false)
@@ -29,31 +25,32 @@ export function Articles() {
             .then(articles => setArticles(articles))
             .finally(() => loadingRef.current = false)
     }, [selectedCategory, checkedDiscount])
-
+    
     return (
-            <div className="row mb-5">
-                <div className="col-sm-12 col-lg-3 mb-5">
-                    <ArticleFilters categories={categories} onSelected={setSelectedCategory} onChecked={setCheckedDiscount}/>
-                </div>
-                
-                <div className="col-sm-12 col-lg-9">
-                    {loadingRef.current && <Spinner />}
-                    
-                    {articles != null
-                        ?
-                        <div className="row row-cols-1 row-cols-md-3 g-4">
-                            {
-                                articles.map(article => (
-                                    <ArticleCard article={article} key={article.id}/>
-                                ))
-                            }
-                        </div>
-                        :
-                        <div>
-                            <p className="text-center fs-2">Aucun Résultat</p>
-                        </div>
-                    }
-                </div>
+        <div className="row mb-5">
+            <div className="col-sm-12 col-lg-3 mb-5">
+                <ArticleFilters categories={categories} onSelected={setSelectedCategory}
+                                onChecked={setCheckedDiscount}/>
             </div>
+                
+            <div className="col-sm-12 col-lg-9">
+                {loadingRef.current && <Spinner/>}
+
+                {articles != null
+                    ?
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                        {
+                            articles.map(article => (
+                                <ArticleCard article={article} key={article.id}/>
+                            ))
+                        }
+                    </div>
+                    :
+                    <div>
+                        <p className="text-center fs-2">Aucun Résultat</p>
+                    </div>
+                }
+            </div>
+        </div>
     )
 }

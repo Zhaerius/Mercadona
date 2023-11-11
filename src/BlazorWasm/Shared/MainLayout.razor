@@ -1,5 +1,6 @@
 ﻿@using BlazorWasm.Services.Abstractions;
 @using BlazorWasm.Templates;
+@using Blazored.LocalStorage;
 @using MudBlazor;
 @inherits LayoutComponentBase
 
@@ -36,6 +37,7 @@
 
     [Inject] private IAuthenticationService AuthenticationService { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] private ILocalStorageService LocalStorage { get; set; } = null!;
 
     bool _drawerOpen = true;
 
@@ -47,6 +49,7 @@
     async Task Logout()
     {
         await AuthenticationService.Logout();
+        await LocalStorage.RemoveItemAsync("searchArticle");
         NavigationManager.NavigateTo("/login");
     }
 }

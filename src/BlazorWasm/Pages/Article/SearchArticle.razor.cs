@@ -2,6 +2,7 @@
 using MudBlazor;
 using BlazorWasm.Models.Article;
 using BlazorWasm.Services;
+using Blazored.LocalStorage;
 
 namespace BlazorWasm.Pages.Article
 {
@@ -16,21 +17,30 @@ namespace BlazorWasm.Pages.Article
         [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
         [Inject] ISnackbar Snackbar { get; set; } = null!;
+        [Inject] ILocalStorageService LocalStorage {  get; set; } = null!;
         protected SearchArticlesRequest SearchArticlesRequest { get; set; } = new();
         protected IEnumerable<SearchArticlesResponse>? Articles { get; set; }
         protected event Action<Guid> OnUpdateList = null!;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             OnUpdateList += UpdateArticles;
-            base.OnInitialized();
+            var searchStorage = await LocalStorage.GetItemAsStringAsync("searchArticle");
+
+            if (!string.IsNullOrEmpty(searchStorage))
+            {
+                SearchArticlesRequest.Name = searchStorage;
+                await SearchArticles();
+            }
         }
+
 
         protected async Task SearchArticles()
         {
             _displayRowNavigation = false;
             _loader = true;
 
+            await LocalStorage.SetItemAsStringAsync("searchArticle", SearchArticlesRequest.Name);
             Articles = await ArticleService.SearchArticles(SearchArticlesRequest.Name);
 
             _articleCount = Articles.Count();

@@ -1,4 +1,5 @@
 ﻿@page "/article/create"
+@using BlazorWasm.Components.Promotion
 @using BlazorWasm.Models;
 @using BlazorWasm.Models.Article;
 @using BlazorWasm.Components.Upload;
@@ -8,6 +9,31 @@
 <PageTitle>Ajout d'un article</PageTitle>
 
 <MudText Typo="Typo.h4" Class="mb-8">Creation d'un article</MudText>
+
+<MudOverlay Visible="_isVisible" DarkBackground="true" ZIndex="1202">
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <CreatePromotionComponent OnPromotionCreated="SetPromotionCreated">
+            <Title>
+                <div class="d-flex justify-space-between">
+                    <MudText Typo="Typo.h4">Nouvelle Promotion</MudText>
+                    <MudIconButton Icon="@Icons.Material.TwoTone.Close"
+                                   Color="Color.Primary"
+                                   OnClick="@(e => ToggleOverlay(false))" />
+                </div>
+            </Title>
+            <ButtonValidateOverlay>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               Class="ml-auto">
+                        Valider
+                    </MudButton>
+                </MudCardActions>
+            </ButtonValidateOverlay>
+        </CreatePromotionComponent>
+    </MudContainer>
+</MudOverlay>
 
 <EditForm Model="@ArticleToCreate" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -44,7 +70,9 @@
                         {
                             @foreach (var category in Categories)
                             {
-                                <MudSelectItem T="Guid?" Value="@category.Id">@category.Name</MudSelectItem>
+                                <MudSelectItem T="Guid?" Value="@category.Id">
+                                    @category.Name
+                                </MudSelectItem>
                             }
                         }
                     </MudSelect>
@@ -72,17 +100,30 @@
                                      Label="Prix de base"
                                      Placeholder="@FakePlaceholder.BasePrice.ToString()" />
 
-                    <MudSelect @bind-SelectedValues="ArticleToCreate.PromotionsIds"
-                               T="Guid"
-                               Label="Promotions"
-                               AnchorOrigin="Origin.BottomCenter"
-                               Variant="Variant.Outlined"
-                               MultiSelection="true">
-                        @foreach (var promotion in Promotions)
-                        {
-                            <MudSelectItem T="Guid" Value="@promotion.Id">@promotion.Name</MudSelectItem>
-                        }
-                    </MudSelect>
+                    <MudGrid>
+                        <MudItem xs="10" md="11">
+                            <MudSelect @bind-SelectedValues="ArticleToCreate.PromotionsIds"
+                                       T="Guid"
+                                       Label="Promotions"
+                                       AnchorOrigin="Origin.BottomCenter"
+                                       Variant="Variant.Outlined"
+                                       MultiSelection="true">
+                                @foreach (var promotion in Promotions)
+                                {
+                                    <MudSelectItem T="Guid" Value="@promotion.Id">@promotion.Name</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </MudItem>
+                        <MudItem xs="2" md="1" Class="align-self-center mb-n2">
+                            <div class="d-flex justify-end mud-width-full">
+                                <MudIconButton OnClick="@(e => ToggleOverlay(true))"
+                                               Color="Color.Secondary"
+                                               Variant="Variant.Outlined"
+                                               Size="Size.Medium"
+                                               Icon="@Icons.Material.Filled.Add" />
+                            </div>
+                        </MudItem>
+                    </MudGrid>
 
                 </MudCardContent>
             </MudCard>

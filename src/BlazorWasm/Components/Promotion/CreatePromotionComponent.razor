@@ -1,0 +1,34 @@
+﻿@inherits CreatePromotionTwoBase
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+
+    <EditForm Model="@CreatePromotion" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard Class="rounded-lg my-6 pa-3" Elevation="10">
+            <MudCardContent Class="d-flex flex-column gap-4">
+                @Title
+
+                <MudTextField @bind-Value="CreatePromotion.Name"
+                              For="@(() => CreatePromotion.Name)"
+                              Label="Nom"
+                              Placeholder="Promotion de Noel"
+                              Variant="Variant.Outlined"/>
+
+                <MudDateRangePicker @bind-DateRange="_dateRange"
+                                    Variant="Variant.Outlined"
+                                    MinDate="DateTime.Now"
+                                    Label="Durée de la promotion"/>
+
+                <MudNumericField @bind-Value="CreatePromotion.Discount"
+                                 For="@(() => CreatePromotion.Discount)"
+                                 T="double?"
+                                 Variant="Variant.Outlined"
+                                 Label="Réduction en %"
+                                 Placeholder="20"
+                                 AdornmentIcon="@Icons.Material.Filled.Percent"/>
+            </MudCardContent>
+            @ButtonValidateOverlay
+        </MudCard>
+        @ButtonValidate
+    </EditForm>
+</MudContainer>

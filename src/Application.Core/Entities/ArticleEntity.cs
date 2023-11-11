@@ -4,7 +4,7 @@
     {
         public required string Name { get; set; }
         public required string Description { get; set; }
-        public required string Image { get; set; }
+        public string? Image { get; set; }
         public decimal BasePrice { get; set; }
         public Guid CategoryId { get; set; }
         public CategoryEntity? Category { get; set; }

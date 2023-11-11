@@ -10,6 +10,8 @@ namespace BlazorWasm.Pages.Article
 {
     public class CreateArticleBase : ComponentBase, IDisposable
     {
+        protected bool _isVisible;
+
         [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] private CategoryService CategoryService { get; set; } = null!;
         [Inject] private PromotionService PromotionService { get; set; } = null!;
@@ -22,6 +24,22 @@ namespace BlazorWasm.Pages.Article
         protected IEnumerable<PromotionModel> Promotions { get; set; } = new List<PromotionModel>();
         protected FakePlaceholderArticle FakePlaceholder => CreateFakePlaceholder();
 
+        protected async Task SetPromotionCreated(Guid id)
+        {
+            ToggleOverlay(false);
+            Promotions = await PromotionService.GetPromotionByStatus(true);
+
+            //Solution de contournement bug mudblazor
+            var promotionIds = ArticleToCreate.PromotionsIds.ToList();
+            promotionIds.Add(id);
+            ArticleToCreate.PromotionsIds = promotionIds.ToList();
+        }
+
+        protected void ToggleOverlay(bool value)
+        {
+            _isVisible = value;
+        }
+        
         protected override async Task OnInitializedAsync()
         {
             UploadState.OnChange += StateHasChanged;

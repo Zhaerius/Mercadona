@@ -26,6 +26,6 @@ namespace BlazorWasm.Models.Article
 
         public bool Publish { get; set; } = true;
 
-        public IEnumerable<Guid>? PromotionsIds { get; set; }
+        public IEnumerable<Guid> PromotionsIds { get; set; } = new List<Guid>();
     }
 }

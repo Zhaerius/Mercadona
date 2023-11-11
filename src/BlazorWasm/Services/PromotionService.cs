@@ -13,10 +13,14 @@ namespace BlazorWasm.Services
             _httpClient = httpClient;
         }
 
-        public async Task<bool> CreatePromotion(CreatePromotionRequest createPromotion)
+        public async Task<Guid?> CreatePromotion(CreatePromotionRequest createPromotion)
         {
             var response = await _httpClient.PostAsJsonAsync("promotion", createPromotion);
-            return response.IsSuccessStatusCode;
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            return await DeserializeFromHttpResponse<Guid>(response);
         }
 
         public async Task<PromotionModel> GetPromotionById(Guid id)

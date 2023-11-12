@@ -1,0 +1,45 @@
+﻿@page "/promotion/{Id:guid}"
+@inherits DetailsPromotionBase;
+
+<PageTitle>Détails d'une promotion</PageTitle>
+
+@if (Promotion is not null)
+{
+
+    <MudTable Items="@Promotion.Articles" Hover="true" Breakpoint="Breakpoint.Sm" Elevation="10">
+        <ToolBarContent>
+            <MudIcon Class="mr-2" Icon="@Icons.Material.TwoTone.LocalMall" Color="Color.Inherit" />
+            <MudText Typo="Typo.h6">Les articles : @Promotion.Name</MudText>
+            <MudSpacer />
+            @if (@Promotion.IsActive)
+            {
+                <MudChip Variant="Variant.Text" Color="Color.Primary">En cours</MudChip>
+            }
+            else
+            {
+                <MudChip Variant="Variant.Text" Color="Color.Dark">Terminé</MudChip>
+            }
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Nom</MudTh>
+            <MudTh>Prix de base</MudTh>
+            <MudTh>Catégorie</MudTh>
+            <MudTh>En ligne</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Nom"><MudLink Href="@($"article/{context.Id}")">@context.Name</MudLink></MudTd>
+            <MudTd DataLabel="Prix de base">@context.BasePrice</MudTd>
+            <MudTd DataLabel="Catégorie">@context.CategoryName</MudTd>
+            <MudTd DataLabel="En ligne">
+                @if (context.Publish)
+                {
+                    <MudBadge Dot="true" Color="Color.Success" Class="mx-5" />
+                }
+                else
+                {
+                    <MudBadge Dot="true" Color="Color.Error" Class="mx-5" />
+                }
+            </MudTd>
+        </RowTemplate>
+    </MudTable>
+}

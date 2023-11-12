@@ -3,6 +3,7 @@ using Application.Core.Features.Promotion.Commands.DeletePromotion;
 using Application.Core.Features.Promotion.Commands.UpdatePromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotionsByStatus;
+using Application.Core.Features.Promotion.Queries.GetPromotionWithArticles;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +47,13 @@ namespace WebApi.Endpoints
                 .Produces(401)
                 .Produces(404);
 
+            group.MapGet("/article/{id:guid}", GetByIdWithArticles)
+                .AllowAnonymous()
+                .WithName("GetPromotionByIdWithArticles")
+                .Produces<GetPromotionArticlesQueryResponse>(200, "application/json")
+                .Produces(401)
+                .Produces(404);
+
             return group;
         }
         private static async Task<IResult> Add([FromBody] CreatePromotionCommand createPromotion, [FromServices] IMediator mediator, [FromServices] LinkGenerator linkGenerator, HttpContext httpContext)
@@ -58,8 +66,14 @@ namespace WebApi.Endpoints
 
         private static async Task<IResult> GetById([FromRoute] Guid id, [FromServices] IMediator mediator)
         {
-            var article = await mediator.Send(new GetPromotionQuery(id));
-            return Results.Ok(article);
+            var promotion = await mediator.Send(new GetPromotionQuery(id));
+            return Results.Ok(promotion);
+        }
+
+        private static async Task<IResult> GetByIdWithArticles([FromRoute] Guid id, [FromServices] IMediator mediator)
+        {
+            var promotion = await mediator.Send(new GetPromotionArticlesQuery(id));
+            return Results.Ok(promotion);
         }
 
         private static async Task<IResult> GetPromotionsByStatus([FromRoute] bool isActive, [FromServices] IMediator mediator)

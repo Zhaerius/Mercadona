@@ -33,6 +33,16 @@ namespace BlazorWasm.Services
             return await DeserializeFromHttpResponse<PromotionModel>(response);
         }
 
+        public async Task<PromotionModel> GetPromotionWithArticlesById(Guid id)
+        {
+            var response = await _httpClient.GetAsync($"promotion/article/{id}");
+
+            if (!response.IsSuccessStatusCode)
+                return null!;
+
+            return await DeserializeFromHttpResponse<PromotionModel>(response);
+        }
+
         public async Task<IEnumerable<PromotionModel>> GetPromotionByStatus(bool isActive)
         {
             var response = await _httpClient.GetAsync($"promotion/{isActive}");

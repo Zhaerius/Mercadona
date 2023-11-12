@@ -55,7 +55,7 @@
                     <MudText Typo="Typo.h5" Class="mud-text-secondary mt-16 mb-16">Chargement...</MudText>
                 </LoadingContent>
                 <RowTemplate>
-                    <MudTd DataLabel="Nom">@context.Name</MudTd>
+                    <MudTd DataLabel="Nom"><MudLink Href="@($"promotion/{context.Id}")">@context.Name</MudLink></MudTd>
                     <MudTd DataLabel="Catégorie">@context.Start</MudTd>
                     <MudTd DataLabel="Prix">@context.End</MudTd>
                     <MudTd DataLabel="Réduction">@context.Discount</MudTd>

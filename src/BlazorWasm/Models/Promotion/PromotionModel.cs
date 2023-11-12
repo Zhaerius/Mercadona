@@ -1,4 +1,6 @@
-﻿namespace BlazorWasm.Models.Promotion
+﻿using BlazorWasm.Models.Article;
+
+namespace BlazorWasm.Models.Promotion
 {
     public class PromotionModel
     {
@@ -8,5 +10,6 @@
         public DateOnly End { get; set; }
         public int Discount { get; set; }
         public bool IsActive { get; set; }
+        public IEnumerable<ArticleModel>? Articles { get; set; }
     }
 }

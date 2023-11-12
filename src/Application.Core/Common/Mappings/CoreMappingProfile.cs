@@ -8,6 +8,7 @@ using Application.Core.Features.Category.Queries.GetCategories;
 using Application.Core.Features.Promotion.Commands.CreatePromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotion;
 using Application.Core.Features.Promotion.Queries.GetPromotionsByStatus;
+using Application.Core.Features.Promotion.Queries.GetPromotionWithArticles;
 using AutoMapper;
 
 namespace Application.Core.Common.Mappings
@@ -17,6 +18,9 @@ namespace Application.Core.Common.Mappings
         public CoreMappingProfile()
         {
             CreateMap<ArticleEntity, GetArticleQueryResponse>()
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
+
+            CreateMap<ArticleEntity, ArticleShortDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
             CreateMap<ArticleEntity, GetArticlesQueryResponse>();
@@ -33,6 +37,7 @@ namespace Application.Core.Common.Mappings
             CreateMap<CreatePromotionCommand, PromotionEntity>();
             CreateMap<PromotionEntity, GetPromotionsByStatusQueryResponse>();
             CreateMap<PromotionEntity, GetPromotionQueryResponse>();
+            CreateMap<PromotionEntity, GetPromotionArticlesQueryResponse>();
         }
     }
 }

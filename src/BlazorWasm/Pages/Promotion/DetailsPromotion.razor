@@ -1,5 +1,6 @@
 ﻿@page "/promotion/{Id:guid}"
 @inherits DetailsPromotionBase;
+@attribute [Authorize(Policy = "RequireUserMercadona")]
 
 <PageTitle>Détails d'une promotion</PageTitle>
 

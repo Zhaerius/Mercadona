@@ -13,6 +13,7 @@ namespace BlazorWasm.Pages.Article
         protected int _articleCount = 0;
         protected string _linkAdd = "/article/create";
         protected bool _loader;
+        private string? _searchStorage;
 
         [Inject] private ArticleService ArticleService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -25,11 +26,11 @@ namespace BlazorWasm.Pages.Article
         protected override async Task OnInitializedAsync()
         {
             OnUpdateList += UpdateArticles;
-            var searchStorage = await LocalStorage.GetItemAsStringAsync("searchArticle");
+            _searchStorage = await LocalStorage.GetItemAsStringAsync("searchArticle");
 
-            if (!string.IsNullOrEmpty(searchStorage))
+            if (!string.IsNullOrEmpty(_searchStorage))
             {
-                SearchArticlesRequest.Name = searchStorage;
+                SearchArticlesRequest.Name = _searchStorage;
                 await SearchArticles();
             }
         }
@@ -46,7 +47,7 @@ namespace BlazorWasm.Pages.Article
             _articleCount = Articles.Count();
             _loader = false;
 
-            if (_articleCount == 1)
+            if (_articleCount == 1 && _searchStorage != SearchArticlesRequest.Name)
                 NavigationManager.NavigateTo($"/article/{Articles.First().Id}");
 
             if (_articleCount > _rowPerPage)

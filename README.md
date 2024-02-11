@@ -10,4 +10,3 @@ Développement d'une solution informatique permettant la dématérialisation du 
 
 - Application Client : https://mercadona-pi.vercel.app/
 - Application Admin : https://black-cliff-0f7085003.3.azurestaticapps.net/
-- 
